@@ -283,7 +283,7 @@
                 </div>
                 <div class="flex items-center px-3 py-1.5 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-surface)] shadow-sm">
                     <span class="w-2 h-2 rounded-full bg-[var(--brand-accent)] mr-2 animate-pulse"></span>
-                    <span class="text-[10px] font-bold uppercase tracking-widest text-[var(--text-secondary)]">VilotNI 1.5</span>
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-[var(--text-secondary)]">VilotNI 1 Core</span>
                 </div>
             </header>
 
@@ -307,7 +307,7 @@
                         </div>
                         <h2 class="text-4xl sm:text-5xl font-display font-bold mb-4 tracking-tight text-[var(--text-primary)]">What are we building?</h2>
                         <p class="text-lg text-[var(--text-secondary)] font-light leading-relaxed">
-                            Describe your UI logic. VilotNI 1.5 will synthesize the structural concepts and generate semantic architecture.
+                            Describe your UI logic. VilotNI 1 will synthesize the structural concepts and generate semantic architecture.
                         </p>
                     </div>
 
@@ -361,7 +361,7 @@
                             id="user-input" 
                             rows="1" 
                             class="w-full bg-transparent border-0 focus:ring-0 p-3 text-[15px] placeholder:text-[var(--text-tertiary)] mx-1 leading-relaxed text-[var(--text-primary)]" 
-                            placeholder="Ask VilotNI 1.5 to generate architecture..."
+                            placeholder="Ask VilotNI 1 to generate architecture..."
                         ></textarea>
                         
                         <button id="submit-btn" class="mb-1.5 mr-1.5 p-2.5 rounded-full bg-[var(--bg-elevated)] text-[var(--text-tertiary)] transition-all duration-300 flex items-center justify-center pointer-events-none shrink-0" onclick="window.handleSend()">
@@ -370,7 +370,7 @@
                     </div>
                     
                     <div class="text-center mt-3 text-[11px] text-[var(--text-tertiary)] flex items-center justify-center space-x-2">
-                        <span class="font-display">VilotGRI Engine v1.5</span>
+                        <span class="font-display">VilotGRI Engine v1.0</span>
                         <span>&bull;</span>
                         <span>Spirit-BFC & T1mothyXD</span>
                     </div>
@@ -385,7 +385,7 @@
             
             <!-- Google Style Header -->
             <div class="bg-[var(--bg-elevated)] border-b border-[var(--border-subtle)] px-6 py-4 flex justify-between items-center">
-                <h3 class="font-display text-lg font-medium text-[var(--text-primary)]">Google Account</h3>
+                <h3 class="font-display text-lg font-medium text-[var(--text-primary)]">User Account</h3>
                 <button onclick="window.closeProfileModal()" class="text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--border-subtle)] p-1.5 rounded-full transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                 </button>
@@ -487,7 +487,7 @@
             if (nameEl) nameEl.innerText = userProfile.name;
             
             if (bgEl) {
-                bgEl.innerHTML = ''; // Clear existing content
+                bgEl.innerHTML = ''; 
                 if (userProfile.avatarUrl) {
                     const img = document.createElement('img');
                     img.src = userProfile.avatarUrl;
@@ -515,9 +515,8 @@
             const previewBg = document.getElementById('modal-avatar-preview');
             
             input.value = userProfile.name;
-            tempAvatarUrl = userProfile.avatarUrl; // Load current saved image into temp state
+            tempAvatarUrl = userProfile.avatarUrl; 
             
-            // Hydrate modal preview
             if (tempAvatarUrl) {
                 previewImg.src = tempAvatarUrl;
                 previewImg.classList.remove('hidden');
@@ -534,7 +533,6 @@
                 previewInitial.style.color = userProfile.textColor.startsWith('var') ? `var(${userProfile.textColor.match(/var\((.*?)\)/)[1]})` : userProfile.textColor;
             }
             
-            // Highlight active color swatch
             document.querySelectorAll('.color-btn').forEach(btn => {
                 if (btn.dataset.color === userProfile.bgColor) {
                     btn.classList.replace('ring-transparent', 'ring-[var(--brand-primary)]');
@@ -545,7 +543,7 @@
 
             modal.classList.remove('hidden');
             modal.classList.add('flex');
-            void modal.offsetWidth; // Trigger reflow for animation
+            void modal.offsetWidth; 
             modal.classList.add('opacity-100');
             content.classList.replace('scale-95', 'scale-100');
         };
@@ -566,7 +564,7 @@
         window.saveProfile = function() {
             const input = document.getElementById('profile-name-input');
             userProfile.name = input.value.trim() || 'User';
-            userProfile.avatarUrl = tempAvatarUrl; // Save temporary image globally
+            userProfile.avatarUrl = tempAvatarUrl; 
             
             localStorage.setItem('vilotgri_profile', JSON.stringify(userProfile));
             updateProfileUI();
@@ -579,14 +577,12 @@
             document.getElementById('modal-avatar-initial').classList.remove('hidden');
             document.getElementById('remove-avatar-btn').classList.add('hidden');
             
-            // Restore fallback color preview immediately
             const previewBg = document.getElementById('modal-avatar-preview');
             const previewInitial = document.getElementById('modal-avatar-initial');
             previewBg.style.backgroundColor = userProfile.bgColor.startsWith('var') ? `var(${userProfile.bgColor.match(/var\((.*?)\)/)[1]})` : userProfile.bgColor;
             previewInitial.style.color = userProfile.textColor.startsWith('var') ? `var(${userProfile.textColor.match(/var\((.*?)\)/)[1]})` : userProfile.textColor;
         };
 
-        // File Input Handler (Automatically Resizes to save LocalStorage Space)
         document.addEventListener('DOMContentLoaded', () => {
             const fileInput = document.getElementById('avatar-upload-input');
             if (fileInput) {
@@ -600,7 +596,6 @@
                                 const canvas = document.createElement('canvas');
                                 const ctx = canvas.getContext('2d');
                                 
-                                // Resize to 150x150 max to ensure it fits safely in localStorage
                                 const MAX_WIDTH = 150;
                                 const MAX_HEIGHT = 150;
                                 let width = img.width;
@@ -637,7 +632,6 @@
                 });
             }
 
-            // Initialize color picker buttons
             document.querySelectorAll('.color-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     document.querySelectorAll('.color-btn').forEach(b => b.classList.replace('ring-[var(--brand-primary)]', 'ring-transparent'));
@@ -645,7 +639,6 @@
                     userProfile.bgColor = e.target.dataset.color;
                     userProfile.textColor = e.target.dataset.text;
                     
-                    // Live update the modal initial color if no image is set
                     if (!tempAvatarUrl) {
                         const previewBg = document.getElementById('modal-avatar-preview');
                         const previewInitial = document.getElementById('modal-avatar-initial');
@@ -669,7 +662,6 @@
         window.toggleSubmitBtn = function(val) {
             if (val.trim().length > 0 && !isProcessing) {
                 submitBtn.classList.remove('bg-[var(--bg-elevated)]', 'text-[var(--text-tertiary)]', 'pointer-events-none');
-                // Use brand gradient for active submit button
                 submitBtn.style.background = 'var(--vilotni-gradient)';
                 submitBtn.style.color = 'white';
                 submitBtn.style.pointerEvents = 'auto';
@@ -875,7 +867,7 @@
             // Refined Premium Header
             inner += '<div class="flex flex-col sm:flex-row sm:items-center mb-3 space-y-2 sm:space-y-0 sm:space-x-3">';
             inner += '<div class="flex items-center space-x-2">';
-            inner += '<span class="text-[14px] font-display font-bold text-[var(--text-primary)] tracking-wide">VilotNI 1.5</span>';
+            inner += '<span class="text-[14px] font-display font-bold text-[var(--text-primary)] tracking-wide">VilotNI 1</span>';
             inner += '<span class="text-[9px] font-bold uppercase tracking-widest text-[var(--brand-primary)] bg-[var(--brand-primary)]/10 px-2 py-0.5 rounded-full border border-[var(--brand-primary)]/20 shadow-sm">AI Logic</span>';
             inner += '</div>';
             
