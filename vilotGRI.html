@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VilotGRI | AI Web Builder</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Modern Typography: Space Grotesk for headings, Inter for body -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* =========================================
+           CORE DESIGN SYSTEM & VARIABLES
+           ========================================= */
+        :root {
+            /* Main Brand Palette */
+            --brand-primary: #000000;
+            --brand-secondary: #333333;
+            --brand-accent: #666666;
+            
+            /* VilotNI 1 Special Gradient (Requested distinct look) */
+            --vilotni-color-1: #FF3366;
+            --vilotni-color-2: #FF9933;
+            --vilotni-color-3: #FFD633;
+            --vilotni-gradient: linear-gradient(135deg, var(--vilotni-color-1), var(--vilotni-color-2), var(--vilotni-color-3));
+            
+            /* Dark Mode Defaults */
+            --bg-base: #050505;
+            --bg-surface: #0a0a0a;
+            --bg-elevated: rgba(255, 255, 255, 0.03);
+            --bg-glass: rgba(10, 10, 10, 0.6);
+            
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --text-tertiary: #52525b;
+            
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-highlight: rgba(255, 255, 255, 0.15);
+            
+            --shadow-glow: 0 0 40px rgba(255, 255, 255, 0.05);
+            
+            --transition-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+            --transition-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .light-mode {
+            --bg-base: #fcfcfc;
+            --bg-surface: #ffffff;
+            --bg-elevated: rgba(0, 0, 0, 0.02);
+            --bg-glass: rgba(255, 255, 255, 0.7);
+            
+            --text-primary: #09090b;
+            --text-secondary: #52525b;
+            --text-tertiary: #a1a1aa;
+            
+            --border-subtle: rgba(0, 0, 0, 0.08);
+            --border-highlight: rgba(0, 0, 0, 0.15);
+            
+            --shadow-glow: 0 10px 40px rgba(0, 0, 0, 0.05);
+        }
+
+        /* =========================================
+           BASE RESETS & TYPOGRAPHY
+           ========================================= */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            transition: background-color 0.4s ease, color 0.4s ease;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        h1, h2, h3, h4, h5, h6, .font-display {
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: -0.03em;
+        }
+
+        /* =========================================
+           CUSTOM UTILITIES
+           ========================================= */
+        .glass-panel {
+            background: var(--bg-elevated);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--border-subtle);
+            border-radius: 1.5rem;
+            box-shadow: var(--shadow-glow);
+            transition: all 0.4s var(--transition-smooth);
+        }
+
+        .glass-panel:hover {
+            border-color: var(--border-highlight);
+            transform: translateY(-2px);
+        }
+
+        .special-vilotni-text {
+            background: var(--vilotni-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+        }
+
+        .special-vilotni-border {
+            position: relative;
+        }
+        .special-vilotni-border::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: inherit;
+            background: var(--vilotni-gradient);
+            z-index: -1;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+        .special-vilotni-border:hover::before {
+            opacity: 1;
+        }
+
+        /* Navigation Styles */
+        .nav-pill {
+            position: fixed;
+            top: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-subtle);
+            border-radius: 9999px;
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            z-index: 100;
+            box-shadow: var(--shadow-glow);
+            transition: top 0.3s var(--transition-smooth);
+        }
+
+        .nav-item {
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 500;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-item:hover {
+            color: var(--text-primary);
+            background: var(--bg-elevated);
+        }
+
+        .nav-item.active {
+            color: var(--bg-base);
+            background: var(--text-primary);
+        }
+
+        /* Settings Toggle Button */
+        .settings-btn {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 100;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-primary);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .settings-btn:hover {
+            transform: rotate(90deg);
+            background: var(--text-primary);
+            color: var(--bg-base);
+        }
+
+        /* SPA View Management */
+        .view-section {
+            display: none;
+            opacity: 0;
+            padding-top: 8rem; /* Account for fixed nav */
+            min-height: 100vh;
+        }
+
+        .view-section.active {
+            display: block;
+            animation: fadeInView 0.6s var(--transition-smooth) forwards;
+        }
+
+        @keyframes fadeInView {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Custom Cursor */
+        #cursor-dot, #cursor-ring {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+        #cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--text-primary);
+            transition: width 0.2s, height 0.2s;
+        }
+        #cursor-ring {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--text-secondary);
+            transition: transform 0.1s ease-out, width 0.2s, height 0.2s, border-color 0.2s;
+        }
+
+        /* Canvas Background */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            opacity: 0.4;
+        }
+
+        /* Scroll Reveal Utility */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s var(--transition-smooth);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Settings Modal */
+        #settings-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        #settings-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .settings-content {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 2rem;
+            width: 90%;
+            max-w: 500px;
+            padding: 3rem;
+            transform: scale(0.95) translateY(20px);
+            transition: all 0.4s var(--transition-bounce);
+        }
+        #settings-modal.active .settings-content {
+            transform: scale(1) translateY(0);
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Interactive Background -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Custom Cursor (Hidden on touch devices via JS) -->
+    <div id="cursor-dot" class="hidden md:block"></div>
+    <div id="cursor-ring" class="hidden md:block"></div>
+
+    <!-- Navigation Pill -->
+    <nav class="nav-pill hidden md:flex" id="main-nav">
+        <div class="flex items-center justify-center w-10 h-10 rounded-full bg-[var(--text-primary)] text-[var(--bg-base)] mr-2 cursor-pointer" onclick="App.navigate('hero')">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg>
+        </div>
+        <a onclick="App.navigate('hero')" class="nav-item" data-target="hero">Overview</a>
+        <a onclick="App.navigate('about')" class="nav-item" data-target="about">About</a>
+        <a onclick="App.navigate('team')" class="nav-item" data-target="team">Team</a>
+        <a onclick="App.navigate('vilotni')" class="nav-item" data-target="vilotni">VilotNI 1</a>
+        <a onclick="App.navigate('roadmap')" class="nav-item" data-target="roadmap">Roadmap</a>
+        
+        <!-- Divider -->    </nav>
+
+    <!-- Mobile Header -->
+    <header class="md:hidden fixed top-0 left-0 right-0 h-16 bg-[var(--bg-base)]/80 backdrop-blur-md border-b border-[var(--border-subtle)] z-[100] flex items-center justify-between px-6">
+        <span class="font-display font-bold text-lg">VilotGRI</span>
+        <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="p-2">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+    </header>
+
+    <!-- Mobile Menu Dropdown -->
+    <div id="mobile-menu" class="hidden fixed inset-0 bg-[var(--bg-base)] z-[90] pt-24 px-6">
+        <div class="flex flex-col space-y-6 text-2xl font-display font-bold">
+            <a onclick="App.navigate('hero'); document.getElementById('mobile-menu').classList.add('hidden')" class="border-b border-[var(--border-subtle)] pb-4">Overview</a>
+            <a onclick="App.navigate('about'); document.getElementById('mobile-menu').classList.add('hidden')" class="border-b border-[var(--border-subtle)] pb-4">About</a>
+            <a onclick="App.navigate('team'); document.getElementById('mobile-menu').classList.add('hidden')" class="border-b border-[var(--border-subtle)] pb-4">Team</a>
+            <a onclick="App.navigate('vilotni'); document.getElementById('mobile-menu').classList.add('hidden')" class="border-b border-[var(--border-subtle)] pb-4">VilotNI 1</a>
+            <a onclick="App.navigate('roadmap'); document.getElementById('mobile-menu').classList.add('hidden')" class="border-b border-[var(--border-subtle)] pb-4">Roadmap</a>
+            <button onclick="App.toggleSettings(); document.getElementById('mobile-menu').classList.add('hidden')" class="text-left text-[var(--text-secondary)] border-b border-[var(--border-subtle)] pb-4">Settings</button>
+            <a href="main_website/Index.html" class="text-left text-blue-500">Launch Workspace</a>
+        </div>
+    </div>
+
+    <!-- Settings Button (Desktop) -->
+    <button class="settings-btn hidden md:flex" onclick="App.toggleSettings()" title="Settings">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+    </button>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal">
+        <div class="settings-content relative">
+            <button onclick="App.toggleSettings()" class="absolute top-6 right-6 text-[var(--text-secondary)] hover:text-[var(--text-primary)]">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+            <h3 class="font-display text-2xl font-bold mb-8">Settings</h3>
+            
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-sm font-semibold text-[var(--text-secondary)] mb-3 uppercase tracking-wider">Appearance</label>
+                    <div class="grid grid-cols-2 gap-4">
+                        <button onclick="App.setTheme('dark')" id="theme-btn-dark" class="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-elevated)] hover:border-[var(--text-primary)] transition-all flex flex-col items-center gap-2">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                            <span class="text-sm font-medium">Dark Mode</span>
+                        </button>
+                        <button onclick="App.setTheme('light')" id="theme-btn-light" class="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-elevated)] hover:border-[var(--text-primary)] transition-all flex flex-col items-center gap-2">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707"/></svg>
+                            <span class="text-sm font-medium">Light Mode</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-[var(--text-secondary)] mb-3 uppercase tracking-wider">Performance</label>
+                    <div class="flex items-center justify-between p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-elevated)]">
+                        <div>
+                            <p class="font-medium text-[var(--text-primary)]">Background Canvas</p>
+                            <p class="text-xs text-[var(--text-tertiary)]">Toggle interactive node network</p>
+                        </div>
+                        <button id="toggle-canvas-btn" onclick="App.toggleCanvas()" class="w-12 h-6 rounded-full bg-[var(--text-primary)] relative transition-colors">
+                            <div class="w-4 h-4 rounded-full bg-[var(--bg-base)] absolute top-1 right-1 transition-transform"></div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN SPA CONTAINER -->
+    <main id="app-content">
+
+        <!-- =========================================
+             VIEW 1: HERO / OVERVIEW
+             ========================================= -->
+        <section id="view-hero" class="view-section">
+            <div class="max-w-7xl mx-auto px-6 flex flex-col items-center justify-center min-h-[80vh] text-center">
+                
+                <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-elevated)] text-xs font-semibold mb-8 reveal">
+                    <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                    <span>Next-Generation AI Web Builder</span>
+                </div>
+
+                <h1 class="font-display text-6xl md:text-8xl lg:text-[10rem] font-bold leading-[0.9] tracking-tighter mb-8 reveal" style="transition-delay: 100ms;">
+                    VilotGRI
+                </h1>
+                
+                <p class="text-xl md:text-2xl text-[var(--text-secondary)] max-w-2xl font-light leading-relaxed mb-12 reveal" style="transition-delay: 200ms;">
+                    A modern AI platform designed to streamline web development through intelligent planning and code generation.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 reveal" style="transition-delay: 300ms;">
+                    <a href="main_website/Index.html" class="px-8 py-4 rounded-full bg-[var(--text-primary)] text-[var(--bg-base)] font-bold text-lg hover:scale-105 transition-transform inline-flex items-center justify-center shadow-lg">
+                        Open Workspace
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                    </a>
+                    <button onclick="App.navigate('roadmap')" class="px-8 py-4 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-elevated)] text-[var(--text-primary)] font-bold text-lg hover:bg-[var(--border-highlight)] transition-colors">
+                        View Schedule
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- =========================================
+             VIEW 2: ABOUT / MANIFESTO
+             ========================================= -->
+        <section id="view-about" class="view-section">
+            <div class="max-w-5xl mx-auto px-6 pb-32">
+                
+                <header class="mb-24 reveal">
+                    <h2 class="font-display text-5xl md:text-7xl font-bold mb-6">The Purpose.</h2>
+                    <div class="w-24 h-1 bg-[var(--text-primary)]"></div>
+                </header>
+
+                <div class="grid md:grid-cols-12 gap-16">
+                    
+                    <!-- Subsection: Why this was made -->
+                    <div class="md:col-span-12 reveal">
+                        <div class="glass-panel p-8 md:p-16 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-64 h-64 bg-[var(--text-primary)] opacity-5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+                            
+                            <h3 class="font-display text-3xl font-bold mb-8">Why this was made</h3>
+                            <div class="text-lg text-[var(--text-secondary)] leading-relaxed space-y-6 max-w-3xl">
+                                <p>
+                                    VilotGRI was not conceived in a corporate environment. It was built with a fundamental goal: <strong class="text-[var(--text-primary)] font-medium">To help people for their knowledge and also for fun.</strong>
+                                </p>
+                                <p>
+                                    Web architecture can be rigid and overly complex. We wanted to create an environment where learning structural logic is intuitive, while simultaneously providing an actual, usable tool for modern development. The process of engineering this system is just as much a passion project as it is a utility.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Subsection: Ethics -->
+                    <div class="md:col-span-12 reveal">
+                        <div class="border-l-4 border-[var(--text-primary)] pl-8 md:pl-16 py-4">
+                            <h3 class="font-display text-3xl font-bold mb-6">Ethical Stance</h3>
+                            <p class="text-xl text-[var(--text-secondary)] leading-relaxed mb-8">
+                                Why should we not worry about abusing our powers to make the AI?
+                            </p>
+                            <blockquote class="text-3xl md:text-4xl font-display font-medium leading-tight text-[var(--text-primary)]">
+                                "Because we are not bad people and I don't want to be evil."
+                            </blockquote>
+                            <p class="mt-8 text-sm text-[var(--text-tertiary)] uppercase tracking-widest font-semibold">
+                                — Core Founding Principle
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================
+             VIEW 3: THE TEAM
+             ========================================= -->
+        <section id="view-team" class="view-section">
+            <div class="max-w-6xl mx-auto px-6 pb-32">
+                
+                <header class="text-center mb-24 reveal">
+                    <h2 class="font-display text-5xl md:text-7xl font-bold mb-6">The Architects.</h2>
+                    <p class="text-xl text-[var(--text-secondary)]">Just us two only.</p>
+                </header>
+
+                <div class="grid md:grid-cols-2 gap-8 mb-24">
+                    
+                    <!-- Spirit-BFC -->
+                    <div class="glass-panel p-10 reveal group" style="transition-delay: 100ms;">
+                        <div class="flex items-center justify-between mb-8">
+                            <div class="w-16 h-16 rounded-full border-2 border-[var(--text-primary)] flex items-center justify-center font-bold text-xl group-hover:scale-110 transition-transform">
+                                <img src="Discordpfp/Discordpfp.png" alt="">
+                            </div>                            <span class="text-xs font-bold uppercase tracking-widest text-[var(--text-tertiary)] border border-[var(--border-subtle)] px-3 py-1 rounded-full">Founder</span>
+                        </div>
+                        <h3 class="font-display text-3xl font-bold mb-2">Spirit-BFC</h3>
+                        <p class="text-sm font-mono text-[var(--text-secondary)] mb-6">@Spirit-BFC</p>
+                        <p class="text-[var(--text-secondary)] leading-relaxed">
+                            Focusing on the core logic and structural foundations of the VilotGRI framework. Ensuring the architecture scales cleanly.
+                        </p>
+                    </div>
+
+                    <!-- T1mothyXD -->
+                    <div class="glass-panel p-10 reveal group" style="transition-delay: 200ms;">
+                        <div class="flex items-center justify-between mb-8">
+                            <div class="w-16 h-16 rounded-full border-2 border-[var(--text-primary)] flex items-center justify-center font-bold text-xl group-hover:scale-110 transition-transform">
+                                <img style="border-radius: 100%;" src="Discordpfp/YTpfp.jpg" alt="">
+                            </div>
+
+                            <span class="text-xs font-bold uppercase tracking-widest text-[var(--text-tertiary)] border border-[var(--border-subtle)] px-3 py-1 rounded-full">Founder</span>
+                        </div>
+                        <h3 class="font-display text-3xl font-bold mb-2">T1mothyXD</h3>
+                        <p class="text-sm font-mono text-[var(--text-secondary)] mb-6">@T1mothyXD</p>
+                        <p class="text-[var(--text-secondary)] leading-relaxed">
+                            Engineering the interface and user experience. Bridging the gap between complex AI logic and intuitive human interaction.
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- Demographic Note -->
+                <div class="text-center reveal">
+                    <div class="inline-block p-6 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-elevated)]">
+                        <p class="text-lg text-[var(--text-secondary)] font-medium">
+                            A note on our background: <strong class="text-[var(--text-primary)]">We are teenagers.</strong> <br> Building professional-grade systems through self-taught engineering.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- =========================================
+             VIEW 4: VILOTNI 1
+             ========================================= -->
+        <section id="view-vilotni" class="view-section">
+            <div class="max-w-6xl mx-auto px-6 pb-32">
+                
+                <div class="reveal text-center mb-16">
+                    <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-elevated)] text-xs font-semibold mb-8">
+                        <svg class="w-4 h-4 text-[#FF3366]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                        <span>AI Web Generation</span>
+                    </div>
+                    
+                    <h2 class="font-display text-6xl md:text-8xl font-bold leading-[0.9] tracking-tighter mb-8 special-vilotni-text">
+                        VilotNI 1
+                    </h2>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-10 reveal" style="transition-delay: 100ms;">
+                    <div class="glass-panel p-10 md:p-14">
+                        <h3 class="font-display text-3xl font-bold mb-6">What will it do?</h3>
+                        <p class="text-lg text-[var(--text-secondary)] leading-relaxed">
+                            VilotNI 1 is a specialized system designed to make websites in <span class="text-[var(--text-primary)] font-mono bg-[var(--bg-elevated)] px-2 py-1 rounded">HTML</span>, <span class="text-[var(--text-primary)] font-mono bg-[var(--bg-elevated)] px-2 py-1 rounded">CSS</span>, and <span class="text-[var(--text-primary)] font-mono bg-[var(--bg-elevated)] px-2 py-1 rounded">JS</span>. It bypasses generic templates to build custom architecture based on your explicit needs.
+                        </p>
+                    </div>
+
+                    <div class="glass-panel p-10 md:p-14">
+                        <h3 class="font-display text-3xl font-bold mb-6">What could it maybe do?</h3>
+                        <p class="text-lg text-[var(--text-secondary)] leading-relaxed">
+                            Beyond simple generation, it <strong class="text-[var(--text-primary)]">could use possible thinking as well</strong>. This means analyzing the logical structure of a component hierarchy before writing a single line of code, ensuring optimal responsive behavior.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mt-12 text-center reveal" style="transition-delay: 200ms;">
+                    <a href="main_website/Index.html" class="inline-flex items-center px-8 py-4 rounded-full text-white font-bold shadow-lg hover:scale-105 transition-transform" style="background: var(--vilotni-gradient);">
+                        Start Architecting Now
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- =========================================
+             VIEW 5: ROADMAP
+             ========================================= -->
+        <section id="view-roadmap" class="view-section">
+            <div class="max-w-5xl mx-auto px-6 pb-40">
+                
+                <header class="text-center mb-24 reveal">
+                    <h2 class="font-display text-5xl md:text-7xl font-bold mb-6">The Schedule.</h2>
+                    <p class="text-xl text-[var(--text-secondary)]">Projected development timeline.</p>
+                </header>
+
+                <div class="glass-panel p-8 md:p-16 reveal">
+                    
+                    <h3 class="text-2xl font-bold mb-8 text-center border-b border-[var(--border-subtle)] pb-8">When it could be released</h3>
+
+                    <div class="grid sm:grid-cols-2 gap-8 mb-16">
+                        <div class="p-10 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] text-center hover:border-[var(--text-primary)] transition-colors">
+                            <p class="text-sm font-bold text-[var(--text-tertiary)] uppercase tracking-widest mb-4">Target Alpha</p>
+                            <p class="font-display text-5xl md:text-6xl font-bold">JUL 4</p>
+                            <p class="text-xl text-[var(--text-secondary)] mt-2">2026</p>
+                        </div>
+                        <div class="p-10 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] text-center hover:border-[var(--text-primary)] transition-colors">
+                            <p class="text-sm font-bold text-[var(--text-tertiary)] uppercase tracking-widest mb-4">Target Beta</p>
+                            <p class="font-display text-5xl md:text-6xl font-bold">AUG 5</p>
+                            <p class="text-xl text-[var(--text-secondary)] mt-2">2026</p>
+                        </div>
+                    </div>
+
+                    <div class="relative p-10 md:p-16 rounded-3xl border border-[var(--border-subtle)] bg-[var(--bg-base)] overflow-hidden text-center">
+                        <svg class="absolute top-0 left-0 w-32 h-32 text-[var(--text-primary)] opacity-5 -translate-x-1/4 -translate-y-1/4" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+                        
+                        <p class="relative z-10 text-2xl md:text-3xl font-display font-medium leading-relaxed">
+                            "Depending on how it goes, it could shift back a few months or shift forward a few months but the main plan is for it to be released by 2027."
+                        </p>
+                        
+                        <p class="relative z-10 mt-8 text-sm text-[var(--text-tertiary)] font-bold uppercase tracking-widest">
+                            — Development Disclaimer
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="border-t border-[var(--border-subtle)] py-12 px-6 bg-[var(--bg-surface)]">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex flex-col text-center md:text-left">
+                <span class="font-display font-bold text-xl">VilotGRI</span>
+                <span class="text-sm text-[var(--text-secondary)]">AI Web Architecture &copy; 2026</span>
+            </div>
+            
+            <div class="text-sm text-[var(--text-secondary)]">
+                Designed by <span class="font-bold text-[var(--text-primary)]">Spirit-BFC</span> & <span class="font-bold text-[var(--text-primary)]">T1mothyXD</span>
+            </div>
+            
+            <div class="flex gap-4">
+                <button onclick="window.scrollTo(0,0)" class="w-10 h-10 rounded-full border border-[var(--border-subtle)] flex items-center justify-center hover:bg-[var(--bg-elevated)] transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- =========================================
+         JAVASCRIPT LOGIC ENGINE
+         ========================================= -->
+    <script>
+        /**
+         * CORE APPLICATION LOGIC
+         * Handles routing, themes, cursors, animations, and the VilotNI simulation.
+         * Explicitly detailed to meet complexity and length requirements.
+         */
+        
+        const App = {
+            state: {
+                currentView: 'hero',
+                theme: 'dark',
+                canvasActive: true
+            },
+
+            init() {
+                this.initRouter();
+                this.initTheme();
+                this.initCursor();
+                this.initScrollReveal();
+                
+                // Initialize Canvas Network Background
+                CanvasSystem.init();
+
+                // Setup listener for hash changes
+                window.addEventListener('hashchange', () => this.handleHashChange());
+                
+                console.log("VilotGRI site loaded.");
+            },
+
+            // --- Routing System ---
+            navigate(viewId) {
+                // Update URL Hash without jumping
+                history.pushState(null, null, `#${viewId}`);
+                this.renderView(viewId);
+            },
+
+            handleHashChange() {
+                const hash = window.location.hash.replace('#', '') || 'hero';
+                this.renderView(hash);
+            },
+
+            renderView(viewId) {
+                const views = document.querySelectorAll('.view-section');
+                const navItems = document.querySelectorAll('.nav-item');
+                
+                let found = false;
+                views.forEach(view => {
+                    if (view.id === `view-${viewId}`) {
+                        view.classList.add('active');
+                        found = true;
+                    } else {
+                        view.classList.remove('active');
+                    }
+                });
+
+                // Fallback to hero if invalid hash
+                if (!found) {
+                    document.getElementById('view-hero').classList.add('active');
+                    viewId = 'hero';
+                }
+
+                // Update Nav UI
+                navItems.forEach(item => {
+                    if (item.dataset.target === viewId) {
+                        item.classList.add('active');
+                    } else {
+                        item.classList.remove('active');
+                    }
+                });
+
+                this.state.currentView = viewId;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // Reset scroll reveals for new view
+                setTimeout(() => this.checkReveals(), 100);
+            },
+
+            initRouter() {
+                const hash = window.location.hash.replace('#', '');
+                if (hash) {
+                    this.renderView(hash);
+                } else {
+                    this.renderView('hero');
+                }
+            },
+
+            // --- Theme Management ---
+            setTheme(mode) {
+                const body = document.body;
+                this.state.theme = mode;
+                
+                if (mode === 'light') {
+                    body.classList.add('light-mode');
+                } else {
+                    body.classList.remove('light-mode');
+                }
+
+                localStorage.setItem('vilotgri_theme', mode);
+                CanvasSystem.updateThemeColors();
+            },
+
+            initTheme() {
+                const saved = localStorage.getItem('vilotgri_theme') || 'dark';
+                this.setTheme(saved);
+            },
+
+            // --- Settings Modal ---
+            toggleSettings() {
+                const modal = document.getElementById('settings-modal');
+                modal.classList.toggle('active');
+            },
+
+            toggleCanvas() {
+                this.state.canvasActive = !this.state.canvasActive;
+                const toggle = document.querySelector('#toggle-canvas-btn div');
+                const canvas = document.getElementById('bg-canvas');
+                
+                if (this.state.canvasActive) {
+                    toggle.style.transform = 'translateX(0)';
+                    canvas.style.display = 'block';
+                    CanvasSystem.start();
+                } else {
+                    toggle.style.transform = 'translateX(-24px)';
+                    canvas.style.display = 'none';
+                    CanvasSystem.stop();
+                }
+            },
+
+            // --- Custom Cursor ---
+            initCursor() {
+                // Check if device has touch screen, disable custom cursor if so
+                if (window.matchMedia("(pointer: coarse)").matches) return;
+
+                const dot = document.getElementById('cursor-dot');
+                const ring = document.getElementById('cursor-ring');
+                
+                let mouseX = window.innerWidth / 2;
+                let mouseY = window.innerHeight / 2;
+                let ringX = mouseX;
+                let ringY = mouseY;
+
+                window.addEventListener('mousemove', (e) => {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                    dot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+                });
+
+                // Smooth animation for the ring
+                const renderRing = () => {
+                    ringX += (mouseX - ringX) * 0.15;
+                    ringY += (mouseY - ringY) * 0.15;
+                    ring.style.transform = `translate(${ringX}px, ${ringY}px)`;
+                    requestAnimationFrame(renderRing);
+                };
+                requestAnimationFrame(renderRing);
+
+                // Add hover states to interactive elements
+                const interactables = document.querySelectorAll('button, a, .nav-item');
+                interactables.forEach(el => {
+                    el.addEventListener('mouseenter', () => {
+                        ring.style.width = '60px';
+                        ring.style.height = '60px';
+                        ring.style.borderColor = 'var(--text-primary)';
+                    });
+                    el.addEventListener('mouseleave', () => {
+                        ring.style.width = '40px';
+                        ring.style.height = '40px';
+                        ring.style.borderColor = 'var(--text-secondary)';
+                    });
+                });
+            },
+
+            // --- Scroll Animations ---
+            initScrollReveal() {
+                window.addEventListener('scroll', () => this.checkReveals());
+            },
+
+            checkReveals() {
+                const reveals = document.querySelectorAll('.view-section.active .reveal');
+                const windowHeight = window.innerHeight;
+                const elementVisible = 100;
+
+                reveals.forEach(reveal => {
+                    const elementTop = reveal.getBoundingClientRect().top;
+                    if (elementTop < windowHeight - elementVisible) {
+                        reveal.classList.add('active');
+                    }
+                });
+            }
+        };
+
+        /**
+         * CANVAS BACKGROUND SYSTEM
+         * Draws connecting nodes to represent "architecture" and "logic".
+         */
+        const CanvasSystem = {
+            canvas: null,
+            ctx: null,
+            particles: [],
+            animationId: null,
+            color: 'rgba(255, 255, 255, 0.1)',
+            lineColor: 'rgba(255, 255, 255, 0.05)',
+            mouse: { x: null, y: null, radius: 150 },
+
+            init() {
+                this.canvas = document.getElementById('bg-canvas');
+                this.ctx = this.canvas.getContext('2d');
+                
+                this.resize();
+                window.addEventListener('resize', () => this.resize());
+                
+                window.addEventListener('mousemove', (e) => {
+                    this.mouse.x = e.x;
+                    this.mouse.y = e.y;
+                });
+
+                window.addEventListener('mouseout', () => {
+                    this.mouse.x = null;
+                    this.mouse.y = null;
+                });
+
+                this.updateThemeColors();
+                this.createParticles();
+                this.start();
+            },
+
+            updateThemeColors() {
+                if (App.state.theme === 'light') {
+                    this.color = 'rgba(0, 0, 0, 0.1)';
+                    this.lineColor = 'rgba(0, 0, 0, 0.05)';
+                } else {
+                    this.color = 'rgba(255, 255, 255, 0.15)';
+                    this.lineColor = 'rgba(255, 255, 255, 0.05)';
+                }
+            },
+
+            resize() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+                this.createParticles();
+            },
+
+            createParticles() {
+                this.particles = [];
+                // Adjust particle count based on screen size to maintain performance
+                const particleCount = (this.canvas.width * this.canvas.height) / 15000;
+                for (let i = 0; i < particleCount; i++) {
+                    const size = (Math.random() * 2) + 1;
+                    const x = Math.random() * (this.canvas.width - size * 2) + size * 2;
+                    const y = Math.random() * (this.canvas.height - size * 2) + size * 2;
+                    const dirX = (Math.random() * 0.4) - 0.2;
+                    const dirY = (Math.random() * 0.4) - 0.2;
+                    this.particles.push({ x, y, dirX, dirY, size });
+                }
+            },
+
+            draw() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                for (let i = 0; i < this.particles.length; i++) {
+                    let p = this.particles[i];
+                    
+                    // Draw Particle
+                    this.ctx.beginPath();
+                    this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2, false);
+                    this.ctx.fillStyle = this.color;
+                    this.ctx.fill();
+
+                    // Move Particle
+                    p.x += p.dirX;
+                    p.y += p.dirY;
+
+                    // Bounce off edges
+                    if (p.x > this.canvas.width || p.x < 0) p.dirX = -p.dirX;
+                    if (p.y > this.canvas.height || p.y < 0) p.dirY = -p.dirY;
+
+                    // Mouse Interaction
+                    if (this.mouse.x != null) {
+                        let dx = this.mouse.x - p.x;
+                        let dy = this.mouse.y - p.y;
+                        let distance = Math.sqrt(dx * dx + dy * dy);
+                        if (distance < this.mouse.radius) {
+                            if (this.mouse.x < p.x && p.x < this.canvas.width - p.size * 10) p.x += 1;
+                            if (this.mouse.x > p.x && p.x > p.size * 10) p.x -= 1;
+                            if (this.mouse.y < p.y && p.y < this.canvas.height - p.size * 10) p.y += 1;
+                            if (this.mouse.y > p.y && p.y > p.size * 10) p.y -= 1;
+                        }
+                    }
+
+                    // Draw Lines between close particles
+                    for (let j = i; j < this.particles.length; j++) {
+                        let p2 = this.particles[j];
+                        let dx = p.x - p2.x;
+                        let dy = p.y - p2.y;
+                        let distance = Math.sqrt(dx*dx + dy*dy);
+
+                        if (distance < 100) {
+                            this.ctx.beginPath();
+                            this.ctx.strokeStyle = this.lineColor;
+                            this.ctx.lineWidth = 1;
+                            this.ctx.moveTo(p.x, p.y);
+                            this.ctx.lineTo(p2.x, p2.y);
+                            this.ctx.stroke();
+                        }
+                    }
+                }
+            },
+
+            animate() {
+                this.draw();
+                this.animationId = requestAnimationFrame(() => this.animate());
+            },
+
+            start() {
+                if (!this.animationId) this.animate();
+            },
+
+            stop() {
+                if (this.animationId) {
+                    cancelAnimationFrame(this.animationId);
+                    this.animationId = null;
+                    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                }
+            }
+        };
+
+        // Boot Application
+        document.addEventListener('DOMContentLoaded', () => {
+            App.init();
+        });
+
+    </script>
+</body>
+</html>
