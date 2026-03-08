@@ -246,18 +246,18 @@
             </div>
 
             <!-- Sidebar Footer -->
-            <div class="p-4 border-t border-[var(--border-subtle)] min-w-[260px]">
-                <div class="flex items-center justify-between p-2 rounded-xl hover:bg-[var(--bg-elevated)] transition-colors cursor-pointer group">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-8 h-8 rounded-full bg-[var(--text-primary)] flex items-center justify-center shadow-sm">
-                            <span class="text-xs font-bold text-[var(--bg-base)]">U</span>
-                        </div>
-                        <span class="text-sm font-medium text-[var(--text-primary)] font-display">Developer</span>
+            <div class="p-4 border-t border-[var(--border-subtle)] min-w-[260px] flex items-center justify-between">
+                <!-- Clickable Profile Block -->
+                <div class="flex items-center space-x-3 p-2 -ml-2 rounded-xl hover:bg-[var(--bg-elevated)] transition-colors cursor-pointer group" onclick="window.openProfileModal()" title="Edit Profile">
+                    <div id="sidebar-avatar-bg" class="w-8 h-8 rounded-full bg-[var(--text-primary)] flex items-center justify-center shadow-sm transition-colors overflow-hidden">
+                        <span id="sidebar-avatar-initial" class="text-xs font-bold text-[var(--bg-base)]">U</span>
                     </div>
-                    <button onclick="toggleTheme(event)" class="text-[var(--text-tertiary)] hover:text-[var(--brand-primary)] transition-colors p-1" title="Toggle Theme">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
-                    </button>
+                    <span id="sidebar-user-name" class="text-sm font-medium text-[var(--text-primary)] font-display truncate max-w-[120px]">User</span>
                 </div>
+                <!-- Theme Toggle -->
+                <button onclick="toggleTheme(event)" class="text-[var(--text-tertiary)] hover:text-[var(--brand-primary)] transition-colors p-2 rounded-xl hover:bg-[var(--bg-elevated)]" title="Toggle Theme">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                </button>
             </div>
         </aside>
 
@@ -379,6 +379,57 @@
         </main>
     </div>
 
+    <!-- Edit Profile Modal (Google Material Style) -->
+    <div id="profile-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[200] hidden items-center justify-center opacity-0 transition-opacity duration-300">
+        <div class="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-[1.5rem] w-[90%] max-w-sm shadow-2xl transform scale-95 transition-transform duration-300 overflow-hidden" id="profile-modal-content">
+            
+            <!-- Google Style Header -->
+            <div class="bg-[var(--bg-elevated)] border-b border-[var(--border-subtle)] px-6 py-4 flex justify-between items-center">
+                <h3 class="font-display text-lg font-medium text-[var(--text-primary)]">Google Account</h3>
+                <button onclick="window.closeProfileModal()" class="text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--border-subtle)] p-1.5 rounded-full transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            
+            <div class="p-6 space-y-6 flex flex-col items-center">
+                <!-- Avatar Upload Section -->
+                <div class="relative group">
+                    <div id="modal-avatar-preview" class="w-20 h-20 rounded-full bg-[var(--brand-primary)] flex items-center justify-center overflow-hidden shadow-sm border-2 border-[var(--bg-surface)]">
+                        <span id="modal-avatar-initial" class="text-3xl font-display font-medium text-white">U</span>
+                        <img id="modal-avatar-img" class="w-full h-full object-cover hidden" src="" alt="Avatar">
+                    </div>
+                    <label class="absolute bottom-0 right-0 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-1.5 rounded-full shadow-md cursor-pointer hover:scale-105 transition-transform text-gray-700 dark:text-gray-300">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                        <input type="file" id="avatar-upload-input" accept="image/*" class="hidden">
+                    </label>
+                </div>
+                <button id="remove-avatar-btn" class="text-xs text-[var(--brand-accent)] font-medium hidden hover:underline" onclick="window.removeAvatar()">Remove picture</button>
+
+                <div class="w-full">
+                    <label class="block text-xs font-medium text-[var(--text-secondary)] mb-1">Display Name</label>
+                    <input type="text" id="profile-name-input" class="w-full bg-[var(--bg-base)] border border-[var(--border-subtle)] text-[var(--text-primary)] rounded-xl px-4 py-2.5 focus:outline-none focus:border-[var(--brand-primary)] transition-all shadow-inner" value="User" maxlength="20">
+                </div>
+                
+                <div class="w-full">
+                    <label class="block text-xs font-medium text-[var(--text-secondary)] mb-2">Fallback Color</label>
+                    <div class="flex items-center space-x-3" id="avatar-color-picker">
+                        <!-- Color Swatches -->
+                        <button class="color-btn w-6 h-6 rounded-full bg-[var(--text-primary)] ring-2 ring-offset-2 ring-offset-[var(--bg-surface)] ring-[var(--brand-primary)] transition-all hover:scale-110" data-color="var(--text-primary)" data-text="var(--bg-base)"></button>
+                        <button class="color-btn w-6 h-6 rounded-full bg-indigo-500 ring-2 ring-offset-2 ring-offset-[var(--bg-surface)] ring-transparent transition-all hover:scale-110" data-color="#6366f1" data-text="#ffffff"></button>
+                        <button class="color-btn w-6 h-6 rounded-full bg-rose-500 ring-2 ring-offset-2 ring-offset-[var(--bg-surface)] ring-transparent transition-all hover:scale-110" data-color="#f43f5e" data-text="#ffffff"></button>
+                        <button class="color-btn w-6 h-6 rounded-full bg-emerald-500 ring-2 ring-offset-2 ring-offset-[var(--bg-surface)] ring-transparent transition-all hover:scale-110" data-color="#10b981" data-text="#ffffff"></button>
+                        <button class="color-btn w-6 h-6 rounded-full bg-amber-500 ring-2 ring-offset-2 ring-offset-[var(--bg-surface)] ring-transparent transition-all hover:scale-110" data-color="#f59e0b" data-text="#ffffff"></button>
+                    </div>
+                </div>
+
+                <div class="w-full flex justify-end space-x-3 mt-2">
+                    <button onclick="window.closeProfileModal()" class="px-4 py-2 rounded-full text-sm font-medium text-[var(--text-primary)] hover:bg-[var(--bg-elevated)] transition-colors">Cancel</button>
+                    <button onclick="window.saveProfile()" class="px-5 py-2 rounded-full text-sm font-medium bg-[var(--brand-primary)] text-white hover:opacity-90 transition-opacity shadow-md">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Connects to your existing AI Logic Engine -->
     <script src="VilotNI_1.js"></script>
 
@@ -409,7 +460,204 @@
             }
         }
 
-        // Bound to window securely so HTML onclick can find it
+        // --- User Profile Management with Image Upload ---
+        let userProfile = {
+            name: 'User',
+            bgColor: 'var(--brand-primary)',
+            textColor: '#ffffff',
+            avatarUrl: null
+        };
+        
+        let tempAvatarUrl = null;
+
+        window.initProfile = function() {
+            const saved = localStorage.getItem('vilotgri_profile');
+            if (saved) {
+                try {
+                    userProfile = { ...userProfile, ...JSON.parse(saved) };
+                } catch(e) {}
+            }
+            updateProfileUI();
+        };
+
+        function updateProfileUI() {
+            const nameEl = document.getElementById('sidebar-user-name');
+            const bgEl = document.getElementById('sidebar-avatar-bg');
+
+            if (nameEl) nameEl.innerText = userProfile.name;
+            
+            if (bgEl) {
+                bgEl.innerHTML = ''; // Clear existing content
+                if (userProfile.avatarUrl) {
+                    const img = document.createElement('img');
+                    img.src = userProfile.avatarUrl;
+                    img.className = 'w-full h-full object-cover';
+                    bgEl.appendChild(img);
+                    bgEl.style.backgroundColor = 'transparent';
+                } else {
+                    const span = document.createElement('span');
+                    span.className = 'text-xs font-bold';
+                    span.innerText = userProfile.name.charAt(0).toUpperCase();
+                    span.style.color = userProfile.textColor.startsWith('var') ? `var(${userProfile.textColor.match(/var\((.*?)\)/)[1]})` : userProfile.textColor;
+                    bgEl.appendChild(span);
+                    bgEl.style.backgroundColor = userProfile.bgColor.startsWith('var') ? `var(${userProfile.bgColor.match(/var\((.*?)\)/)[1]})` : userProfile.bgColor;
+                }
+            }
+        }
+
+        window.openProfileModal = function() {
+            const modal = document.getElementById('profile-modal');
+            const content = document.getElementById('profile-modal-content');
+            const input = document.getElementById('profile-name-input');
+            const previewImg = document.getElementById('modal-avatar-img');
+            const previewInitial = document.getElementById('modal-avatar-initial');
+            const removeBtn = document.getElementById('remove-avatar-btn');
+            const previewBg = document.getElementById('modal-avatar-preview');
+            
+            input.value = userProfile.name;
+            tempAvatarUrl = userProfile.avatarUrl; // Load current saved image into temp state
+            
+            // Hydrate modal preview
+            if (tempAvatarUrl) {
+                previewImg.src = tempAvatarUrl;
+                previewImg.classList.remove('hidden');
+                previewInitial.classList.add('hidden');
+                removeBtn.classList.remove('hidden');
+                previewBg.style.backgroundColor = 'transparent';
+            } else {
+                previewImg.src = '';
+                previewImg.classList.add('hidden');
+                previewInitial.classList.remove('hidden');
+                previewInitial.innerText = userProfile.name.charAt(0).toUpperCase();
+                removeBtn.classList.add('hidden');
+                previewBg.style.backgroundColor = userProfile.bgColor.startsWith('var') ? `var(${userProfile.bgColor.match(/var\((.*?)\)/)[1]})` : userProfile.bgColor;
+                previewInitial.style.color = userProfile.textColor.startsWith('var') ? `var(${userProfile.textColor.match(/var\((.*?)\)/)[1]})` : userProfile.textColor;
+            }
+            
+            // Highlight active color swatch
+            document.querySelectorAll('.color-btn').forEach(btn => {
+                if (btn.dataset.color === userProfile.bgColor) {
+                    btn.classList.replace('ring-transparent', 'ring-[var(--brand-primary)]');
+                } else {
+                    btn.classList.replace('ring-[var(--brand-primary)]', 'ring-transparent');
+                }
+            });
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            void modal.offsetWidth; // Trigger reflow for animation
+            modal.classList.add('opacity-100');
+            content.classList.replace('scale-95', 'scale-100');
+        };
+
+        window.closeProfileModal = function() {
+            const modal = document.getElementById('profile-modal');
+            const content = document.getElementById('profile-modal-content');
+            
+            modal.classList.remove('opacity-100');
+            content.classList.replace('scale-100', 'scale-95');
+            
+            setTimeout(() => {
+                modal.classList.remove('flex');
+                modal.classList.add('hidden');
+            }, 300);
+        };
+
+        window.saveProfile = function() {
+            const input = document.getElementById('profile-name-input');
+            userProfile.name = input.value.trim() || 'User';
+            userProfile.avatarUrl = tempAvatarUrl; // Save temporary image globally
+            
+            localStorage.setItem('vilotgri_profile', JSON.stringify(userProfile));
+            updateProfileUI();
+            window.closeProfileModal();
+        };
+        
+        window.removeAvatar = function() {
+            tempAvatarUrl = null;
+            document.getElementById('modal-avatar-img').classList.add('hidden');
+            document.getElementById('modal-avatar-initial').classList.remove('hidden');
+            document.getElementById('remove-avatar-btn').classList.add('hidden');
+            
+            // Restore fallback color preview immediately
+            const previewBg = document.getElementById('modal-avatar-preview');
+            const previewInitial = document.getElementById('modal-avatar-initial');
+            previewBg.style.backgroundColor = userProfile.bgColor.startsWith('var') ? `var(${userProfile.bgColor.match(/var\((.*?)\)/)[1]})` : userProfile.bgColor;
+            previewInitial.style.color = userProfile.textColor.startsWith('var') ? `var(${userProfile.textColor.match(/var\((.*?)\)/)[1]})` : userProfile.textColor;
+        };
+
+        // File Input Handler (Automatically Resizes to save LocalStorage Space)
+        document.addEventListener('DOMContentLoaded', () => {
+            const fileInput = document.getElementById('avatar-upload-input');
+            if (fileInput) {
+                fileInput.addEventListener('change', function(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(event) {
+                            const img = new Image();
+                            img.onload = function() {
+                                const canvas = document.createElement('canvas');
+                                const ctx = canvas.getContext('2d');
+                                
+                                // Resize to 150x150 max to ensure it fits safely in localStorage
+                                const MAX_WIDTH = 150;
+                                const MAX_HEIGHT = 150;
+                                let width = img.width;
+                                let height = img.height;
+
+                                if (width > height) {
+                                    if (width > MAX_WIDTH) {
+                                        height *= MAX_WIDTH / width;
+                                        width = MAX_WIDTH;
+                                    }
+                                } else {
+                                    if (height > MAX_HEIGHT) {
+                                        width *= MAX_HEIGHT / height;
+                                        height = MAX_HEIGHT;
+                                    }
+                                }
+                                canvas.width = width;
+                                canvas.height = height;
+                                ctx.drawImage(img, 0, 0, width, height);
+                                
+                                tempAvatarUrl = canvas.toDataURL('image/jpeg', 0.8);
+                                
+                                const previewImg = document.getElementById('modal-avatar-img');
+                                previewImg.src = tempAvatarUrl;
+                                previewImg.classList.remove('hidden');
+                                document.getElementById('modal-avatar-initial').classList.add('hidden');
+                                document.getElementById('remove-avatar-btn').classList.remove('hidden');
+                                document.getElementById('modal-avatar-preview').style.backgroundColor = 'transparent';
+                            };
+                            img.src = event.target.result;
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+            }
+
+            // Initialize color picker buttons
+            document.querySelectorAll('.color-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    document.querySelectorAll('.color-btn').forEach(b => b.classList.replace('ring-[var(--brand-primary)]', 'ring-transparent'));
+                    e.target.classList.replace('ring-transparent', 'ring-[var(--brand-primary)]');
+                    userProfile.bgColor = e.target.dataset.color;
+                    userProfile.textColor = e.target.dataset.text;
+                    
+                    // Live update the modal initial color if no image is set
+                    if (!tempAvatarUrl) {
+                        const previewBg = document.getElementById('modal-avatar-preview');
+                        const previewInitial = document.getElementById('modal-avatar-initial');
+                        previewBg.style.backgroundColor = userProfile.bgColor.startsWith('var') ? `var(${userProfile.bgColor.match(/var\((.*?)\)/)[1]})` : userProfile.bgColor;
+                        previewInitial.style.color = userProfile.textColor.startsWith('var') ? `var(${userProfile.textColor.match(/var\((.*?)\)/)[1]})` : userProfile.textColor;
+                    }
+                });
+            });
+            window.initProfile();
+        });
+
+        // Bound to window securely so HTML onclick can find it securely
         window.fillInput = function(text) {
             userInput.value = text;
             userInput.style.height = '';
