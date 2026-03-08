@@ -5,33 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VilotGRI | Workspace</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        /* Modernized Premium Variables */
+        /* =========================================
+           VILOTGRI PREMIUM DESIGN SYSTEM
+           ========================================= */
         :root {
-            --vilotni-gradient: linear-gradient(135deg, #FF3366, #FF9933);
-            --brand-accent: #3b82f6;
+            /* VilotGRI Brand Colors */
+            --brand-primary: #6366f1; /* Indigo */
+            --brand-secondary: #8b5cf6; /* Violet */
+            --brand-accent: #f43f5e; /* Rose */
             
-            --bg-base: #000000;
-            --bg-surface: #0a0a0a;
-            --bg-sidebar: #050505;
-            --bg-elevated: #111111;
-            --bg-glass: rgba(10, 10, 10, 0.7);
+            /* Custom Brand Gradient */
+            --vilotni-gradient: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary), var(--brand-accent));
             
-            --text-primary: #ffffff;
+            /* Dark Mode Defaults */
+            --bg-base: #09090b;
+            --bg-surface: #18181b;
+            --bg-sidebar: #09090b;
+            --bg-elevated: #27272a;
+            --bg-glass: rgba(9, 9, 11, 0.85);
+            
+            --text-primary: #fafafa;
             --text-secondary: #a1a1aa;
-            --text-tertiary: #52525b;
+            --text-tertiary: #71717a;
             
-            --border-subtle: #1f1f22;
-            --border-highlight: #333336;
+            --border-subtle: #27272a;
+            --border-highlight: #3f3f46;
+            
+            /* Soft, Premium Shadows */
+            --shadow-elevation-1: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+            --shadow-elevation-3: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
         }
 
         .light-mode {
+            /* Light Mode */
             --bg-base: #fafafa;
             --bg-surface: #ffffff;
             --bg-sidebar: #f4f4f5;
             --bg-elevated: #f4f4f5;
-            --bg-glass: rgba(255, 255, 255, 0.8);
+            --bg-glass: rgba(255, 255, 255, 0.95);
             
             --text-primary: #09090b;
             --text-secondary: #52525b;
@@ -39,6 +54,9 @@
             
             --border-subtle: #e4e4e7;
             --border-highlight: #d4d4d8;
+            
+            --shadow-elevation-1: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --shadow-elevation-3: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
 
         /* Base Resets & Layout */
@@ -50,7 +68,7 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        h1, h2, h3, .font-display { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; }
+        h1, h2, h3, .font-display { font-family: 'Outfit', sans-serif; letter-spacing: -0.02em; }
         .font-mono { font-family: 'JetBrains Mono', monospace; }
 
         .special-vilotni-text {
@@ -75,7 +93,8 @@
         .sidebar.collapsed { width: 0; border-right: none; overflow: hidden; }
         
         .glass-header { 
-            background-color: var(--bg-base); 
+            background-color: var(--bg-glass); 
+            backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border-subtle); 
             z-index: 30; 
         }
@@ -84,27 +103,28 @@
         .input-box {
             background: var(--bg-surface);
             border: 1px solid var(--border-subtle);
-            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+            box-shadow: var(--shadow-elevation-3);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             border-radius: 1.5rem;
         }
         .input-box:focus-within { 
-            border-color: var(--border-highlight); 
-            box-shadow: 0 15px 50px -10px rgba(0, 0, 0, 0.7); 
+            border-color: var(--brand-primary); 
+            box-shadow: 0 15px 50px -10px rgba(99, 102, 241, 0.15); 
             transform: translateY(-2px); 
         }
 
         /* Suggestion Cards */
         .suggestion-card { 
-            background: var(--bg-base); 
+            background: var(--bg-surface); 
             border: 1px solid var(--border-subtle); 
-            transition: all 0.2s ease; 
+            box-shadow: var(--shadow-elevation-1);
+            transition: all 0.3s ease; 
         }
         .suggestion-card:hover { 
             background: var(--bg-elevated); 
             border-color: var(--border-highlight); 
-            transform: translateY(-2px) scale(1.01);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-elevation-3);
         }
 
         textarea { resize: none; scrollbar-width: none; }
@@ -145,9 +165,9 @@
         
         /* Premium IDE Code Block */
         .code-window { 
-            background: #000000; 
+            background: #09090b; 
             border: 1px solid var(--border-highlight); 
-            border-radius: 0.75rem; 
+            border-radius: 1rem; 
             overflow: hidden; 
             margin-top: 1.5rem; 
             margin-bottom: 1.5rem; 
@@ -155,11 +175,11 @@
             transition: all 0.3s ease;
         }
         .code-window:hover {
-            border-color: var(--text-tertiary);
+            border-color: var(--brand-secondary);
             box-shadow: 0 10px 40px -10px rgba(99, 102, 241, 0.15);
         }
         .code-header { 
-            background: #0a0a0a; 
+            background: #18181b; 
             border-bottom: 1px solid var(--border-subtle); 
             padding: 0.5rem 1rem; 
             display: flex; 
@@ -174,10 +194,10 @@
             color: #d4d4d8;
         }
 
-        /* Syntax Highlighting Colors (Modern OneDark style) */
-        .token-tag { color: #f43f5e; font-weight: 500; }      /* Rose 500 */
-        .token-attr { color: #a78bfa; }     /* Indigo 400 */
-        .token-string { color: #10b981; }   /* Emerald 500 */
+        /* Syntax Highlighting Colors (Modern Style) */
+        .token-tag { color: var(--brand-accent); font-weight: 500; }      
+        .token-attr { color: var(--brand-secondary); }     
+        .token-string { color: #10b981; }   
         
         /* Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
@@ -192,27 +212,32 @@
         
         <!-- Sidebar -->
         <aside id="sidebar" class="sidebar flex flex-col flex-shrink-0 relative">
-            <div class="h-14 flex items-center px-4 border-b border-[var(--border-subtle)] justify-between min-w-[260px]">
-                <div class="flex items-center space-x-2.5 text-[var(--text-primary)] cursor-pointer">
-                    <div class="w-7 h-7 rounded bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/20">
-                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14.25 9.75L16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z" /></svg>
+            <div class="h-16 flex items-center px-6 border-b border-[var(--border-subtle)] justify-between min-w-[260px]">
+                <div class="flex items-center space-x-3 text-[var(--text-primary)] cursor-pointer">
+                    <!-- Updated Layered Architecture Icon -->
+                    <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-[var(--brand-primary)] to-[var(--brand-secondary)] flex items-center justify-center shadow-lg">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+                            <path d="M2 17L12 22L22 17" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+                            <path d="M2 12L12 17L22 12" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+                        </svg>
                     </div>
-                    <span class="font-display font-bold text-sm tracking-wide">VilotGRI</span>
+                    <span class="font-display font-bold text-lg tracking-tight">VilotGRI</span>
                 </div>
                 <button class="hidden md:block p-1.5 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors rounded-md hover:bg-[var(--bg-elevated)]" onclick="toggleDesktopSidebar()" title="Close Sidebar">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" /></svg>
                 </button>
             </div>
 
-            <div class="p-3 min-w-[260px]">
-                <button class="w-full py-2.5 px-3 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-elevated)] hover:bg-[var(--border-highlight)] text-[var(--text-primary)] font-medium text-sm flex items-center justify-center space-x-2 transition-all shadow-sm" onclick="location.reload()">
+            <div class="p-4 min-w-[260px]">
+                <button class="w-full py-2.5 px-3 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface)] hover:border-[var(--brand-primary)] text-[var(--text-primary)] font-medium text-sm flex items-center justify-center space-x-2 transition-all shadow-sm" onclick="location.reload()">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                    <span>New Workspace</span>
+                    <span class="font-display">New Workspace</span>
                 </button>
             </div>
 
             <!-- Empty History State -->
-            <div class="flex-1 flex flex-col px-4 py-3 min-w-[260px]">
+            <div class="flex-1 flex flex-col px-5 py-3 min-w-[260px]">
                 <p class="text-[10px] font-bold text-[var(--text-tertiary)] uppercase tracking-widest mb-3">Today</p>
                 <div class="text-xs text-[var(--text-secondary)] italic flex items-center">
                     <span class="w-1.5 h-1.5 rounded-full bg-[var(--border-highlight)] mr-2"></span>
@@ -221,16 +246,16 @@
             </div>
 
             <!-- Sidebar Footer -->
-            <div class="p-3 border-t border-[var(--border-subtle)] min-w-[260px]">
-                <div class="flex items-center justify-between p-2 rounded-lg hover:bg-[var(--bg-elevated)] transition-colors cursor-pointer group">
+            <div class="p-4 border-t border-[var(--border-subtle)] min-w-[260px]">
+                <div class="flex items-center justify-between p-2 rounded-xl hover:bg-[var(--bg-elevated)] transition-colors cursor-pointer group">
                     <div class="flex items-center space-x-3">
-                        <div class="w-7 h-7 rounded-full bg-[var(--text-primary)] flex items-center justify-center">
+                        <div class="w-8 h-8 rounded-full bg-[var(--text-primary)] flex items-center justify-center shadow-sm">
                             <span class="text-xs font-bold text-[var(--bg-base)]">U</span>
                         </div>
-                        <span class="text-sm font-medium text-[var(--text-primary)]">Developer</span>
+                        <span class="text-sm font-medium text-[var(--text-primary)] font-display">Developer</span>
                     </div>
-                    <button onclick="toggleTheme(event)" class="text-[var(--text-tertiary)] hover:text-[var(--text-primary)] transition-colors p-1" title="Toggle Theme">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                    <button onclick="toggleTheme(event)" class="text-[var(--text-tertiary)] hover:text-[var(--brand-primary)] transition-colors p-1" title="Toggle Theme">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
                     </button>
                 </div>
             </div>
@@ -242,28 +267,28 @@
         <!-- Main Content -->
         <main id="main-content">
             
-            <header class="h-14 flex items-center justify-between px-4 sm:px-6 glass-header absolute top-0 w-full">
+            <header class="h-16 flex items-center justify-between px-4 sm:px-6 glass-header absolute top-0 w-full">
                 <div class="flex items-center space-x-3">
-                    <button id="sidebar-toggle-btn" class="hidden md:block p-1.5 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors rounded-md hover:bg-[var(--bg-elevated)]" onclick="toggleDesktopSidebar()" title="Open Sidebar" style="display: none;">
+                    <button id="sidebar-toggle-btn" class="hidden md:block p-1.5 text-[var(--text-secondary)] hover:text-[var(--brand-primary)] transition-colors rounded-md hover:bg-[var(--bg-elevated)]" onclick="toggleDesktopSidebar()" title="Open Sidebar" style="display: none;">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                     </button>
-                    <button class="md:hidden text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors" onclick="document.getElementById('sidebar').classList.add('open'); document.getElementById('sidebar-overlay').classList.remove('hidden')">
+                    <button class="md:hidden text-[var(--text-secondary)] hover:text-[var(--brand-primary)] transition-colors" onclick="document.getElementById('sidebar').classList.add('open'); document.getElementById('sidebar-overlay').classList.remove('hidden')">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                     </button>
                     <div class="flex items-center text-sm font-medium text-[var(--text-secondary)]">
                         <span class="hidden sm:inline">Workspace</span>
                         <span class="hidden sm:inline mx-2 text-[var(--border-highlight)]">/</span>
-                        <span class="text-[var(--text-primary)]">Architecture Canvas</span>
+                        <span class="text-[var(--text-primary)] font-display font-medium">Architecture Canvas</span>
                     </div>
                 </div>
-                <div class="flex items-center px-2.5 py-1 rounded-md border border-[var(--border-subtle)] bg-[var(--bg-elevated)] shadow-sm">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-2 animate-pulse"></span>
-                    <span class="text-[10px] font-bold uppercase tracking-widest text-[var(--text-secondary)]">VilotNI 1 Core</span>
+                <div class="flex items-center px-3 py-1.5 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-surface)] shadow-sm">
+                    <span class="w-2 h-2 rounded-full bg-[var(--brand-accent)] mr-2 animate-pulse"></span>
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-[var(--text-secondary)]">VilotNI 1.5</span>
                 </div>
             </header>
 
             <!-- Scrollable Chat Area -->
-            <div class="flex-1 overflow-y-auto px-4 sm:px-6 pt-20 pb-40 flex flex-col relative z-10" id="chat-scroll-area">
+            <div class="flex-1 overflow-y-auto px-4 sm:px-6 pt-24 pb-40 flex flex-col relative z-10" id="chat-scroll-area">
                 
                 <!-- Chat History Container -->
                 <div id="chat-history" class="w-full max-w-3xl mx-auto flex flex-col space-y-8 hidden pb-4">
@@ -273,47 +298,51 @@
                 <!-- Empty State / Welcome -->
                 <div class="max-w-2xl mx-auto w-full flex-1 flex flex-col justify-center animate-fade-in" id="empty-state">
                     <div class="mb-10 text-center sm:text-left">
-                        <div class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500/20 to-purple-500/20 border border-indigo-500/30 mb-5">
-                            <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86 .517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+                        <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] mb-6 shadow-sm text-[var(--brand-primary)]">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                                <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                                <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                            </svg>
                         </div>
-                        <h2 class="text-3xl sm:text-4xl font-display font-bold mb-3 tracking-tight">What are we building?</h2>
-                        <p class="text-base text-[var(--text-secondary)]">
-                            Describe your UI logic. VilotNI 1 will synthesize the structural concepts and generate semantic code.
+                        <h2 class="text-4xl sm:text-5xl font-display font-bold mb-4 tracking-tight text-[var(--text-primary)]">What are we building?</h2>
+                        <p class="text-lg text-[var(--text-secondary)] font-light leading-relaxed">
+                            Describe your UI logic. VilotNI 1.5 will synthesize the structural concepts and generate semantic architecture.
                         </p>
                     </div>
 
                     <!-- Suggestion Cards -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
-                        <button class="suggestion-card p-4 rounded-xl text-left flex flex-col space-y-2" onclick="window.fillInput('Can you make me a user profile card and add a dark mode navbar aswell?')">
-                            <span class="font-semibold text-sm text-[var(--text-primary)] flex items-center">
-                                <svg class="w-4 h-4 mr-2 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"/></svg>
+                        <button class="suggestion-card p-5 rounded-2xl text-left flex flex-col space-y-2 group" onclick="window.fillInput('Can you make me a user profile card and add a dark mode navbar aswell?')">
+                            <span class="font-display font-semibold text-base text-[var(--text-primary)] flex items-center group-hover:text-[var(--brand-primary)] transition-colors">
+                                <svg class="w-5 h-5 mr-2 text-[var(--brand-primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"/></svg>
                                 Logic Mixing
                             </span>
-                            <span class="text-xs text-[var(--text-secondary)] leading-relaxed">Synthesize a dark mode navbar directly onto a user profile card layout.</span>
+                            <span class="text-sm text-[var(--text-secondary)] leading-relaxed font-light">Synthesize a dark mode navbar directly onto a user profile card layout.</span>
                         </button>
                         
-                        <button class="suggestion-card p-4 rounded-xl text-left flex flex-col space-y-2" onclick="window.fillInput('What is your neural architecture and how do you process data?')">
-                            <span class="font-semibold text-sm text-[var(--text-primary)] flex items-center">
-                                <svg class="w-4 h-4 mr-2 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                        <button class="suggestion-card p-5 rounded-2xl text-left flex flex-col space-y-2 group" onclick="window.fillInput('What is your neural architecture and how do you process data?')">
+                            <span class="font-display font-semibold text-base text-[var(--text-primary)] flex items-center group-hover:text-[var(--brand-secondary)] transition-colors">
+                                <svg class="w-5 h-5 mr-2 text-[var(--brand-secondary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
                                 Test Cognitive Engine
                             </span>
-                            <span class="text-xs text-[var(--text-secondary)] leading-relaxed">Ask the AI about its heuristic evaluation and internal logic structures.</span>
+                            <span class="text-sm text-[var(--text-secondary)] leading-relaxed font-light">Ask the AI about its heuristic evaluation and internal logic structures.</span>
                         </button>
 
-                        <button class="suggestion-card p-4 rounded-xl text-left flex flex-col space-y-2" onclick="window.fillInput('Generate a clean authentication flow with Login and Sign Up forms.')">
-                            <span class="font-semibold text-sm text-[var(--text-primary)] flex items-center">
-                                <svg class="w-4 h-4 mr-2 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                        <button class="suggestion-card p-5 rounded-2xl text-left flex flex-col space-y-2 group" onclick="window.fillInput('Generate a clean authentication flow with Login and Sign Up forms.')">
+                            <span class="font-display font-semibold text-base text-[var(--text-primary)] flex items-center group-hover:text-emerald-500 transition-colors">
+                                <svg class="w-5 h-5 mr-2 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                                 Auth Forms
                             </span>
-                            <span class="text-xs text-[var(--text-secondary)] leading-relaxed">Construct a split-layout authentication flow for secure access.</span>
+                            <span class="text-sm text-[var(--text-secondary)] leading-relaxed font-light">Construct a split-layout authentication flow for secure access.</span>
                         </button>
 
-                        <button class="suggestion-card p-4 rounded-xl text-left flex flex-col space-y-2" onclick="window.fillInput('Build a responsive bento box layout.')">
-                            <span class="font-semibold text-sm text-[var(--text-primary)] flex items-center">
-                                <svg class="w-4 h-4 mr-2 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
+                        <button class="suggestion-card p-5 rounded-2xl text-left flex flex-col space-y-2 group" onclick="window.fillInput('Build a responsive bento box layout.')">
+                            <span class="font-display font-semibold text-base text-[var(--text-primary)] flex items-center group-hover:text-[var(--brand-accent)] transition-colors">
+                                <svg class="w-5 h-5 mr-2 text-[var(--brand-accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
                                 Modern Grids
                             </span>
-                            <span class="text-xs text-[var(--text-secondary)] leading-relaxed">Deploy a responsive, multi-span CSS Grid component commonly used in dashboards.</span>
+                            <span class="text-sm text-[var(--text-secondary)] leading-relaxed font-light">Deploy a responsive, multi-span CSS Grid component commonly used in dashboards.</span>
                         </button>
                     </div>
                 </div>
@@ -322,9 +351,9 @@
             <!-- Fixed Input Bar -->
             <div class="absolute bottom-0 w-full bg-gradient-to-t from-[var(--bg-base)] via-[var(--bg-base)] to-transparent pt-12 pb-8 px-4 sm:px-6 z-20">
                 <div class="max-w-3xl mx-auto relative">
-                    <div class="input-box p-2 flex items-end relative backdrop-blur-xl bg-[var(--bg-surface)]/80">
+                    <div class="input-box p-2 flex items-end relative backdrop-blur-xl bg-[var(--bg-surface)]/90">
                         
-                        <button class="p-2.5 rounded-full hover:bg-[var(--border-subtle)] text-[var(--text-tertiary)] hover:text-[var(--text-primary)] transition-colors mb-0.5 ml-0.5 shrink-0" title="Attach context">
+                        <button class="p-2.5 rounded-full hover:bg-[var(--bg-elevated)] text-[var(--text-tertiary)] hover:text-[var(--brand-primary)] transition-colors mb-0.5 ml-0.5 shrink-0" title="Attach context">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
                         </button>
 
@@ -332,16 +361,16 @@
                             id="user-input" 
                             rows="1" 
                             class="w-full bg-transparent border-0 focus:ring-0 p-3 text-[15px] placeholder:text-[var(--text-tertiary)] mx-1 leading-relaxed text-[var(--text-primary)]" 
-                            placeholder="Ask VilotNI 1 to generate architecture..."
+                            placeholder="Ask VilotNI 1.5 to generate architecture..."
                         ></textarea>
                         
-                        <button id="submit-btn" class="mb-1.5 mr-1.5 p-2.5 rounded-full bg-[var(--bg-elevated)] text-[var(--text-tertiary)] transition-all duration-200 flex items-center justify-center pointer-events-none shrink-0" onclick="window.handleSend()">
+                        <button id="submit-btn" class="mb-1.5 mr-1.5 p-2.5 rounded-full bg-[var(--bg-elevated)] text-[var(--text-tertiary)] transition-all duration-300 flex items-center justify-center pointer-events-none shrink-0" onclick="window.handleSend()">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"/></svg>
                         </button>
                     </div>
                     
                     <div class="text-center mt-3 text-[11px] text-[var(--text-tertiary)] flex items-center justify-center space-x-2">
-                        <span>VilotGRI Engine v1.0</span>
+                        <span class="font-display">VilotGRI Engine v1.5</span>
                         <span>&bull;</span>
                         <span>Spirit-BFC & T1mothyXD</span>
                     </div>
@@ -392,10 +421,16 @@
         window.toggleSubmitBtn = function(val) {
             if (val.trim().length > 0 && !isProcessing) {
                 submitBtn.classList.remove('bg-[var(--bg-elevated)]', 'text-[var(--text-tertiary)]', 'pointer-events-none');
-                submitBtn.classList.add('bg-[var(--text-primary)]', 'text-[var(--bg-base)]', 'pointer-events-auto', 'hover:opacity-80', 'shadow-md');
+                // Use brand gradient for active submit button
+                submitBtn.style.background = 'var(--vilotni-gradient)';
+                submitBtn.style.color = 'white';
+                submitBtn.style.pointerEvents = 'auto';
+                submitBtn.style.boxShadow = '0 4px 15px rgba(99, 102, 241, 0.4)';
             } else {
                 submitBtn.classList.add('bg-[var(--bg-elevated)]', 'text-[var(--text-tertiary)]', 'pointer-events-none');
-                submitBtn.classList.remove('bg-[var(--text-primary)]', 'text-[var(--bg-base)]', 'pointer-events-auto', 'hover:opacity-80', 'shadow-md');
+                submitBtn.style.background = '';
+                submitBtn.style.color = '';
+                submitBtn.style.boxShadow = '';
             }
         };
 
@@ -407,10 +442,10 @@
             document.execCommand('copy');
             document.body.removeChild(textarea);
             
-            const originalText = btn.innerText;
-            btn.innerHTML = '<span class="text-green-400">Copied!</span>';
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="text-green-500 font-bold">Copied!</span>';
             setTimeout(() => {
-                btn.innerText = originalText;
+                btn.innerHTML = originalText;
             }, 2000);
         };
 
@@ -465,7 +500,7 @@
             
             if (isProcessing) {
                 const originalHTML = btn.innerHTML;
-                btn.innerHTML = '<span class="text-amber-500 text-xs font-bold uppercase tracking-widest">Wait...</span>';
+                btn.innerHTML = '<span class="text-[var(--brand-accent)] text-[10px] font-bold uppercase tracking-widest">Wait...</span>';
                 setTimeout(() => { 
                     if (document.getElementById(btnId)) {
                         document.getElementById(btnId).innerHTML = originalHTML; 
@@ -518,8 +553,8 @@
             wrapper.className = 'flex w-full justify-start animate-fade-in';
             
             let s = '<div class="flex space-x-4 max-w-full">';
-            s += '<div class="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shrink-0 shadow-lg mt-1 relative overflow-hidden ring-1 ring-white/10">';
-            s += '<svg class="w-4 h-4 text-white relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14.25 9.75L16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z"/></svg>';
+            s += '<div class="w-8 h-8 rounded-xl bg-gradient-to-br from-[var(--brand-primary)] to-[var(--brand-secondary)] flex items-center justify-center shadow-lg mt-1 relative overflow-hidden ring-1 ring-white/10">';
+            s += '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="white" stroke-width="2" stroke-linejoin="round"/><path d="M2 17L12 22L22 17" stroke="white" stroke-width="2" stroke-linejoin="round"/><path d="M2 12L12 17L22 12" stroke="white" stroke-width="2" stroke-linejoin="round"/></svg>';
             s += '</div>';
             s += '<div class="px-2 py-2 flex items-center typing-indicator h-10">';
             s += '<span></span><span></span><span></span>';
@@ -571,7 +606,7 @@
         async function appendAIMessage(response, originalText = "") {
             const msgId = 'msg-' + Date.now();
             const wrapper = document.createElement('div');
-            wrapper.className = 'flex w-full justify-start animate-fade-in mb-6 group/msg';
+            wrapper.className = 'flex w-full justify-start animate-fade-in mb-8 group/msg';
             
             let inner = '<div class="flex space-x-4 max-w-full w-full">';
             
@@ -579,10 +614,11 @@
             inner += '<div class="relative w-8 h-8 shrink-0 mt-1">';
             inner += '<svg class="absolute inset-[-6px] w-11 h-11 -rotate-90 z-20 pointer-events-none" viewBox="0 0 36 36">';
             inner += '<circle cx="18" cy="18" r="16" fill="none" stroke="transparent" stroke-width="2"></circle>';
-            inner += '<circle id="ring-' + msgId + '" cx="18" cy="18" r="16" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="100" stroke-dashoffset="100" class="text-indigo-500 transition-all duration-700 ease-out"></circle>';
+            // Uses brand-primary for the loading ring
+            inner += '<circle id="ring-' + msgId + '" cx="18" cy="18" r="16" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="100" stroke-dashoffset="100" class="text-[var(--brand-primary)] transition-all duration-700 ease-out"></circle>';
             inner += '</svg>';
-            inner += '<div class="w-full h-full rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center relative z-10 shadow-lg ring-1 ring-white/10">';
-            inner += '<svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14.25 9.75L16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z"/></svg>';
+            inner += '<div class="w-full h-full rounded-xl bg-gradient-to-br from-[var(--brand-primary)] to-[var(--brand-secondary)] flex items-center justify-center relative z-10 shadow-lg ring-1 ring-white/10">';
+            inner += '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="white" stroke-width="2" stroke-linejoin="round"/><path d="M2 17L12 22L22 17" stroke="white" stroke-width="2" stroke-linejoin="round"/><path d="M2 12L12 17L22 12" stroke="white" stroke-width="2" stroke-linejoin="round"/></svg>';
             inner += '</div></div>';
             
             // Chat Text Container
@@ -591,14 +627,14 @@
             // Refined Premium Header
             inner += '<div class="flex flex-col sm:flex-row sm:items-center mb-3 space-y-2 sm:space-y-0 sm:space-x-3">';
             inner += '<div class="flex items-center space-x-2">';
-            inner += '<span class="text-[14px] font-bold text-[var(--text-primary)] tracking-wide">VilotNI 1</span>';
-            inner += '<span class="text-[9px] font-bold uppercase tracking-widest text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded-full border border-indigo-500/20 shadow-sm">AI Logic</span>';
+            inner += '<span class="text-[14px] font-display font-bold text-[var(--text-primary)] tracking-wide">VilotNI 1.5</span>';
+            inner += '<span class="text-[9px] font-bold uppercase tracking-widest text-[var(--brand-primary)] bg-[var(--brand-primary)]/10 px-2 py-0.5 rounded-full border border-[var(--brand-primary)]/20 shadow-sm">AI Logic</span>';
             inner += '</div>';
             
             // Process Badge
             inner += '<div id="process-badge-' + msgId + '" class="px-2.5 py-1 rounded-md bg-[var(--bg-base)] border border-[var(--border-subtle)] flex items-center shadow-inner transition-all duration-300 w-fit">';
             inner += '<span id="process-text-' + msgId + '" class="text-[11px] font-mono text-[var(--text-secondary)] whitespace-nowrap flex items-center gap-1.5">';
-            inner += '<span class="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse"></span>Initializing Engine...';
+            inner += '<span class="w-1.5 h-1.5 rounded-full bg-[var(--brand-primary)] animate-pulse"></span>Initializing Engine...';
             inner += '</span></div></div>';
 
             // Text and Code Dynamic Divs
@@ -607,10 +643,10 @@
             
             // Premium Hover Action Toolbar
             inner += '<div id="action-' + msgId + '" class="mt-4 flex items-center space-x-2 opacity-0 group-hover/msg:opacity-100 transition-opacity duration-300 hidden">';
-            inner += '<button id="regen-btn-' + msgId + '" class="flex items-center justify-center space-x-1.5 px-3 py-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-base)] text-[11px] font-bold uppercase tracking-widest text-[var(--text-tertiary)] hover:text-[var(--text-primary)] hover:border-[var(--border-highlight)] transition-all shadow-sm group">';
+            inner += '<button id="regen-btn-' + msgId + '" class="flex items-center justify-center space-x-1.5 px-3 py-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-base)] text-[11px] font-bold uppercase tracking-widest text-[var(--text-tertiary)] hover:text-[var(--brand-primary)] hover:border-[var(--brand-primary)] transition-all shadow-sm group">';
             inner += '<svg class="w-3.5 h-3.5 group-hover:rotate-180 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>';
             inner += '<span>Regenerate</span></button>';
-            inner += '<button id="copy-btn-' + msgId + '" class="flex items-center justify-center space-x-1.5 px-3 py-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-base)] text-[11px] font-bold uppercase tracking-widest text-[var(--text-tertiary)] hover:text-[var(--text-primary)] hover:border-[var(--border-highlight)] transition-all shadow-sm">';
+            inner += '<button id="copy-btn-' + msgId + '" class="flex items-center justify-center space-x-1.5 px-3 py-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-base)] text-[11px] font-bold uppercase tracking-widest text-[var(--text-tertiary)] hover:text-[var(--brand-secondary)] hover:border-[var(--brand-secondary)] transition-all shadow-sm">';
             inner += '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>';
             inner += '<span>Copy Text</span></button>';
             inner += '</div></div></div>';
@@ -619,7 +655,7 @@
             chatHistory.appendChild(wrapper);
             scrollToBottom();
 
-            // Securely attach event listeners (Fixes syntax crashes entirely)
+            // Securely attach event listeners
             const regenBtn = document.getElementById('regen-btn-' + msgId);
             if (regenBtn) {
                 regenBtn.addEventListener('click', () => {
@@ -654,25 +690,25 @@
             // Step 1: Intent
             await new Promise(r => setTimeout(r, 200));
             ring.style.strokeDashoffset = '66';
-            processText.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse"></span><span class="text-indigo-400 font-bold ml-1.5">Intent:</span> <span class="ml-1">' + response.thinking.intent + '</span>';
+            processText.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-[var(--brand-primary)] animate-pulse"></span><span class="text-[var(--brand-primary)] font-bold ml-1.5">Intent:</span> <span class="ml-1">' + response.thinking.intent + '</span>';
             scrollToBottom();
 
             // Step 2: Concepts
             await new Promise(r => setTimeout(r, 500));
             ring.style.strokeDashoffset = '33';
-            processText.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse"></span><span class="text-purple-400 font-bold ml-1.5">Concepts:</span> <span class="ml-1 truncate max-w-[150px]" title="' + response.thinking.concepts + '">[' + response.thinking.concepts + ']</span>';
+            processText.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-[var(--brand-secondary)] animate-pulse"></span><span class="text-[var(--brand-secondary)] font-bold ml-1.5">Concepts:</span> <span class="ml-1 truncate max-w-[150px]" title="' + response.thinking.concepts + '">[' + response.thinking.concepts + ']</span>';
             
             // Step 3: Confidence
             await new Promise(r => setTimeout(r, 500));
             ring.style.strokeDashoffset = '0';
             const confVal = (response.thinking.confidence * 100).toFixed(1);
-            const confColor = response.thinking.confidence > 0.6 ? 'text-emerald-400' : 'text-amber-400';
-            const dotColor = response.thinking.confidence > 0.6 ? 'bg-emerald-400' : 'bg-amber-400';
+            const confColor = response.thinking.confidence > 0.6 ? 'text-emerald-400' : 'text-[var(--brand-accent)]';
+            const dotColor = response.thinking.confidence > 0.6 ? 'bg-emerald-400' : 'bg-[var(--brand-accent)]';
             processText.innerHTML = '<span class="w-1.5 h-1.5 rounded-full ' + dotColor + ' animate-pulse"></span><span class="font-bold ml-1.5">Confidence:</span> <span class="' + confColor + ' ml-1">' + confVal + '%</span>';
 
             // Finish Processing
             await new Promise(r => setTimeout(r, 500));
-            ring.classList.replace('text-indigo-500', 'text-[var(--border-highlight)]');
+            ring.classList.replace('text-[var(--brand-primary)]', 'text-[var(--border-highlight)]');
             processText.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-[var(--text-secondary)]"></span><span class="font-bold uppercase tracking-widest text-[9px] text-[var(--text-secondary)] ml-1.5">Analysis Complete</span>';
 
             isProcessing = false;
@@ -706,11 +742,11 @@
                 
                 let codeInner = '<div class="code-window max-w-full group/code">';
                 codeInner += '<div class="code-header">';
-                codeInner += '<div class="flex items-center space-x-2.5 px-2 py-1 bg-[#111] rounded-md border border-[#222]">';
-                codeInner += '<svg class="w-3.5 h-3.5 text-[#ff5722]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path><path d="m10 13-2 2 2 2"></path><path d="m14 17 2-2-2-2"></path></svg>';
+                codeInner += '<div class="flex items-center space-x-2.5 px-2.5 py-1.5 bg-[#18181b] rounded-md border border-[var(--border-highlight)]">';
+                codeInner += '<svg class="w-3.5 h-3.5 text-[var(--brand-accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path><path d="m10 13-2 2 2 2"></path><path d="m14 17 2-2-2-2"></path></svg>';
                 codeInner += '<span class="text-[11px] font-mono text-gray-300 font-medium">index.html</span>';
                 codeInner += '</div>';
-                codeInner += '<button id="copy-code-btn-' + msgId + '" class="flex items-center space-x-1.5 text-xs font-medium text-gray-400 hover:text-white transition-colors bg-[#111] hover:bg-[#222] border border-transparent hover:border-[#333] px-3 py-1.5 rounded-md">';
+                codeInner += '<button id="copy-code-btn-' + msgId + '" class="flex items-center space-x-1.5 text-xs font-bold uppercase tracking-wider text-[var(--text-tertiary)] hover:text-[var(--text-primary)] transition-colors bg-transparent hover:bg-[var(--bg-elevated)] border border-transparent hover:border-[var(--border-subtle)] px-3 py-1.5 rounded-md">';
                 codeInner += '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>';
                 codeInner += '<span>Copy</span>';
                 codeInner += '</button>';
