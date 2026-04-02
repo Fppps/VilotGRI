@@ -290,7 +290,9 @@
             <button class="hidden md:flex items-center justify-center w-10 h-10 rounded-full text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-elevated)] transition-colors" onclick="App.toggleSettings()" title="Settings">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
             </button>
-
+            <a href="main_website/chat.html" class="btn-primary px-6 py-2.5 text-sm hidden sm:flex items-center">
+                Launch Workspace
+            </a>
             <!-- Mobile Menu Toggle -->
             <button class="md:hidden p-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)]" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -307,7 +309,7 @@
             <a onclick="App.navigate('vilotni'); document.getElementById('mobile-menu').classList.add('hidden')" class="border-b border-[var(--border-subtle)] pb-4 text-[var(--text-primary)]">VilotNI 1.5</a>
             <a onclick="App.navigate('roadmap'); document.getElementById('mobile-menu').classList.add('hidden')" class="border-b border-[var(--border-subtle)] pb-4 text-[var(--text-primary)]">Roadmap</a>
             <button onclick="App.toggleSettings(); document.getElementById('mobile-menu').classList.add('hidden')" class="text-left text-[var(--text-secondary)] border-b border-[var(--border-subtle)] pb-4">Theme Settings</button>
-            <a href="main_website/Index.html" class="text-left font-bold text-[var(--brand-primary)]">Launch Workspace</a>
+            <a href="main_website/index.html" class="text-left font-bold text-[var(--brand-primary)]">Launch Workspace</a>
         </div>
     </div>
 
@@ -371,7 +373,7 @@
                     </p>
 
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="main_website/Index.html" class="btn-primary px-8 py-4 text-lg inline-flex items-center justify-center">
+                        <a href="main_website/index.html" class="btn-primary px-8 py-4 text-lg inline-flex items-center justify-center">
                             Open Workspace
                         </a>
                         <button onclick="App.navigate('roadmap')" class="btn-secondary px-8 py-4 text-lg inline-flex items-center justify-center">
@@ -423,10 +425,10 @@
                         <div class="premium-card p-8 md:p-12 border-l-4 border-l-[var(--brand-primary)]">
                             <h3 class="font-display text-3xl font-bold mb-6 text-[var(--text-primary)]">Ethical Stance</h3>
                             <p class="text-[var(--text-secondary)] leading-relaxed mb-6 text-lg">
-                                Why should we not worry about abusing your powers to make the AI?
+                                Why should we not worry about abusing our powers to make the AI?
                             </p>
                             <blockquote class="text-2xl md:text-3xl font-display font-medium leading-tight text-[var(--text-primary)]">
-                                "Because we are teenagers and we don't need billions of dollars because we are NOT power hungry."
+                                "Because we are not bad people and I don't want to be evil."
                             </blockquote>
                             <p class="mt-6 text-sm text-[var(--text-tertiary)] font-bold uppercase tracking-widest">
                                 — Core Founding Principle
@@ -452,8 +454,8 @@
                 <div class="grid md:grid-cols-2 gap-8 mb-12">
                     
                     <div class="premium-card p-10 reveal">
-                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[var(--brand-primary)] to-blue-500 text-white flex items-center justify-center font-display font-bold text-3xl mb-6 shadow-lg" style="border-radius: 100%; width: 106px; height: 106px;">
-                            <img style="width:100px;" src="Discordpfp/Discordpfp.png" alt="">
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[var(--brand-primary)] to-blue-500 text-white flex items-center justify-center font-display font-bold text-3xl mb-6 shadow-lg">
+                            S
                         </div>
                         <h3 class="font-display text-3xl font-bold mb-1 text-[var(--text-primary)]">Spirit-BFC</h3>
                         <p class="text-sm text-[var(--brand-primary)] font-semibold uppercase tracking-wider mb-6">Lead Neural Architect</p>
@@ -463,8 +465,8 @@
                     </div>
 
                     <div class="premium-card p-10 reveal" style="transition-delay: 100ms;">
-                        <div style="border-radius: 100%; width: 106px; height: 106px;" class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[var(--brand-secondary)] to-[var(--brand-accent)] text-white flex items-center justify-center font-display font-bold text-3xl mb-6 shadow-lg">
-                            <img style="border-radius: 100%; width:100px;" src="Discordpfp/YTpfp.jpg" alt="">
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[var(--brand-secondary)] to-[var(--brand-accent)] text-white flex items-center justify-center font-display font-bold text-3xl mb-6 shadow-lg">
+                            T
                         </div>
                         <h3 class="font-display text-3xl font-bold mb-1 text-[var(--text-primary)]">T1mothyXD</h3>
                         <p class="text-sm text-[var(--brand-secondary)] font-semibold uppercase tracking-wider mb-6">Principal System Engineer</p>
@@ -508,24 +510,56 @@
                         VilotNI 1.5
                     </h2>
                     <p class="text-xl text-[var(--text-secondary)] max-w-2xl">
-                        The next evolution of our core logic engine, featuring modular architecture and enhanced cognitive realism.
+                        The next evolution of our core logic engine, featuring a native Machine Learning matrix and pure procedural generation.
                     </p>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8 reveal">
-                    <div class="premium-card p-10">
-                        <h3 class="font-display text-2xl font-bold mb-4 text-[var(--text-primary)]">Modular File Structure</h3>
+                    <div class="premium-card p-10 group">
+                        <div class="w-12 h-12 rounded-xl bg-[var(--brand-primary)]/10 text-[var(--brand-primary)] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+                        </div>
+                        <h3 class="font-display text-2xl font-bold mb-4 text-[var(--text-primary)]">Native JS Machine Learning</h3>
                         <p class="text-[var(--text-secondary)] leading-relaxed text-lg">
-                            VilotNI 1.5 abandons the monolith. We have refactored the engine into a distributed logic system, separating Knowledge, NLP Processing, and the Core Orchestrator into dedicated files for massive scalability.
+                            We abandoned external dependencies to build a pure, native JavaScript ML architecture. VilotNI 1.5 runs a custom Multi-Layer Perceptron (Neural Network), TF-IDF Vectorization, and Naive Bayes Classifiers directly in your browser.
                         </p>
                     </div>
 
-                    <div class="premium-card p-10">
-                        <h3 class="font-display text-2xl font-bold mb-4 text-[var(--text-primary)]">Heightened Realism</h3>
+                    <div class="premium-card p-10 group">
+                        <div class="w-12 h-12 rounded-xl bg-[var(--brand-secondary)]/10 text-[var(--brand-secondary)] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                        </div>
+                        <h3 class="font-display text-2xl font-bold mb-4 text-[var(--text-primary)]">Procedural AST Engine</h3>
                         <p class="text-[var(--text-secondary)] leading-relaxed text-lg">
-                            By utilizing advanced Concept Extraction and Intent detection, VilotNI 1.5 operates with profound cognitive realism. It understands complex heuristic requests before generating a single line of code.
+                            Hardcoded string templates are gone. VilotNI mathematically weights user intent and dynamically constructs layouts node-by-node using an Abstract Syntax Tree (AST), ensuring perfectly balanced, semantic DOM structures.
                         </p>
                     </div>
+
+                    <div class="premium-card p-10 group">
+                        <div class="w-12 h-12 rounded-xl bg-[var(--brand-accent)]/10 text-[var(--brand-accent)] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                        </div>
+                        <h3 class="font-display text-2xl font-bold mb-4 text-[var(--text-primary)]">Autonomous Self-Testing</h3>
+                        <p class="text-[var(--text-secondary)] leading-relaxed text-lg">
+                            Before delivering code, the Cognitive Linter traverses the generated AST to verify architectural integrity. It actively tests for unclosed tags, accessibility (a11y) violations, and layout anomalies, mathematically penalizing hallucinations.
+                        </p>
+                    </div>
+
+                    <div class="premium-card p-10 group">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                        </div>
+                        <h3 class="font-display text-2xl font-bold mb-4 text-[var(--text-primary)]">Deep Training Corpus</h3>
+                        <p class="text-[var(--text-secondary)] leading-relaxed text-lg">
+                            The generative brain is initialized with a massive dataset of conversational and architectural nodes. It uses an Ensemble Voting System to combine Naive Bayes probabilities with Neural Network heuristics for unparalleled accuracy.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mt-12 reveal text-center md:text-left">
+                    <a href="main_website/index.html" class="btn-primary px-8 py-4 text-lg inline-flex items-center justify-center">
+                        Experience the Architecture
+                    </a>
                 </div>
 
             </div>
@@ -546,20 +580,20 @@
                     
                     <div class="grid sm:grid-cols-2 gap-6 mb-12">
                         <div class="p-8 rounded-2xl bg-[var(--bg-base)] border border-[var(--border-subtle)] text-center border-t-4 border-t-[var(--brand-primary)]">
-                            <p class="text-sm font-bold text-[var(--text-tertiary)] uppercase tracking-widest mb-2">Potental demo release</p>
-                            <p class="font-display text-5xl text-[var(--text-primary)] font-bold">Apr 5</p>
+                            <p class="text-sm font-bold text-[var(--text-tertiary)] uppercase tracking-widest mb-2">Target Alpha</p>
+                            <p class="font-display text-5xl text-[var(--text-primary)] font-bold">May 2</p>
                             <p class="text-base font-medium text-[var(--text-secondary)] mt-2">2026</p>
                         </div>
                         <div class="p-8 rounded-2xl bg-[var(--bg-base)] border border-[var(--border-subtle)] text-center border-t-4 border-t-[var(--brand-accent)]">
-                            <p class="text-sm font-bold text-[var(--text-tertiary)] uppercase tracking-widest mb-2">Potental release</p>
-                            <p class="font-display text-5xl text-[var(--text-primary)] font-bold">May 20</p>
+                            <p class="text-sm font-bold text-[var(--text-tertiary)] uppercase tracking-widest mb-2">Target Beta</p>
+                            <p class="font-display text-5xl text-[var(--text-primary)] font-bold">Aug 20</p>
                             <p class="text-base font-medium text-[var(--text-secondary)] mt-2">2026</p>
                         </div>
                     </div>
 
                     <div class="p-8 rounded-2xl bg-[var(--bg-elevated)] border border-[var(--border-subtle)] text-center shadow-inner">
                         <p class="text-xl font-display font-medium leading-relaxed text-[var(--text-primary)] mb-4">
-                            "Depending on how development goes, it could shift back or forward a few months, but the main plan is for a full release by April 5th or May 20 of 2026."
+                            "Depending on how development goes, it could shift back or forward a few months, but the main plan is for a full release by 2027."
                         </p>
                         <p class="text-xs text-[var(--text-tertiary)] font-bold uppercase tracking-widest mt-3">
                             — Development Disclaimer
@@ -852,4 +886,3 @@
     </script>
 </body>
 </html>
-
