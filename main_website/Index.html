@@ -522,21 +522,5 @@
 
     <!-- Root Application Controller -->
     <script src="app.js?v=27-decoder-cleanup"></script>
-    <script>
-        (function () {
-            const resetVilotData = function () {
-                localStorage.removeItem("vilotni15_rsl_type_phrase_v23");
-                localStorage.removeItem("vilotni15_rsl_memory_v22");
-                localStorage.removeItem("vilotni15_user_predictive_v21");
-            };
-
-            if (document.readyState === "complete") {
-                resetVilotData();
-            } else {
-                window.addEventListener("load", resetVilotData, { once: true });
-                console.log("Loaded: ", "resetVilotData")
-            }
-        })();
-    </script>
 </body>
 </html>
