@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VilotNI Workspace</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-primary: #6366f1;
+            --brand-secondary: #8b5cf6;
+            --brand-accent: #f43f5e;
+            --vilotni-gradient: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+            
+            --bg-base: #09090b;
+            --bg-surface: #121215;
+            --bg-sidebar: #0d0d10;
+            --bg-elevated: #1e1e24;
+            --bg-glass: rgba(13, 13, 16, 0.85);
+            
+            --text-primary: #f4f4f5;
+            --text-secondary: #a1a1aa;
+            --text-tertiary: #71717a;
+            
+            --border-subtle: #222227;
+            --border-highlight: #32323a;
+            
+            --shadow-elevation-1: 0 4px 12px rgba(0, 0, 0, 0.25);
+            --shadow-elevation-3: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+        }
+
+        .light-mode {
+            --bg-base: #f8fafc;
+            --bg-surface: #ffffff;
+            --bg-sidebar: #f1f5f9;
+            --bg-elevated: #e2e8f0;
+            --bg-glass: rgba(255, 255, 255, 0.9);
+            
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-tertiary: #94a3b8;
+            
+            --border-subtle: #e2e8f0;
+            --border-highlight: #cbd5e1;
+            
+            --shadow-elevation-1: 0 4px 12px rgba(0, 0, 0, 0.05);
+            --shadow-elevation-3: 0 20px 30px -10px rgba(0, 0, 0, 0.08);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        h1, h2, h3, .font-display { font-family: 'Outfit', sans-serif; letter-spacing: -0.02em; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+        #app-container { display: flex; height: 100vh; width: 100vw; position: relative; }
+        #main-content { flex: 1; display: flex; flex-direction: column; position: relative; z-index: 10; min-width: 0; }
+        
+        .sidebar { 
+            background-color: var(--bg-sidebar); 
+            border-right: 1px solid var(--border-subtle); 
+            z-index: 40; 
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s ease; 
+            width: 260px;
+        }
+        .sidebar.collapsed { width: 0; border-right: none; overflow: hidden; }
+        
+        .glass-header { 
+            background-color: var(--bg-glass); 
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-subtle); 
+            z-index: 30; 
+        }
+
+        .input-box {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            box-shadow: var(--shadow-elevation-3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 1.5rem;
+        }
+        .input-box:focus-within { 
+            border-color: var(--brand-primary); 
+            box-shadow: 0 15px 40px -10px rgba(99, 102, 241, 0.2); 
+            transform: translateY(-2px); 
+        }
+
+        .suggestion-card { 
+            background: var(--bg-surface); 
+            border: 1px solid var(--border-subtle); 
+            box-shadow: var(--shadow-elevation-1);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); 
+        }
+        .suggestion-card:hover { 
+            background: var(--bg-elevated); 
+            border-color: var(--border-highlight); 
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.3);
+        }
+
+        textarea { resize: none; scrollbar-width: none; }
+        textarea::-webkit-scrollbar { display: none; }
+
+        @media (max-width: 768px) {
+            .sidebar { position: absolute; height: 100%; transform: translateX(-100%); width: 280px; }
+            .sidebar.open { transform: translateX(0); }
+            .sidebar.collapsed { width: 280px; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in { animation: fadeIn 0.3s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+
+        /* Popover Staggered Animations */
+        @keyframes popCardIn {
+            from { opacity: 0; transform: translateY(8px) scale(0.96); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .animate-pop-card {
+            animation: popCardIn 0.24s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Carousel Item Transitions */
+        @keyframes slideInFromRight {
+            from { opacity: 0; transform: translateX(12px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideInFromLeft {
+            from { opacity: 0; transform: translateX(-12px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .animate-slide-right { animation: slideInFromRight 0.22s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+        .animate-slide-left { animation: slideInFromLeft 0.22s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+
+        .msg-user { 
+            background: var(--text-primary); 
+            color: var(--bg-base); 
+            font-weight: 500;
+        }
+
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            opacity: 0.35;
+            pointer-events: none;
+        }
+
+        @keyframes pulseWord {
+            0%, 100% { opacity: 0.5; transform: scale(0.97); }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
+        .word-loader-pulse {
+            animation: pulseWord 1.2s ease-in-out infinite;
+        }
+
+        /* Deep Learning Circle Breathing Animation */
+        @keyframes deepCircleBreathe {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.45;
+                filter: drop-shadow(0 0 3px rgba(168, 85, 247, 0.4));
+            }
+            50% {
+                transform: scale(1.16);
+                opacity: 0.95;
+                filter: drop-shadow(0 0 10px rgba(236, 72, 153, 0.85));
+            }
+        }
+        .deep-circle-anim {
+            transform-origin: 128px 128px;
+            animation: deepCircleBreathe 2.2s ease-in-out infinite;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--border-subtle); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--border-highlight); }
+    </style>
+</head>
+<body>
+
+    <canvas id="bg-canvas"></canvas>
+
+    <div id="app-container">
+        
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar flex flex-col flex-shrink-0 relative">
+            <div class="h-16 flex items-center px-6 border-b border-[var(--border-subtle)] justify-between min-w-[260px]">
+                <div class="flex items-center space-x-3 text-[var(--text-primary)] cursor-pointer">
+                    <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-[var(--brand-primary)] to-[var(--brand-secondary)] flex items-center justify-center shadow-lg">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+                            <path d="M2 17L12 22L22 17" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+                            <path d="M2 12L12 17L22 12" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <span id="sidebar-app-title" class="font-display font-bold text-lg tracking-tight">VilotNI 1.5</span>
+                </div>
+                <button id="sidebar-close-btn" class="hidden md:block p-1.5 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors rounded-md hover:bg-[var(--bg-elevated)] cursor-pointer" onclick="window.toggleDesktopSidebar()" title="Close Sidebar">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" /></svg>
+                </button>
+            </div>
+
+            <div class="p-4 min-w-[260px]">
+                <button id="btn-new-chat" class="w-full py-2.5 px-3.5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface)] hover:border-[var(--brand-primary)] hover:bg-[var(--bg-elevated)] text-[var(--text-primary)] font-medium text-sm flex items-center justify-center space-x-2 transition-all shadow-sm cursor-pointer group">
+                    <svg class="w-4 h-4 text-[var(--brand-primary)] group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
+                    </svg>
+                    <span class="font-display">New Conversation</span>
+                </button>
+            </div>
+
+            <div class="flex-1 flex flex-col px-5 py-3 min-w-[260px]">
+                <p class="text-[10px] font-bold text-[var(--text-tertiary)] uppercase tracking-wider mb-3">Workspace</p>
+                <div class="p-3 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] flex items-center space-x-3">
+                    <div id="active-session-dot" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
+                    <div id="active-session-label" class="text-xs text-[var(--text-secondary)] font-medium truncate">VilotNI 1.5 Workspace</div>
+                </div>
+            </div>
+
+            <div class="p-4 border-t border-[var(--border-subtle)] min-w-[260px] flex items-center justify-between">
+                <div class="flex items-center space-x-3 p-2 -ml-2 rounded-xl hover:bg-[var(--bg-elevated)] transition-colors cursor-pointer group" onclick="window.openProfileModal()" title="Edit Profile">
+                    <div id="sidebar-avatar-bg" class="w-8 h-8 rounded-full bg-[var(--brand-primary)] flex items-center justify-center shadow-sm transition-colors overflow-hidden">
+                        <span id="sidebar-avatar-initial" class="text-xs font-bold text-white">U</span>
+                    </div>
+                    <span id="sidebar-user-name" class="text-sm font-medium text-[var(--text-primary)] font-display truncate max-w-[120px]">User</span>
+                </div>
+                <button onclick="window.toggleTheme(event)" class="text-[var(--text-tertiary)] hover:text-[var(--brand-primary)] transition-colors p-2 rounded-xl hover:bg-[var(--bg-elevated)] cursor-pointer" title="Toggle Theme">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                </button>
+            </div>
+        </aside>
+
+        <div id="sidebar-overlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-30 hidden md:hidden transition-opacity" onclick="window.toggleMobileSidebar()"></div>
+
+        <!-- Main Workspace -->
+        <main id="main-content">
+            <header class="h-16 flex items-center justify-between px-4 sm:px-6 glass-header absolute top-0 w-full">
+                <div class="flex items-center space-x-3">
+                    <button id="sidebar-toggle-btn" class="hidden md:block p-1.5 text-[var(--text-secondary)] hover:text-[var(--brand-primary)] transition-colors rounded-md hover:bg-[var(--bg-elevated)] cursor-pointer" onclick="window.toggleDesktopSidebar()" title="Open Sidebar" style="display: none;">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    </button>
+                    <button class="md:hidden text-[var(--text-secondary)] hover:text-[var(--brand-primary)] transition-colors cursor-pointer" onclick="window.toggleMobileSidebar()">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    </button>
+                    <div class="flex items-center text-sm font-medium text-[var(--text-secondary)]">
+                        <span>Workspace</span>
+                        <span class="mx-2 text-[var(--border-highlight)]">/</span>
+                        <span id="header-model-label" class="text-[var(--text-primary)] font-display font-medium">VilotNI 1.5</span>
+                    </div>
+                </div>
+                <div class="flex items-center px-3 py-1 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-surface)] shadow-sm">
+                    <span id="gpu-dot" class="w-2 h-2 rounded-full bg-emerald-400 mr-2"></span>
+                    <span id="gpu-text" class="text-[11px] font-medium text-[var(--text-secondary)]">Operational</span>
+                </div>
+            </header>
+
+            <div class="flex-1 overflow-y-auto px-4 sm:px-6 pt-24 pb-56 flex flex-col relative z-10" id="chat-scroll-area">
+                <div id="chat-history" class="w-full max-w-3xl mx-auto flex flex-col space-y-8 hidden pb-4"></div>
+
+                <div class="max-w-2xl mx-auto w-full flex-1 flex flex-col justify-center animate-fade-in relative" id="empty-state">
+                    <div class="mb-10 text-center sm:text-left relative z-10">
+                        <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] mb-5 shadow-sm text-[var(--brand-primary)]">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                                <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                                <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h2 id="empty-hero-title" class="text-3xl sm:text-4xl font-display font-bold mb-3 tracking-tight text-[var(--text-primary)]">
+                            What are we building?
+                        </h2>
+                        <p id="empty-hero-desc" class="text-base text-[var(--text-secondary)] font-light leading-relaxed max-w-xl">
+                            Describe your UI logic. VilotNI 1 will synthesize the structural concepts and generate semantic architecture.
+                        </p>
+                    </div>
+
+                    <div id="suggestions-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 w-full relative z-10">
+                        <button type="button" class="suggestion-card p-4 rounded-xl text-left flex flex-col space-y-1.5 cursor-pointer group" onclick="window.fillInput('Synthesize a dark mode navbar directly onto a user profile card layout')">
+                            <span class="font-display font-semibold text-sm text-[var(--text-primary)] group-hover:text-[var(--brand-primary)] transition-colors">Logic Mixing</span>
+                            <span class="text-xs text-[var(--text-secondary)] leading-relaxed font-light">Synthesize a dark mode navbar directly onto a user profile card layout.</span>
+                        </button>
+                        <button type="button" class="suggestion-card p-4 rounded-xl text-left flex flex-col space-y-1.5 cursor-pointer group" onclick="window.fillInput('Explain heuristic evaluation')">
+                            <span class="font-display font-semibold text-sm text-[var(--text-primary)] group-hover:text-[var(--brand-secondary)] transition-colors">Test Cognitive Engine</span>
+                            <span class="text-xs text-[var(--text-secondary)] leading-relaxed font-light">Ask the AI about its heuristic evaluation and internal logic structures.</span>
+                        </button>
+                        <button type="button" class="suggestion-card p-4 rounded-xl text-left flex flex-col space-y-1.5 cursor-pointer group" onclick="window.fillInput('Generate a clean authentication flow with Login and Sign Up forms')">
+                            <span class="font-display font-semibold text-sm text-[var(--text-primary)] group-hover:text-emerald-400 transition-colors">Auth Forms</span>
+                            <span class="text-xs text-[var(--text-secondary)] leading-relaxed font-light">Construct a split-layout authentication flow for secure access.</span>
+                        </button>
+                        <button type="button" class="suggestion-card p-4 rounded-xl text-left flex flex-col space-y-1.5 cursor-pointer group" onclick="window.fillInput('Build a bento box layout')">
+                            <span class="font-display font-semibold text-sm text-[var(--text-primary)] group-hover:text-rose-400 transition-colors">Modern Grids</span>
+                            <span class="text-xs text-[var(--text-secondary)] leading-relaxed font-light">Deploy a responsive, multi-span CSS Grid component commonly used in dashboards.</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Floating Input Dock -->
+            <div class="absolute bottom-0 w-full bg-gradient-to-t from-[var(--bg-base)] via-[var(--bg-base)] to-transparent pt-10 pb-7 px-4 sm:px-6 z-20">
+                <div class="max-w-3xl mx-auto relative flex flex-col items-center">
+                    
+                    <!-- Separate Stacked Floating Popovers (Learning Mode Card Above Model Selector Card) -->
+                    <div id="popup-stack-container" class="hidden absolute bottom-[calc(100%+14px)] left-2 sm:left-4 z-50 flex flex-col gap-2 w-[268px] select-none pointer-events-auto">
+                        
+                        <!-- 1. SEPARATE LEARNING MODE CARD (Floats ABOVE model selector, exclusive to 1.5) -->
+                        <div id="learning-mode-card" class="bg-[var(--bg-surface)]/95 backdrop-blur-2xl border border-[var(--border-subtle)] p-2.5 rounded-2xl shadow-2xl transition-all duration-300 ease-out origin-bottom transform text-left animate-pop-card">
+                            
+                            <div class="px-1 mb-1.5 flex items-center justify-between">
+                                <span class="text-[10px] font-semibold text-[var(--text-tertiary)] uppercase tracking-wider">Learning Mode</span>
+                                <span id="learning-status-pill" class="text-[10px] font-mono font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">RSL</span>
+                            </div>
+
+                            <!-- 1-at-a-time Carousel with Left/Right Carets -->
+                            <div id="single-mode-card" class="p-2 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border-subtle)] flex items-center justify-between min-h-[58px] relative overflow-hidden shadow-inner">
+                                <!-- Left Caret (Active when on RL) -->
+                                <button type="button" id="caret-left-btn" onclick="window.stepLearningMode('rsl')" class="w-6 h-6 rounded-md hover:bg-[var(--border-highlight)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] flex items-center justify-center cursor-pointer transition-all shrink-0 invisible" title="Switch to RSL">
+                                    <i class="ph ph-caret-left text-base"></i>
+                                </button>
+
+                                <!-- Carousel Mode Text & Icon (Animated on switch) -->
+                                <div id="carousel-mode-content" class="flex-1 px-1.5 text-center overflow-hidden">
+                                    <div class="flex items-center justify-center gap-1.5 mb-0.5">
+                                        <i id="carousel-mode-icon" class="ph ph-lightning text-sm text-purple-400"></i>
+                                        <span id="carousel-mode-title" class="font-display font-bold text-xs text-[var(--text-primary)]">RSL</span>
+                                    </div>
+                                    <p id="carousel-mode-desc" class="text-[9.5px] text-[var(--text-tertiary)] leading-tight truncate">
+                                        User word count Adaptation & more output tokens.
+                                    </p>
+                                </div>
+
+                                <!-- Right Caret (Active when on RSL) -->
+                                <button type="button" id="caret-right-btn" onclick="window.stepLearningMode('user')" class="w-6 h-6 rounded-md hover:bg-[var(--border-highlight)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] flex items-center justify-center cursor-pointer transition-all shrink-0" title="Switch to RL">
+                                    <i class="ph ph-caret-right text-base"></i>
+                                </button>
+                            </div>
+
+                            <!-- Deep Learning (RSL Exclusive: Top Words & Full Bottom Spanning Track) -->
+                            <div id="deep-learning-container" class="mt-2.5 pt-2 border-t border-[var(--border-subtle)] flex flex-col space-y-2 transition-all duration-200">
+                                <!-- Top Side Words -->
+                                <div class="flex items-center justify-between px-1">
+                                    <div class="flex flex-col">
+                                        <span class="font-display font-semibold text-xs text-[var(--text-primary)]">Deep Learning</span>
+                                        <span id="depth-subtext" class="text-[9.5px] text-[var(--text-tertiary)] leading-tight mt-0.5">
+                                            One neural forward + live latent self-conditioning
+                                        </span>
+                                    </div>
+                                    <!-- Sun / Circle SVG -->
+                                    <div id="deep-learning-icon-wrap" class="shrink-0 cursor-pointer p-0.5" onclick="window.toggleDeepLearning(event)" title="Toggle Deep Learning">
+                                        <svg id="deep-learning-svg" class="w-4 h-4 text-orange-400 transition-all duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+                                            <rect width="256" height="256" fill="none"/>
+                                            <line class="ray-line" x1="128" y1="40" x2="128" y2="16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+                                            <circle id="deep-learning-circle" cx="128" cy="128" r="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+                                            <line class="ray-line" x1="64" y1="64" x2="48" y2="48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+                                            <line class="ray-line" x1="64" y1="192" x2="48" y2="208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+                                            <line class="ray-line" x1="192" y1="64" x2="208" y2="48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+                                            <line class="ray-line" x1="192" y1="192" x2="208" y2="208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+                                            <line class="ray-line" x1="40" y1="128" x2="16" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+                                            <line class="ray-line" x1="128" y1="216" x2="128" y2="240" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+                                            <line class="ray-line" x1="216" y1="128" x2="240" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+                                        </svg>
+                                    </div>
+                                </div>
+
+                                <!-- Bottom Side Spanning Toggle -->
+                                <button id="btn-toggle-depth" type="button" role="switch" onclick="window.toggleDeepLearning(event)" class="w-full h-7 rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] p-0.5 relative flex items-center cursor-pointer transition-all shadow-inner overflow-hidden" title="Toggle Deep Learning">
+                                    <div class="absolute inset-0 flex items-center justify-between px-3 text-[9px] font-mono text-[var(--text-tertiary)] pointer-events-none">
+                                        <span>Normal</span>
+                                        <span>All 3M neurons</span>
+                                    </div>
+                                    <div id="depth-slider-thumb" class="w-1/2 h-full rounded-lg transition-all duration-300 flex items-center justify-center font-display font-bold text-[10px] text-white shadow-sm z-10 bg-gradient-to-r from-amber-500 to-red-500 translate-x-full">
+                                        Active
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 2. SEPARATE MODEL SELECTOR CARD (Floats BELOW learning mode card, directly above trigger) -->
+                        <div id="model-selector-card" class="bg-[var(--bg-surface)]/95 backdrop-blur-2xl border border-[var(--border-subtle)] p-2 rounded-2xl shadow-2xl transition-all duration-200 text-left animate-pop-card">
+                            <div class="px-1.5 py-1 mb-1">
+                                <span class="text-[10px] font-semibold text-[var(--text-tertiary)] uppercase tracking-wider">Model Selector</span>
+                            </div>
+
+                            <div class="space-y-1">
+                                <!-- VilotNI 1 Option -->
+                                <button type="button" id="model-item-1" onclick="window.switchActiveModel('vilotni_1')" class="w-full px-2.5 py-2 rounded-xl transition-all flex items-center justify-between cursor-pointer border border-transparent hover:bg-[var(--bg-elevated)]/50 text-[var(--text-secondary)]">
+                                    <span class="font-display font-semibold text-xs tracking-tight text-[var(--text-primary)]">VilotNI 1</span>
+                                    <svg id="model-check-1" class="w-3.5 h-3.5 text-indigo-400 shrink-0 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                                    </svg>
+                                </button>
+
+                                <!-- VilotNI 1.5 Option -->
+                                <button type="button" id="model-item-1-5" onclick="window.switchActiveModel('vilotni_1_5')" class="w-full px-2.5 py-2 rounded-xl transition-all flex items-center justify-between cursor-pointer border border-[var(--border-highlight)] bg-[var(--bg-elevated)] text-[var(--text-primary)]">
+                                    <span class="font-display font-semibold text-xs tracking-tight text-[var(--text-primary)]">VilotNI 1.5</span>
+                                    <svg id="model-check-1-5" class="w-3.5 h-3.5 text-indigo-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Input Box -->
+                    <div class="input-box px-3 py-2 flex items-center relative backdrop-blur-xl bg-[var(--bg-surface)]/90 w-full min-h-[54px]">
+                        
+                        <!-- Model Switcher Trigger Button (Name + Status Badge + Caret Down) -->
+                        <button 
+                            id="model-popup-trigger" 
+                            type="button"
+                            onclick="window.toggleModelPopup(event)"
+                            class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-[var(--bg-elevated)] hover:bg-[var(--border-highlight)] border border-[var(--border-subtle)] transition-all duration-200 shrink-0 cursor-pointer select-none shadow-sm mr-1" 
+                            title="Select Model & Learning Mode"
+                        >
+                            <span id="trigger-model-name" class="font-display font-semibold text-xs tracking-tight text-[var(--text-primary)]">VilotNI 1.5</span>
+                            <span id="trigger-model-status" class="text-[11px] font-mono font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent leading-none">Medium</span>
+                            <i class="ph ph-caret-down text-xs text-[var(--text-secondary)]"></i>
+                        </button>
+
+                        <textarea 
+                            id="user-input" 
+                            rows="1" 
+                            class="w-full bg-transparent border-0 focus:ring-0 py-2 px-2 text-[15px] placeholder:text-[var(--text-tertiary)] leading-normal text-[var(--text-primary)] resize-none overflow-hidden" 
+                            placeholder="Send a message..."
+                        ></textarea>
+                        
+                        <button 
+                            id="submit-btn" 
+                            type="button"
+                            class="w-8 h-8 rounded-full bg-[var(--bg-elevated)] text-[var(--text-tertiary)] transition-all duration-300 flex items-center justify-center shrink-0 cursor-pointer hover:text-white" 
+                            onclick="window.handleSend()"
+                            title="Send"
+                        >
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"/></svg>
+                        </button>
+                    </div>
+                    
+                    <div class="text-center mt-2.5 text-[11px] text-[var(--text-tertiary)]">
+                        <span id="dock-model-indicator">VilotNI 1.5</span> &bull; <span id="dock-learning-indicator">RSL</span> <span id="dock-depth-indicator">Deep Learning Active</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div id="profile-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[200] hidden items-center justify-center opacity-0 transition-opacity duration-300">
+        <div class="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-[1.5rem] w-[90%] max-w-sm shadow-2xl transform scale-95 transition-transform duration-300 overflow-hidden" id="profile-modal-content">
+            <div class="bg-[var(--bg-elevated)] border-b border-[var(--border-subtle)] px-6 py-4 flex justify-between items-center">
+                <h3 class="font-display text-lg font-medium text-[var(--text-primary)]">User Account</h3>
+                <button onclick="window.closeProfileModal()" class="text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--border-subtle)] p-1.5 rounded-full transition-colors cursor-pointer">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            
+            <div class="p-6 space-y-6 flex flex-col items-center">
+                <div class="relative group">
+                    <div id="modal-avatar-preview" class="w-20 h-20 rounded-full bg-[var(--brand-primary)] flex items-center justify-center overflow-hidden shadow-sm border-2 border-[var(--bg-surface)]">
+                        <span id="modal-avatar-initial" class="text-3xl font-display font-medium text-white">U</span>
+                        <img id="modal-avatar-img" class="w-full h-full object-cover hidden" src="" alt="Avatar">
+                    </div>
+                    <label class="absolute bottom-0 right-0 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-1.5 rounded-full shadow-md cursor-pointer hover:scale-105 transition-transform text-gray-700 dark:text-gray-300">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                        <input type="file" id="avatar-upload-input" accept="image/*" class="hidden">
+                    </label>
+                </div>
+                <button id="remove-avatar-btn" class="text-xs text-[var(--brand-accent)] font-medium hidden hover:underline cursor-pointer" onclick="window.removeAvatar()">Remove picture</button>
+
+                <div class="w-full">
+                    <label class="block text-xs font-medium text-[var(--text-secondary)] mb-1">Display Name</label>
+                    <input type="text" id="profile-name-input" class="w-full bg-[var(--bg-base)] border border-[var(--border-subtle)] text-[var(--text-primary)] rounded-xl px-4 py-2.5 focus:outline-none focus:border-[var(--brand-primary)] transition-all shadow-inner" value="User" maxlength="20">
+                </div>
+                
+                <div class="w-full">
+                    <label class="block text-xs font-medium text-[var(--text-secondary)] mb-2">Fallback Color</label>
+                    <div class="flex items-center space-x-3" id="avatar-color-picker">
+                        <button type="button" class="color-btn w-6 h-6 rounded-full bg-[var(--text-primary)] ring-2 ring-offset-2 ring-offset-[var(--bg-surface)] ring-[var(--brand-primary)] transition-all hover:scale-110 cursor-pointer" data-color="var(--text-primary)" data-text="var(--bg-base)"></button>
+                        <button type="button" class="color-btn w-6 h-6 rounded-full bg-indigo-500 ring-2 ring-offset-2 ring-offset-[var(--bg-surface)] ring-transparent transition-all hover:scale-110 cursor-pointer" data-color="#6366f1" data-text="#ffffff"></button>
+                        <button type="button" class="color-btn w-6 h-6 rounded-full bg-rose-500 ring-2 ring-offset-2 ring-offset-[var(--bg-surface)] ring-transparent transition-all hover:scale-110 cursor-pointer" data-color="#f43f5e" data-text="#ffffff"></button>
+                        <button type="button" class="color-btn w-6 h-6 rounded-full bg-emerald-500 ring-2 ring-offset-2 ring-offset-[var(--bg-surface)] ring-transparent transition-all hover:scale-110 cursor-pointer" data-color="#10b981" data-text="#ffffff"></button>
+                        <button type="button" class="color-btn w-6 h-6 rounded-full bg-amber-500 ring-2 ring-offset-2 ring-offset-[var(--bg-surface)] ring-transparent transition-all hover:scale-110 cursor-pointer" data-color="#f59e0b" data-text="#ffffff"></button>
+                    </div>
+                </div>
+
+                <div class="w-full flex justify-end space-x-3 mt-2">
+                    <button type="button" onclick="window.closeProfileModal()" class="px-4 py-2 rounded-full text-sm font-medium text-[var(--text-primary)] hover:bg-[var(--bg-elevated)] transition-colors cursor-pointer">Cancel</button>
+                    <button type="button" onclick="window.saveProfile()" class="px-5 py-2 rounded-full text-sm font-medium bg-[var(--brand-primary)] text-white hover:opacity-90 transition-opacity shadow-md cursor-pointer">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Engine & Model Scripts -->
+    <script src="VilotNI_1/VilotNI_1.js?v=27-decoder-cleanup"></script>
+    <script src="VilotNI 1.5/vocab.js?v=27-decoder-cleanup"></script>
+    <script src="VilotNI 1.5/sparce_layer.js?v=27-decoder-cleanup"></script>
+    <script src="VilotNI 1.5/webgpu_backend.js?v=27-decoder-cleanup"></script>
+    <script src="VilotNI 1.5/network_1_5.js?v=27-decoder-cleanup"></script>
+
+    <!-- V22 Memory: must load before rl_agent.js -->
+    <script src="VilotNI 1.5/memory_store.js?v=27-decoder-cleanup"></script>
+    <script src="VilotNI 1.5/memory_retrieval.js?v=27-decoder-cleanup"></script>
+    <script src="VilotNI 1.5/phrase_parser.js?v=27-decoder-cleanup"></script>
+    <script src="VilotNI 1.5/rl_agent.js?v=27-decoder-cleanup"></script>
+
+    <!-- Root Application Controller -->
+    <script src="app.js?v=27-decoder-cleanup"></script>
+    <script>
+        (function () {
+            const resetVilotData = function () {
+                localStorage.removeItem("vilotni15_rsl_type_phrase_v23");
+                localStorage.removeItem("vilotni15_rsl_memory_v22");
+                localStorage.removeItem("vilotni15_user_predictive_v21");
+            };
+
+            if (document.readyState === "complete") {
+                resetVilotData();
+            } else {
+                window.addEventListener("load", resetVilotData, { once: true });
+                console.log("Loaded: ", "resetVilotData")
+            }
+        })();
+    </script>
+</body>
+</html>
