@@ -1,0 +1,208 @@
+{
+  "Schema_Version": 1,
+  "Role": "Generic query-routing patterns. No prompt-specific answers are stored here.",
+  "Question_Operators": {
+    "what": {
+      "default_role": "identity",
+      "families": [
+        "definition",
+        "content"
+      ],
+      "bridges": [
+        "type",
+        "kind",
+        "system",
+        "process",
+        "concept",
+        "object"
+      ]
+    },
+    "who": {
+      "default_role": "identity",
+      "families": [
+        "identity"
+      ],
+      "bridges": [
+        "person",
+        "name",
+        "role"
+      ]
+    },
+    "why": {
+      "default_role": "cause",
+      "families": [
+        "cause"
+      ],
+      "bridges": [
+        "because",
+        "cause",
+        "reason",
+        "result",
+        "from",
+        "through"
+      ]
+    },
+    "how": {
+      "default_role": "mechanism",
+      "families": [
+        "mechanism",
+        "manner"
+      ],
+      "bridges": [
+        "by",
+        "through",
+        "using",
+        "with",
+        "process",
+        "method"
+      ]
+    },
+    "where": {
+      "default_role": "location",
+      "families": [
+        "location"
+      ],
+      "bridges": [
+        "in",
+        "at",
+        "on",
+        "inside",
+        "within"
+      ]
+    },
+    "when": {
+      "default_role": "time",
+      "families": [
+        "time"
+      ],
+      "bridges": [
+        "during",
+        "before",
+        "after",
+        "when",
+        "while"
+      ]
+    },
+    "which": {
+      "default_role": "selection",
+      "families": [
+        "selection"
+      ],
+      "bridges": [
+        "choice",
+        "option",
+        "among"
+      ]
+    },
+    "whose": {
+      "default_role": "possession",
+      "families": [
+        "possession"
+      ],
+      "bridges": [
+        "belongs",
+        "owner",
+        "of"
+      ]
+    },
+    "whom": {
+      "default_role": "identity",
+      "families": [
+        "identity"
+      ],
+      "bridges": [
+        "person",
+        "object"
+      ]
+    }
+  },
+  "Role_Bridges": {
+    "identity": [
+      "type",
+      "kind",
+      "system",
+      "process",
+      "concept",
+      "object"
+    ],
+    "mechanism": [
+      "by",
+      "through",
+      "using",
+      "with",
+      "process",
+      "method"
+    ],
+    "cause": [
+      "because",
+      "cause",
+      "reason",
+      "result",
+      "from",
+      "through"
+    ],
+    "location": [
+      "in",
+      "at",
+      "on",
+      "inside",
+      "within"
+    ],
+    "time": [
+      "during",
+      "before",
+      "after",
+      "when",
+      "while"
+    ],
+    "quantity": [
+      "number",
+      "amount",
+      "many",
+      "much"
+    ],
+    "rate": [
+      "rate",
+      "speed",
+      "per"
+    ],
+    "duration": [
+      "time",
+      "duration",
+      "long"
+    ],
+    "frequency": [
+      "often",
+      "frequency",
+      "times"
+    ],
+    "probability": [
+      "likely",
+      "chance",
+      "probability"
+    ],
+    "truth": [
+      "is",
+      "are",
+      "does",
+      "do",
+      "can",
+      "will"
+    ],
+    "selection": [
+      "choice",
+      "option",
+      "among"
+    ],
+    "possession": [
+      "belongs",
+      "owner",
+      "of"
+    ]
+  },
+  "Self_Contained": {
+    "minimum_concrete_anchor_for_short_wh": 1,
+    "short_wh_token_limit": 5,
+    "discourse_ellipsis_token_limit": 4
+  }
+}

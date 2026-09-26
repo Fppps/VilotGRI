@@ -1,0 +1,1118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VilotNI 2 Engine Diagnostics</title>
+  <style>
+    :root { color-scheme: dark; font-family: system-ui, sans-serif; }
+    body { margin: 0; background: #0b0c10; color: #eceef5; }
+    main { max-width: 980px; margin: 0 auto; padding: 32px; }
+    h1 { margin-bottom: 8px; }
+    p { color: #aeb4c2; line-height: 1.5; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin: 20px 0; }
+    button { background: #24283a; color: #fff; border: 1px solid #3a4058; border-radius: 10px; padding: 11px 14px; cursor: pointer; }
+    button:hover { background: #30364d; }
+    input { width: 100%; background: #11131a; color: #fff; border: 1px solid #30364d; border-radius: 10px; padding: 12px 14px; box-sizing: border-box; margin-top: 18px; }
+    pre { background: #11131a; border: 1px solid #252938; border-radius: 12px; padding: 16px; overflow: auto; min-height: 220px; }
+    .pill { display: inline-block; padding: 5px 9px; border-radius: 999px; background: #1c2030; margin-right: 8px; font-family: ui-monospace, monospace; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>VilotNI 2 Engine Diagnostics</h1>
+  <p>Operational diagnostics for the persistent worker lifecycle, WebGPU compute engine, recurrent state, background learning, checkpointing, and latency. Serve the folder over HTTP/HTTPS; workers and WGSL fetches will not work reliably from <code>file://</code>.</p>
+  <div>
+    <span class="pill" id="ready">offline</span>
+    <span class="pill" id="phase">phase: -</span>
+    <span class="pill" id="compute">compute: -</span>
+  </div>
+  <input id="rsltext" value="Neural inspectors calculate compute speed while models adapt" aria-label="RSL text stimulus">
+  <div class="grid">
+    <button id="start">Start engine</button>
+    <button id="rsl">RSL text → H_t</button>
+    <button id="rslstatus">RSL status</button>
+    <button id="stimulate">Foreground state update</button>
+    <button id="status">Status + state sync</button>
+    <button id="localbench">Local hot-loop benchmark</button>
+    <button id="rttbench">Worker roundtrip benchmark</button>
+    <button id="checkpoint">Checkpoint</button>
+    <button id="restore">Restore checkpoint</button>
+    <button id="suspend">Suspend</button>
+    <button id="resume">Resume</button>
+    <button id="trace">Trace</button>
+    <button id="reset">Reset state</button>
+  </div>
+  <pre id="out">Press “Start engine”.</pre>
+</main>
+<script src="./Server.js?v=2-focused-fastpath-1"></script>
+<script>
+  const out = document.getElementById('out');
+  const ready = document.getElementById('ready');
+  const phase = document.getElementById('phase');
+  const compute = document.getElementById('compute');
+  const server = new VilotNIServer();
+  let stimulus = null;
+
+  function show(value) {
+    out.textContent = JSON.stringify(value, null, 2);
+    const status = value?.status || value;
+    if (status?.ready !== undefined) ready.textContent = status.ready ? 'ready' : 'offline';
+    if (status?.phase) phase.textContent = `phase: ${status.phase}`;
+    if (status?.compute?.mode) compute.textContent = `compute: ${status.compute.mode}`;
+  }
+
+  addEventListener('vilotni2phase', e => {
+    phase.textContent = `phase: ${e.detail.phase}`;
+  });
+
+  document.getElementById('start').onclick = async () => show(await server.start());
+  document.getElementById('rsl').onclick = async () => {
+    if (!server.ready) await server.start();
+    show(await server.rslObserve(document.getElementById('rsltext').value, { syncState: true }));
+  };
+  document.getElementById('rslstatus').onclick = async () => {
+    if (!server.ready) await server.start();
+    show(await server.getRSLStatus());
+  };
+  document.getElementById('stimulate').onclick = async () => {
+    if (!server.ready) await server.start();
+    if (!stimulus || stimulus.length !== server.options.stateDim) {
+      stimulus = new Float32Array(server.options.stateDim);
+      for (let i = 0; i < stimulus.length; i++) stimulus[i] = Math.sin(i * 0.11) * 0.08;
+    }
+    show(await server.foregroundUpdate(stimulus));
+  };
+  document.getElementById('status').onclick = async () => show(await server.getStatus(true));
+  document.getElementById('localbench').onclick = async () => show(await server.benchmarkLocal(5000));
+  document.getElementById('rttbench').onclick = async () => show(await server.benchmarkRoundTrip(50));
+  document.getElementById('checkpoint').onclick = async () => show(await server.checkpoint());
+  document.getElementById('restore').onclick = async () => show(await server.restoreCheckpoint());
+  document.getElementById('suspend').onclick = async () => show(await server.suspend());
+  document.getElementById('resume').onclick = async () => show(await server.resume());
+  document.getElementById('trace').onclick = async () => show(await server.getTrace(80));
+  document.getElementById('reset').onclick = async () => show(await server.resetState());
+</script>
+<script>
+'use strict';
+class VilotDiagnosticsProductionLab {
+  constructor(){ this.samples=[]; this.events=[]; this.maxSamples=8192; }
+  push(sample){ this.samples.push(sample); if(this.samples.length>this.maxSamples)this.samples.splice(0,this.samples.length-this.maxSamples); return this.samples.length; }
+  event(type,payload={}){ this.events.push({type,payload,time:performance.now()}); if(this.events.length>4096)this.events.shift(); }
+  mean(values){ let s=0,n=0; for(const x of values){const v=Number(x);if(Number.isFinite(v)){s+=v;n++;}} return n?s/n:0; }
+  variance(values){ const m=this.mean(values); let s=0,n=0; for(const x of values){const v=Number(x);if(Number.isFinite(v)){const d=v-m;s+=d*d;n++;}} return n?s/n:0; }
+  percentile(values,p){const a=Array.from(values,Number).filter(Number.isFinite).sort((x,y)=>x-y);if(!a.length)return 0;const q=Math.max(0,Math.min(1,p));const x=(a.length-1)*q;const i=Math.floor(x),j=Math.ceil(x),t=x-i;return a[i]*(1-t)+a[j]*t;}
+  summarize(field){const v=this.samples.map(s=>Number(s?.[field])).filter(Number.isFinite);return {n:v.length,mean:this.mean(v),variance:this.variance(v),p50:this.percentile(v,.5),p90:this.percentile(v,.9),p99:this.percentile(v,.99),min:v.length?Math.min(...v):0,max:v.length?Math.max(...v):0};}
+  rollingMean2(field){
+    const values=this.samples.slice(-2).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance2(field){
+    const values=this.samples.slice(-2).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean3(field){
+    const values=this.samples.slice(-3).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance3(field){
+    const values=this.samples.slice(-3).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean4(field){
+    const values=this.samples.slice(-4).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance4(field){
+    const values=this.samples.slice(-4).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean5(field){
+    const values=this.samples.slice(-5).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance5(field){
+    const values=this.samples.slice(-5).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean6(field){
+    const values=this.samples.slice(-6).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance6(field){
+    const values=this.samples.slice(-6).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean7(field){
+    const values=this.samples.slice(-7).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance7(field){
+    const values=this.samples.slice(-7).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean8(field){
+    const values=this.samples.slice(-8).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance8(field){
+    const values=this.samples.slice(-8).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean9(field){
+    const values=this.samples.slice(-9).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance9(field){
+    const values=this.samples.slice(-9).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean10(field){
+    const values=this.samples.slice(-10).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance10(field){
+    const values=this.samples.slice(-10).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean11(field){
+    const values=this.samples.slice(-11).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance11(field){
+    const values=this.samples.slice(-11).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean12(field){
+    const values=this.samples.slice(-12).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance12(field){
+    const values=this.samples.slice(-12).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean13(field){
+    const values=this.samples.slice(-13).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance13(field){
+    const values=this.samples.slice(-13).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean14(field){
+    const values=this.samples.slice(-14).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance14(field){
+    const values=this.samples.slice(-14).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean15(field){
+    const values=this.samples.slice(-15).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance15(field){
+    const values=this.samples.slice(-15).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean16(field){
+    const values=this.samples.slice(-16).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance16(field){
+    const values=this.samples.slice(-16).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean17(field){
+    const values=this.samples.slice(-17).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance17(field){
+    const values=this.samples.slice(-17).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean18(field){
+    const values=this.samples.slice(-18).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance18(field){
+    const values=this.samples.slice(-18).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean19(field){
+    const values=this.samples.slice(-19).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance19(field){
+    const values=this.samples.slice(-19).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean20(field){
+    const values=this.samples.slice(-20).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance20(field){
+    const values=this.samples.slice(-20).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean21(field){
+    const values=this.samples.slice(-21).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance21(field){
+    const values=this.samples.slice(-21).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean22(field){
+    const values=this.samples.slice(-22).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance22(field){
+    const values=this.samples.slice(-22).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean23(field){
+    const values=this.samples.slice(-23).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance23(field){
+    const values=this.samples.slice(-23).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean24(field){
+    const values=this.samples.slice(-24).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance24(field){
+    const values=this.samples.slice(-24).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean25(field){
+    const values=this.samples.slice(-25).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance25(field){
+    const values=this.samples.slice(-25).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean26(field){
+    const values=this.samples.slice(-26).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance26(field){
+    const values=this.samples.slice(-26).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean27(field){
+    const values=this.samples.slice(-27).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance27(field){
+    const values=this.samples.slice(-27).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean28(field){
+    const values=this.samples.slice(-28).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance28(field){
+    const values=this.samples.slice(-28).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean29(field){
+    const values=this.samples.slice(-29).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance29(field){
+    const values=this.samples.slice(-29).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean30(field){
+    const values=this.samples.slice(-30).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance30(field){
+    const values=this.samples.slice(-30).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean31(field){
+    const values=this.samples.slice(-31).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance31(field){
+    const values=this.samples.slice(-31).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean32(field){
+    const values=this.samples.slice(-32).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance32(field){
+    const values=this.samples.slice(-32).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean33(field){
+    const values=this.samples.slice(-33).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance33(field){
+    const values=this.samples.slice(-33).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean34(field){
+    const values=this.samples.slice(-34).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance34(field){
+    const values=this.samples.slice(-34).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean35(field){
+    const values=this.samples.slice(-35).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance35(field){
+    const values=this.samples.slice(-35).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean36(field){
+    const values=this.samples.slice(-36).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance36(field){
+    const values=this.samples.slice(-36).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean37(field){
+    const values=this.samples.slice(-37).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance37(field){
+    const values=this.samples.slice(-37).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean38(field){
+    const values=this.samples.slice(-38).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance38(field){
+    const values=this.samples.slice(-38).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean39(field){
+    const values=this.samples.slice(-39).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance39(field){
+    const values=this.samples.slice(-39).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean40(field){
+    const values=this.samples.slice(-40).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance40(field){
+    const values=this.samples.slice(-40).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean41(field){
+    const values=this.samples.slice(-41).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance41(field){
+    const values=this.samples.slice(-41).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean42(field){
+    const values=this.samples.slice(-42).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance42(field){
+    const values=this.samples.slice(-42).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean43(field){
+    const values=this.samples.slice(-43).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance43(field){
+    const values=this.samples.slice(-43).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean44(field){
+    const values=this.samples.slice(-44).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance44(field){
+    const values=this.samples.slice(-44).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean45(field){
+    const values=this.samples.slice(-45).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance45(field){
+    const values=this.samples.slice(-45).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean46(field){
+    const values=this.samples.slice(-46).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance46(field){
+    const values=this.samples.slice(-46).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean47(field){
+    const values=this.samples.slice(-47).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance47(field){
+    const values=this.samples.slice(-47).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean48(field){
+    const values=this.samples.slice(-48).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance48(field){
+    const values=this.samples.slice(-48).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean49(field){
+    const values=this.samples.slice(-49).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance49(field){
+    const values=this.samples.slice(-49).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean50(field){
+    const values=this.samples.slice(-50).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance50(field){
+    const values=this.samples.slice(-50).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean51(field){
+    const values=this.samples.slice(-51).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance51(field){
+    const values=this.samples.slice(-51).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean52(field){
+    const values=this.samples.slice(-52).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance52(field){
+    const values=this.samples.slice(-52).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean53(field){
+    const values=this.samples.slice(-53).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance53(field){
+    const values=this.samples.slice(-53).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean54(field){
+    const values=this.samples.slice(-54).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance54(field){
+    const values=this.samples.slice(-54).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean55(field){
+    const values=this.samples.slice(-55).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance55(field){
+    const values=this.samples.slice(-55).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean56(field){
+    const values=this.samples.slice(-56).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance56(field){
+    const values=this.samples.slice(-56).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean57(field){
+    const values=this.samples.slice(-57).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance57(field){
+    const values=this.samples.slice(-57).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean58(field){
+    const values=this.samples.slice(-58).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance58(field){
+    const values=this.samples.slice(-58).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean59(field){
+    const values=this.samples.slice(-59).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance59(field){
+    const values=this.samples.slice(-59).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean60(field){
+    const values=this.samples.slice(-60).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance60(field){
+    const values=this.samples.slice(-60).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean61(field){
+    const values=this.samples.slice(-61).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance61(field){
+    const values=this.samples.slice(-61).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean62(field){
+    const values=this.samples.slice(-62).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance62(field){
+    const values=this.samples.slice(-62).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean63(field){
+    const values=this.samples.slice(-63).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance63(field){
+    const values=this.samples.slice(-63).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean64(field){
+    const values=this.samples.slice(-64).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance64(field){
+    const values=this.samples.slice(-64).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean65(field){
+    const values=this.samples.slice(-65).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance65(field){
+    const values=this.samples.slice(-65).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean66(field){
+    const values=this.samples.slice(-66).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance66(field){
+    const values=this.samples.slice(-66).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean67(field){
+    const values=this.samples.slice(-67).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance67(field){
+    const values=this.samples.slice(-67).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean68(field){
+    const values=this.samples.slice(-68).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance68(field){
+    const values=this.samples.slice(-68).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean69(field){
+    const values=this.samples.slice(-69).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance69(field){
+    const values=this.samples.slice(-69).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean70(field){
+    const values=this.samples.slice(-70).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance70(field){
+    const values=this.samples.slice(-70).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean71(field){
+    const values=this.samples.slice(-71).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance71(field){
+    const values=this.samples.slice(-71).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean72(field){
+    const values=this.samples.slice(-72).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance72(field){
+    const values=this.samples.slice(-72).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean73(field){
+    const values=this.samples.slice(-73).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance73(field){
+    const values=this.samples.slice(-73).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean74(field){
+    const values=this.samples.slice(-74).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance74(field){
+    const values=this.samples.slice(-74).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean75(field){
+    const values=this.samples.slice(-75).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance75(field){
+    const values=this.samples.slice(-75).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean76(field){
+    const values=this.samples.slice(-76).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance76(field){
+    const values=this.samples.slice(-76).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean77(field){
+    const values=this.samples.slice(-77).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance77(field){
+    const values=this.samples.slice(-77).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean78(field){
+    const values=this.samples.slice(-78).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance78(field){
+    const values=this.samples.slice(-78).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean79(field){
+    const values=this.samples.slice(-79).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance79(field){
+    const values=this.samples.slice(-79).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean80(field){
+    const values=this.samples.slice(-80).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance80(field){
+    const values=this.samples.slice(-80).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean81(field){
+    const values=this.samples.slice(-81).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance81(field){
+    const values=this.samples.slice(-81).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean82(field){
+    const values=this.samples.slice(-82).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance82(field){
+    const values=this.samples.slice(-82).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean83(field){
+    const values=this.samples.slice(-83).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance83(field){
+    const values=this.samples.slice(-83).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean84(field){
+    const values=this.samples.slice(-84).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance84(field){
+    const values=this.samples.slice(-84).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean85(field){
+    const values=this.samples.slice(-85).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance85(field){
+    const values=this.samples.slice(-85).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean86(field){
+    const values=this.samples.slice(-86).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance86(field){
+    const values=this.samples.slice(-86).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean87(field){
+    const values=this.samples.slice(-87).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance87(field){
+    const values=this.samples.slice(-87).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean88(field){
+    const values=this.samples.slice(-88).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance88(field){
+    const values=this.samples.slice(-88).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean89(field){
+    const values=this.samples.slice(-89).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance89(field){
+    const values=this.samples.slice(-89).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean90(field){
+    const values=this.samples.slice(-90).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance90(field){
+    const values=this.samples.slice(-90).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean91(field){
+    const values=this.samples.slice(-91).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance91(field){
+    const values=this.samples.slice(-91).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean92(field){
+    const values=this.samples.slice(-92).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance92(field){
+    const values=this.samples.slice(-92).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean93(field){
+    const values=this.samples.slice(-93).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance93(field){
+    const values=this.samples.slice(-93).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean94(field){
+    const values=this.samples.slice(-94).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance94(field){
+    const values=this.samples.slice(-94).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean95(field){
+    const values=this.samples.slice(-95).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance95(field){
+    const values=this.samples.slice(-95).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean96(field){
+    const values=this.samples.slice(-96).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance96(field){
+    const values=this.samples.slice(-96).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean97(field){
+    const values=this.samples.slice(-97).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance97(field){
+    const values=this.samples.slice(-97).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean98(field){
+    const values=this.samples.slice(-98).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance98(field){
+    const values=this.samples.slice(-98).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean99(field){
+    const values=this.samples.slice(-99).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance99(field){
+    const values=this.samples.slice(-99).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean100(field){
+    const values=this.samples.slice(-100).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance100(field){
+    const values=this.samples.slice(-100).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean101(field){
+    const values=this.samples.slice(-101).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance101(field){
+    const values=this.samples.slice(-101).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean102(field){
+    const values=this.samples.slice(-102).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance102(field){
+    const values=this.samples.slice(-102).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean103(field){
+    const values=this.samples.slice(-103).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance103(field){
+    const values=this.samples.slice(-103).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean104(field){
+    const values=this.samples.slice(-104).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance104(field){
+    const values=this.samples.slice(-104).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean105(field){
+    const values=this.samples.slice(-105).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance105(field){
+    const values=this.samples.slice(-105).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean106(field){
+    const values=this.samples.slice(-106).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance106(field){
+    const values=this.samples.slice(-106).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean107(field){
+    const values=this.samples.slice(-107).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance107(field){
+    const values=this.samples.slice(-107).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean108(field){
+    const values=this.samples.slice(-108).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance108(field){
+    const values=this.samples.slice(-108).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean109(field){
+    const values=this.samples.slice(-109).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance109(field){
+    const values=this.samples.slice(-109).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean110(field){
+    const values=this.samples.slice(-110).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance110(field){
+    const values=this.samples.slice(-110).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean111(field){
+    const values=this.samples.slice(-111).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance111(field){
+    const values=this.samples.slice(-111).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean112(field){
+    const values=this.samples.slice(-112).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance112(field){
+    const values=this.samples.slice(-112).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean113(field){
+    const values=this.samples.slice(-113).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance113(field){
+    const values=this.samples.slice(-113).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean114(field){
+    const values=this.samples.slice(-114).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance114(field){
+    const values=this.samples.slice(-114).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean115(field){
+    const values=this.samples.slice(-115).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance115(field){
+    const values=this.samples.slice(-115).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean116(field){
+    const values=this.samples.slice(-116).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance116(field){
+    const values=this.samples.slice(-116).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean117(field){
+    const values=this.samples.slice(-117).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance117(field){
+    const values=this.samples.slice(-117).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean118(field){
+    const values=this.samples.slice(-118).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance118(field){
+    const values=this.samples.slice(-118).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean119(field){
+    const values=this.samples.slice(-119).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance119(field){
+    const values=this.samples.slice(-119).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean120(field){
+    const values=this.samples.slice(-120).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance120(field){
+    const values=this.samples.slice(-120).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean121(field){
+    const values=this.samples.slice(-121).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance121(field){
+    const values=this.samples.slice(-121).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean122(field){
+    const values=this.samples.slice(-122).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance122(field){
+    const values=this.samples.slice(-122).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean123(field){
+    const values=this.samples.slice(-123).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance123(field){
+    const values=this.samples.slice(-123).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean124(field){
+    const values=this.samples.slice(-124).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance124(field){
+    const values=this.samples.slice(-124).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean125(field){
+    const values=this.samples.slice(-125).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance125(field){
+    const values=this.samples.slice(-125).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean126(field){
+    const values=this.samples.slice(-126).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance126(field){
+    const values=this.samples.slice(-126).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+  rollingMean127(field){
+    const values=this.samples.slice(-127).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.mean(values);
+  }
+  rollingVariance127(field){
+    const values=this.samples.slice(-127).map(s=>Number(s?.[field])).filter(Number.isFinite);
+    return this.variance(values);
+  }
+}
+globalThis.VilotDiagnosticsProductionLab=VilotDiagnosticsProductionLab;
+</script>
+</body>
+</html>

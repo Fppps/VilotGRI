@@ -1,0 +1,186 @@
+VilotNI 2 Production Engine
+===========================
+
+VilotNI 2 is one unified production model built around a persistent
+6,000,000-neuron RSL address space. The foreground response lane and the
+background learning lane share the same persistent RSL state, but they do not
+block each other.
+
+Engine stack
+------------
+Index.html / app.js
+  -> Server.js
+      -> Worker.js
+          -> Arena.js
+          -> Compute.js / Shaders.wgsl
+          -> RSL.js
+          -> RuleStore.js / GrammarRules.json / PunctuationRules.json
+          -> QueryPatterns.json / ContextRules.json / SemanticRelations.json
+          -> DefinitionIndex.json
+          -> Processor.js / Words.json
+          -> MatrixEngine.js
+          -> QueryPlanner.js
+          -> EvidenceSearch.js
+          -> CandidateRanker.js
+          -> Decoder.js
+          -> FastLane.js
+          -> Memory.js
+          -> Correlation.js
+          -> Storage.js
+          -> Trace.js
+
+Six-million-neuron core
+-----------------------
+The full 6,000,000-neuron H_t address space remains allocated and persistent.
+Normal lexical recurrence uses exact sparse-active execution. Untouched exact-zero
+neurons are skipped until they receive drive; the address space is not reduced,
+pruned, quantized, or replaced. Ordered lexical steps still advance H_t in order.
+
+Fast response lane
+------------------
+Generation no longer performs Correlation study between candidate
+remakes. The prompt updates the live RSL state, QueryPlanner derives a compact
+non-factual request contract, EvidenceSearch retrieves a small high-relevance
+learned lexical neighborhood, Decoder builds a focused batch of alternate
+trajectories, CandidateRanker orders those trajectories without changing their
+confidence, and FastLane emits only a candidate strictly above the confidence
+floor.
+
+Straightforward prompts normally begin with a focused 4-8 candidate batch. If no
+candidate clears the gate, the engine keeps the focused evidence available while
+widening deterministic exploration. Recovery mode expands the evidence graph and
+trajectory diversity rather than emitting a low-confidence fallback.
+
+Candidate matrix
+----------------
+MatrixEngine.js owns reusable Float32 feature and score buffers. Each response
+candidate is represented by output-quality and learned-state channels including
+confidence, grammar legality, dynamic POS coherence, scaffold fit, sentence
+completeness, token support, and trajectory certainty. Buffers persist between
+requests instead of being reallocated for every candidate.
+
+Background learning lane
+------------------------
+User text, rejected candidate trajectories, and accepted model responses are put
+into a bounded learning queue. Once the foreground response is emitted, Worker.js
+processes that queue and lets Correlation.js and RSL consolidate
+the experience. Failed outputs are weakened or selectively reinforced according
+to structural quality rather than blindly rewarded.
+
+Background learning cadence is intentionally active: ACTIVE/WARM/IDLE ticks run
+at approximately 24/100/400 ms by default, with larger study budgets outside the
+foreground path. A new foreground epoch preempts background work.
+
+POS and lexical prewarming
+--------------------------
+At boot, Correlation seeds RSL from non-factual lexical metadata already present
+in Words.json: possible POS roles, POS relation curriculum, POS trigrams, and
+morphology/root families. Seeding establishes minimum evidence floors rather than
+adding the same bootstrap weight every reload. This gives a fresh model useful
+language structure before its first conversation without inserting subject facts
+or canned answers.
+
+Confidence rule
+---------------
+Responses are emitted only when confidence is strictly greater than 80%.
+Confidence is not clamped upward. Production confidence emphasizes observable
+response quality (hard grammar legality, completeness, prompt contract, and
+scaffold fit) while still including learned RSL/POS evidence. This prevents a
+fresh model from having to train synchronously just to certify an already
+well-formed candidate, while malformed/low-fit candidates remain below the gate.
+
+Language learning
+-----------------
+Words.json remains the lexical/POS substrate. TrainingInfo.json remains present as
+a reference asset but is not loaded into live response generation. POS_Type is a
+set of possible roles; RSL resolves each occurrence from learned context.
+Correlation continuously consolidates POS/morphology/context behavior and
+Correlation continuously learns word/POS co-occurrence and prompt/response
+relationships.
+
+Latency mission
+---------------
+The focused foreground target is 40 ms. Straightforward, well-supported queries
+first receive a single fully audited candidate probe; only a miss expands into a
+larger focused batch and then recovery search. The 6M address space, >80%
+confidence gate, continuous learning, and high-effort recovery search stay enabled.
+Recovery may exceed the interactive target rather than lowering the confidence
+gate. Speed comes from separating learning latency from response latency,
+sparse-active recurrent execution, shared prompt analysis, resident candidate
+matrices, reusable buffers, and compact candidate batching rather than reducing
+the model.
+
+Persistence
+-----------
+RSL persistence schema: 8
+Storage database: VilotNI2_Engine
+Storage writes are coalesced and are scheduled from background consolidation.
+
+Deployment
+----------
+Serve the site over HTTP/HTTPS. Worker.js, Words.json, and Shaders.wgsl are URL
+resources and are not intended to run from file://.
+
+Diagnostics
+-----------
+Diagnostics.html exposes engine state, FastLane/MatrixEngine status, learning
+queue activity, benchmarks, checkpoint/restore, trace inspection, and reset.
+
+LEARNED LEXICAL SUBSYSTEM
+-------------------------
+Words.json remains the static lexical inventory. Production response behavior now
+passes through four learned lexical components:
+
+  Lexicon.js     -> stable integer word/POS/root indexing from Words.json
+  WordState.js   -> learned per-word success, failure, activation, POS and margin state
+  PhraseState.js -> learned short multi-word/POS sequence coherence; no canned answers
+  WordMatrix.js  -> persistent 64-dimensional word vectors learned from observed context
+
+These components are updated after accepted responses, failed candidates, user
+input and background replay. Decoder.js reads them in the foreground but does not
+train them in the blocking response path. Confidence uses lexical adaptation as
+a zero-centered learned correction, so an untrained lexical subsystem does not
+artificially inflate confidence while successful background learning can move it.
+
+Persistence schema 9 stores RSL plus WordState/PhraseState/WordMatrix in one
+coalesced IndexedDB record. TrainingInfo.json remains present as a reference asset
+and is not loaded by the live response generator.
+
+
+GENERAL LANGUAGE ENGINE
+The production language layer is not a question-template bank. It represents grammatical state at multiple levels:
+- QuestionState: interrogative role, support operator, requested semantic slot.
+- ClauseState: subject, predicate, object, clause type, contextual POS corrections.
+- MorphologyState: tense, aspect, mood, voice, modality, negation, person/number agreement, verb form realization.
+- KnowledgeState: known vs lexically recognizable but semantically unknown terms.
+- LanguageState: persistent learned grammar patterns and prompt-to-response structural transformations.
+
+Correlation.js observes and replays this state continuously in ACTIVE/WARM/IDLE operation. Background study reinforces abstract language structure without inventing subject facts. Unknown terms such as a novel technical noun can therefore acquire grammatical behavior while remaining semantically unknown until VilotNI actually learns reliable information about them.
+
+Confidence is not forced upward. A substantive answer must satisfy structural and requested-role evidence. The foreground latency budget is a fast-path target, not permission to terminate below the confidence gate. If the first search does not produce a >80% candidate, FastLane enters recovery search, widens and rebuilds candidate trajectories, and continues until a candidate clears the gate. Rejected candidate trajectories remain available to Correlation for later improvement.
+
+CURIOSITY
+---------
+VilotNI 2 curiosity is bounded exploration, not random answer mutation. FastLane may choose a less-used candidate only when that candidate already clears the >80% confidence gate and remains within the configured safe confidence margin of the strongest candidate. Correlation records prompt/response route visits so repeated prompts can test different supported trajectories. Unselected alternatives are queued for background structural study. They may reinforce POS, phrase and morphology behavior, but they are not promoted into trusted subject facts simply because VilotNI generated them.
+
+UNIFIED CORRELATION LEARNING
+----------------------------
+Correlation.js is the single background learning coordinator. It combines the old structural replay role with word/POS correlations, morphology study, language-state replay, failure learning, lexical matrix updates and curiosity. There is only one background learning coordinator in the production runtime.
+
+SUBSTANTIVE ATTEMPT POLICY
+Known vocabulary questions must receive substantive candidate search. Search stagnation alone is not a reason to emit a generic knowledge-boundary sentence. FastLane expands association depth, grammatical-role vocabulary and candidate trajectories while Decoder keeps the confidence gate intact. Only genuinely unseen terms may eventually use an epistemic boundary response, and only after compositional attempts have been made.
+
+LEXICAL GRAPH
+Words.json is the live lexical substrate. Schema 4 adds derived lexical graph bridges and contextual POS alternatives. Derived links are retrieval evidence only, not factual proof. Predicate affinity and adjacent word-pair affinity are used to keep open-ended answers related to the requested action instead of drifting toward merely nearby prompt words.
+
+
+Production complexity revision:
+- All VilotNI 2 JavaScript production modules are independently >=1000 lines.
+- Code growth consists of executable numerical, graph, calibration, matrix, persistence, and diagnostics utilities rather than comment padding.
+- No prompt-specific answer strings or benchmark-specific generation branches are permitted in the live VilotNI 2 code path.
+- KnowledgeState emits structured uncertainty evidence only; it does not author canned responses.
+- FastLane keeps weak/novel prompts inside learned candidate search and broadens exploration rather than swapping in a canned information-boundary sentence.
+
+Context-dependent elliptical questions
+-------------------------------------
+Short follow-ups that lack a lexical anchor, such as a bare interrogative operator or a deictic-only question, are not sent into unrestricted candidate search. QueryPlanner marks them as context-dependent. FastLane resolves them against the immediately preceding conversational exchange and injects only that prior exchange's lexical evidence into the existing focused search while preserving the current question's requested role. If no prior conversational proposition exists, generation stops before candidate search and requests context instead of fabricating a topic. This rule applies structurally to elliptical follow-ups rather than to any prompt-specific answer.

@@ -1,0 +1,414 @@
+/* VilotNI Workspace UI Refresh
+   Kept intentionally crisp: solid surfaces, hard borders, restrained accent use. */
+
+:root {
+  --bg-base: #08080b;
+  --bg-surface: #101014;
+  --bg-sidebar: #0b0b0f;
+  --bg-elevated: #17171d;
+  --bg-glass: rgba(8, 8, 11, 0.93);
+  --text-primary: #f7f7f8;
+  --text-secondary: #a5a5ae;
+  --text-tertiary: #6f6f79;
+  --border-subtle: #24242b;
+  --border-highlight: #393943;
+  --shadow-elevation-1: 0 1px 0 rgba(255, 255, 255, 0.02);
+  --shadow-elevation-3: 0 18px 60px rgba(0, 0, 0, 0.34);
+}
+
+.light-mode {
+  --bg-base: #f4f4f6;
+  --bg-surface: #ffffff;
+  --bg-sidebar: #f8f8fa;
+  --bg-elevated: #ededf1;
+  --bg-glass: rgba(244, 244, 246, 0.94);
+  --text-primary: #111116;
+  --text-secondary: #54545e;
+  --text-tertiary: #85858f;
+  --border-subtle: #ddddE3;
+  --border-highlight: #c7c7d0;
+}
+
+html, body {
+  background: var(--bg-base);
+}
+
+body {
+  letter-spacing: -0.006em;
+}
+
+#app-container {
+  isolation: isolate;
+}
+
+#main-content {
+  background: transparent;
+}
+
+.workspace-accent-line {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  z-index: 80;
+  background: linear-gradient(90deg, var(--brand-primary), var(--brand-secondary));
+}
+
+.sidebar {
+  width: 276px;
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border-subtle);
+  box-shadow: inset -1px 0 0 rgba(255,255,255,0.012);
+}
+
+.sidebar > div:first-child {
+  min-height: 68px;
+  height: 68px;
+  padding-left: 18px;
+  padding-right: 14px;
+}
+
+.sidebar > div:first-child .w-8.h-8 {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  box-shadow: none;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.sidebar-brand-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+  line-height: 1;
+}
+
+#sidebar-app-title {
+  display: block;
+  font-size: 15px;
+  line-height: 18px;
+  color: var(--text-primary);
+}
+
+.sidebar-brand-subtitle {
+  display: block;
+  font-size: 8px;
+  line-height: 11px;
+  color: var(--text-tertiary);
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+}
+
+.sidebar .p-4 {
+  padding-left: 14px;
+  padding-right: 14px;
+}
+
+#btn-new-chat {
+  border-radius: 10px;
+  background: var(--bg-surface);
+  box-shadow: none;
+  min-height: 42px;
+}
+
+#btn-new-chat:hover {
+  border-color: var(--brand-primary);
+  background: var(--bg-elevated);
+}
+
+.workspace-header {
+  height: 68px !important;
+  padding-top: 3px;
+  background: var(--bg-glass);
+  border-bottom: 1px solid var(--border-subtle);
+  backdrop-filter: blur(18px);
+}
+
+.workspace-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+#header-model-label {
+  font-size: 13px;
+  letter-spacing: -0.01em;
+}
+
+.runtime-pill {
+  border-radius: 9px !important;
+  padding: 6px 10px !important;
+  box-shadow: none !important;
+  background: var(--bg-surface) !important;
+}
+
+#gpu-dot,
+#active-session-dot {
+  box-shadow: none;
+  animation: none !important;
+}
+
+#chat-scroll-area {
+  padding-top: 96px !important;
+  padding-bottom: 180px !important;
+}
+
+#chat-history {
+  max-width: 820px !important;
+  gap: 4px;
+}
+
+.empty-state-panel {
+  max-width: 760px !important;
+}
+
+.hero-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 18px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  line-height: 1;
+  letter-spacing: 0.15em;
+  font-weight: 600;
+  color: var(--text-tertiary);
+}
+
+.hero-kicker-mark {
+  width: 24px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--brand-primary), var(--brand-secondary));
+}
+
+.hero-mark {
+  width: 46px !important;
+  height: 46px !important;
+  border-radius: 11px !important;
+  color: var(--text-primary) !important;
+  background: var(--bg-surface) !important;
+  border-color: var(--border-highlight) !important;
+  box-shadow: none !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-mark::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--brand-primary), var(--brand-secondary));
+}
+
+#empty-hero-title {
+  font-size: clamp(2.1rem, 5vw, 3.6rem) !important;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+  margin-bottom: 16px !important;
+}
+
+#empty-hero-desc {
+  max-width: 680px !important;
+  font-size: 14px !important;
+  line-height: 1.75 !important;
+  font-weight: 400 !important;
+}
+
+.hero-capabilities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 19px;
+}
+
+.hero-capabilities span {
+  border: 1px solid var(--border-subtle);
+  background: rgba(255,255,255,0.018);
+  color: var(--text-tertiary);
+  border-radius: 7px;
+  padding: 5px 8px;
+  font-size: 9px;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+}
+
+#suggestions-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px !important;
+}
+
+.suggestion-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 92px;
+  border-radius: 11px !important;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  box-shadow: none;
+  transform: none !important;
+}
+
+.suggestion-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: transparent;
+}
+
+.suggestion-card:hover {
+  background: var(--bg-elevated);
+  border-color: var(--border-highlight);
+  box-shadow: none;
+}
+
+.suggestion-card:hover::before {
+  background: linear-gradient(180deg, var(--brand-primary), var(--brand-secondary));
+}
+
+.suggestion-card > span:first-child {
+  font-size: 12px !important;
+}
+
+.suggestion-card > span:last-child {
+  font-size: 11px !important;
+  line-height: 1.55 !important;
+}
+
+.composer-dock {
+  padding-top: 36px !important;
+  padding-bottom: 20px !important;
+  background: linear-gradient(to top, var(--bg-base) 58%, transparent 100%) !important;
+}
+
+.composer-dock > div {
+  max-width: 820px !important;
+}
+
+.composer-shell {
+  min-height: 60px !important;
+  border-radius: 15px !important;
+  padding: 7px 8px 7px 9px !important;
+  background: color-mix(in srgb, var(--bg-surface) 96%, transparent) !important;
+  border: 1px solid var(--border-highlight) !important;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28) !important;
+  transform: none !important;
+}
+
+.composer-shell:focus-within {
+  border-color: var(--brand-primary) !important;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28), 0 0 0 1px var(--brand-primary) !important;
+  transform: none !important;
+}
+
+#model-popup-trigger {
+  min-height: 38px;
+  border-radius: 10px !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+  background: var(--bg-elevated) !important;
+  border-color: var(--border-subtle) !important;
+  box-shadow: none !important;
+}
+
+#user-input {
+  min-height: 42px;
+  max-height: 160px;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+}
+
+#submit-btn {
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 10px !important;
+  box-shadow: none !important;
+}
+
+.composer-meta {
+  margin-top: 8px !important;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px !important;
+  letter-spacing: 0.02em;
+}
+
+#popup-stack-container > div {
+  border-radius: 13px !important;
+  box-shadow: 0 22px 60px rgba(0,0,0,0.46) !important;
+  border-color: var(--border-highlight) !important;
+}
+
+#model-selector-card button {
+  border-radius: 8px !important;
+}
+
+.msg-user {
+  border-radius: 13px 13px 4px 13px !important;
+  box-shadow: none !important;
+  padding: 11px 15px !important;
+  font-weight: 500;
+}
+
+#chat-history > .group\/msg {
+  padding: 18px 0 22px;
+  margin-bottom: 0 !important;
+  border-bottom: 1px solid rgba(255,255,255,0.035);
+}
+
+.vilotni2-confidence-badge {
+  background: rgba(131, 0, 251, 0.09) !important;
+  border-color: rgba(254, 0, 112, 0.34) !important;
+  box-shadow: none !important;
+}
+
+/* Make the V2 purple to pink identity visible without turning the UI neon. */
+#model-item-2:hover,
+#model-item-2:focus-visible {
+  border-color: color-mix(in srgb, var(--brand-primary) 60%, var(--border-highlight));
+}
+
+#profile-modal-content {
+  border-radius: 16px !important;
+  border-color: var(--border-highlight) !important;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: min(88vw, 292px);
+  }
+
+  #chat-scroll-area {
+    padding-top: 86px !important;
+    padding-bottom: 168px !important;
+  }
+
+  #suggestions-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-capabilities {
+    justify-content: center;
+  }
+
+  .hero-kicker {
+    justify-content: center;
+  }
+
+  .composer-shell {
+    border-radius: 13px !important;
+  }
+
+  #model-popup-trigger {
+    max-width: 122px;
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "Schema_Version": 1,
+  "Role": "Generic relation vocabulary used to steer evidence retrieval. It contains relation types and cue words, not factual propositions.",
+  "Relations": {
+    "identity": {
+      "cues": [
+        "is",
+        "type",
+        "kind",
+        "class",
+        "means",
+        "called"
+      ],
+      "preferred_pos": [
+        "Noun",
+        "ProperNoun",
+        "Adj",
+        "Det"
+      ]
+    },
+    "cause": {
+      "cues": [
+        "because",
+        "cause",
+        "reason",
+        "result",
+        "from",
+        "due",
+        "through"
+      ],
+      "preferred_pos": [
+        "Noun",
+        "Verb",
+        "Adj",
+        "Prep",
+        "Conj"
+      ]
+    },
+    "mechanism": {
+      "cues": [
+        "by",
+        "through",
+        "using",
+        "with",
+        "process",
+        "method",
+        "works"
+      ],
+      "preferred_pos": [
+        "Verb",
+        "Noun",
+        "Adj",
+        "Adv",
+        "Prep"
+      ]
+    },
+    "location": {
+      "cues": [
+        "in",
+        "at",
+        "on",
+        "inside",
+        "within",
+        "near"
+      ],
+      "preferred_pos": [
+        "Noun",
+        "ProperNoun",
+        "Prep",
+        "Det"
+      ]
+    },
+    "time": {
+      "cues": [
+        "during",
+        "before",
+        "after",
+        "when",
+        "while",
+        "time"
+      ],
+      "preferred_pos": [
+        "Noun",
+        "ProperNoun",
+        "Prep",
+        "Num",
+        "Det"
+      ]
+    },
+    "truth": {
+      "cues": [
+        "is",
+        "are",
+        "does",
+        "do",
+        "can",
+        "will",
+        "true",
+        "false"
+      ],
+      "preferred_pos": [
+        "Verb",
+        "Aux",
+        "Modal",
+        "Adj",
+        "Noun"
+      ]
+    },
+    "quantity": {
+      "cues": [
+        "number",
+        "amount",
+        "many",
+        "much",
+        "count"
+      ],
+      "preferred_pos": [
+        "Num",
+        "Noun",
+        "Det"
+      ]
+    },
+    "selection": {
+      "cues": [
+        "choice",
+        "option",
+        "among",
+        "which"
+      ],
+      "preferred_pos": [
+        "Noun",
+        "Adj",
+        "Det"
+      ]
+    },
+    "possession": {
+      "cues": [
+        "belongs",
+        "owner",
+        "of",
+        "has"
+      ],
+      "preferred_pos": [
+        "Noun",
+        "Verb",
+        "Prep"
+      ]
+    }
+  }
+}

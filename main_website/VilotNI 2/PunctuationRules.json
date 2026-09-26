@@ -1,0 +1,111 @@
+{
+  "Schema_Version": 1,
+  "Role": "Punctuation syntax rules. These rules describe placement and sentence force, not answer content.",
+  "Symbols": {
+    ".": {
+      "punctuation_class": "terminal",
+      "sentence_force": "declarative",
+      "closes_sentence": true,
+      "requires_left_clause": true,
+      "generated_default": true
+    },
+    "?": {
+      "punctuation_class": "terminal",
+      "sentence_force": "interrogative",
+      "closes_sentence": true,
+      "requires_left_clause": true,
+      "requires_interrogative_form": true,
+      "generated_default": true
+    },
+    "!": {
+      "punctuation_class": "terminal",
+      "sentence_force": "exclamatory",
+      "closes_sentence": true,
+      "requires_left_clause": true,
+      "generated_default": false
+    },
+    ",": {
+      "punctuation_class": "separator",
+      "separator_role": "comma",
+      "closes_sentence": false,
+      "requires_left_content": true,
+      "requires_right_content": true,
+      "generated_default": true
+    },
+    ";": {
+      "punctuation_class": "clause_separator",
+      "separator_role": "semicolon",
+      "closes_sentence": false,
+      "requires_left_clause": true,
+      "requires_right_clause": true,
+      "generated_default": true
+    },
+    ":": {
+      "punctuation_class": "introducer",
+      "separator_role": "colon",
+      "closes_sentence": false,
+      "requires_left_content": true,
+      "requires_right_content": true,
+      "generated_default": true
+    },
+    "(": {
+      "punctuation_class": "paired_opener",
+      "pair": ")",
+      "can_start_clause": true,
+      "closes_sentence": false,
+      "generated_default": false
+    },
+    ")": {
+      "punctuation_class": "paired_closer",
+      "pair": "(",
+      "closes_sentence": false,
+      "requires_open_pair": true,
+      "generated_default": false
+    },
+    "-": {
+      "punctuation_class": "connector",
+      "separator_role": "hyphen",
+      "closes_sentence": false,
+      "requires_left_content": true,
+      "requires_right_content": true,
+      "generated_default": false
+    },
+    "~": {
+      "punctuation_class": "stylistic",
+      "closes_sentence": false,
+      "generated_default": false
+    }
+  },
+  "Comma": {
+    "coordinators": [
+      "and",
+      "but",
+      "or",
+      "nor",
+      "for",
+      "so",
+      "yet"
+    ],
+    "introductory_subordinate_openers": [
+      "although",
+      "because",
+      "when",
+      "while",
+      "if",
+      "since",
+      "unless",
+      "after",
+      "before",
+      "once",
+      "though",
+      "whereas"
+    ],
+    "independent_clause_coordination": true,
+    "introductory_subordinate_clause": true
+  },
+  "Terminal": {
+    "default_declarative": ".",
+    "default_interrogative": "?",
+    "question_mark_requires_interrogative_form": true
+  }
+}

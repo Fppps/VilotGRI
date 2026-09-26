@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VilotNI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=2-settings-professional-3">
+    <style>
+        :root {
+            --brand-primary: #6366f1;
+            --brand-secondary: #8b5cf6;
+            --brand-accent: #f43f5e;
+            --v2-normal-green: #8300FB;
+            --v2-normal-cyan: #FE0070;
+            --vilotni-gradient: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+            
+            --bg-base: #09090b;
+            --bg-surface: #121215;
+            --bg-sidebar: #0d0d10;
+            --bg-elevated: #1e1e24;
+            --bg-glass: rgba(13, 13, 16, 0.85);
+            
+            --text-primary: #f4f4f5;
+            --text-secondary: #a1a1aa;
+            --text-tertiary: #71717a;
+            
+            --border-subtle: #222227;
+            --border-highlight: #32323a;
+            
+            --shadow-elevation-1: 0 4px 12px rgba(0, 0, 0, 0.25);
+            --shadow-elevation-3: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+        }
+
+        .light-mode {
+            --bg-base: #f8fafc;
+            --bg-surface: #ffffff;
+            --bg-sidebar: #f1f5f9;
+            --bg-elevated: #e2e8f0;
+            --bg-glass: rgba(255, 255, 255, 0.9);
+            
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-tertiary: #94a3b8;
+            
+            --border-subtle: #e2e8f0;
+            --border-highlight: #cbd5e1;
+            
+            --shadow-elevation-1: 0 4px 12px rgba(0, 0, 0, 0.05);
+            --shadow-elevation-3: 0 20px 30px -10px rgba(0, 0, 0, 0.08);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        h1, h2, h3, .font-display { font-family: 'Outfit', sans-serif; letter-spacing: -0.02em; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+        #app-container { display: flex; height: 100vh; width: 100vw; position: relative; }
+        #main-content { flex: 1; display: flex; flex-direction: column; position: relative; z-index: 10; min-width: 0; }
+        
+        .sidebar { 
+            background-color: var(--bg-sidebar); 
+            border-right: 1px solid var(--border-subtle); 
+            z-index: 40; 
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s ease; 
+            width: 260px;
+        }
+        .sidebar.collapsed { width: 0; border-right: none; overflow: hidden; }
+        
+        .glass-header { 
+            background-color: var(--bg-glass); 
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-subtle); 
+            z-index: 30; 
+        }
+
+
+        .vilotni2-confidence-badge {
+            border-color: rgba(254, 0, 112, 0.34);
+            background: linear-gradient(135deg, rgba(131, 0, 251, 0.14), rgba(254, 0, 112, 0.14));
+        }
+
+        .input-box {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            box-shadow: var(--shadow-elevation-3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 1.5rem;
+        }
+        .input-box:focus-within { 
+            border-color: var(--brand-primary); 
+            box-shadow: 0 15px 40px -10px rgba(99, 102, 241, 0.2); 
+            transform: translateY(-2px); 
+        }
+
+        .suggestion-card { 
+            background: var(--bg-surface); 
+            border: 1px solid var(--border-subtle); 
+            box-shadow: var(--shadow-elevation-1);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); 
+        }
+        .suggestion-card:hover { 
+            background: var(--bg-elevated); 
+            border-color: var(--border-highlight); 
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.3);
+        }
+
+        textarea { resize: none; scrollbar-width: none; }
+        textarea::-webkit-scrollbar { display: none; }
+
+        @media (max-width: 768px) {
+            .sidebar { position: absolute; height: 100%; transform: translateX(-100%); width: 280px; }
+            .sidebar.open { transform: translateX(0); }
+            .sidebar.collapsed { width: 280px; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in { animation: fadeIn 0.3s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+
+        /* Popover Staggered Animations */
+        @keyframes popCardIn {
+            from { opacity: 0; transform: translateY(8px) scale(0.96); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .animate-pop-card {
+            animation: popCardIn 0.24s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Carousel Item Transitions */
+        @keyframes slideInFromRight {
+            from { opacity: 0; transform: translateX(12px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideInFromLeft {
+            from { opacity: 0; transform: translateX(-12px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .animate-slide-right { animation: slideInFromRight 0.22s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+        .animate-slide-left { animation: slideInFromLeft 0.22s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+
+        .msg-user { 
+            background: var(--text-primary); 
+            color: var(--bg-base); 
+            font-weight: 500;
+        }
+
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            opacity: 0.35;
+            pointer-events: none;
+        }
+
+        @keyframes pulseWord {
+            0%, 100% { opacity: 0.5; transform: scale(0.97); }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
+        .word-loader-pulse {
+            animation: pulseWord 1.2s ease-in-out infinite;
+        }
+
+        /* Deep Learning Circle Breathing Animation */
+        @keyframes deepCircleBreathe {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.45;
+                filter: drop-shadow(0 0 3px rgba(168, 85, 247, 0.4));
+            }
+            50% {
+                transform: scale(1.16);
+                opacity: 0.95;
+                filter: drop-shadow(0 0 10px rgba(236, 72, 153, 0.85));
+            }
+        }
+        .deep-circle-anim {
+            transform-origin: 128px 128px;
+            animation: deepCircleBreathe 2.2s ease-in-out infinite;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--border-subtle); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--border-highlight); }
+    </style>
+    <link rel="stylesheet" href="professional.css?v=2-settings-professional-3">
+</head>
+<body>
+
+    <canvas id="bg-canvas"></canvas>
+
+    <div id="app-container">
+        
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar flex flex-col flex-shrink-0 relative">
+            <div class="h-16 flex items-center px-6 border-b border-[var(--border-subtle)] justify-between min-w-[284px]">
+                <div class="flex items-center space-x-3 text-[var(--text-primary)] cursor-pointer">
+                    <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-[var(--brand-primary)] to-[var(--brand-secondary)] flex items-center justify-center shadow-lg">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+                            <path d="M2 17L12 22L22 17" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+                            <path d="M2 12L12 17L22 12" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="sidebar-brand-copy">
+                        <span id="sidebar-app-title" class="font-display font-bold text-lg tracking-tight">VilotNI 1.5</span>
+                        <span class="sidebar-brand-subtitle">AI ASSISTANT</span>
+                    </div>
+                </div>
+                <button id="sidebar-close-btn" class="hidden md:block p-1.5 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors rounded-md hover:bg-[var(--bg-elevated)] cursor-pointer" onclick="window.toggleDesktopSidebar()" title="Close Sidebar">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" /></svg>
+                </button>
+            </div>
+
+            <div class="p-4 min-w-[284px]">
+                <button id="btn-new-chat" onclick="window.startNewChat(event)" class="w-full py-2.5 px-3.5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface)] hover:border-[var(--brand-primary)] hover:bg-[var(--bg-elevated)] text-[var(--text-primary)] font-medium text-sm flex items-center justify-center space-x-2 transition-all shadow-sm cursor-pointer group">
+                    <svg class="w-4 h-4 text-[var(--brand-primary)] group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
+                    </svg>
+                    <span class="font-display">New chat</span>
+                </button>
+            </div>
+
+            <div class="flex-1 flex flex-col px-5 py-3 min-w-[284px] min-h-0">
+                <div class="chat-list-heading">
+                    <p>Chats</p>
+                    <span id="chat-count" aria-label="Saved chat count">0</span>
+                </div>
+                <div id="chat-list" class="chat-list" aria-label="Saved chats"></div>
+            </div>
+
+            <div class="p-4 border-t border-[var(--border-subtle)] min-w-[284px] flex items-center justify-between">
+                <div class="flex items-center space-x-3 p-2 -ml-2 rounded-xl hover:bg-[var(--bg-elevated)] transition-colors cursor-pointer group" onclick="window.openSettingsPanel(event, 'account')" title="Account settings">
+                    <div id="sidebar-avatar-bg" class="w-8 h-8 rounded-full bg-[var(--brand-primary)] flex items-center justify-center shadow-sm transition-colors overflow-hidden">
+                        <span id="sidebar-avatar-initial" class="text-xs font-bold text-white">U</span>
+                        <img id="sidebar-avatar-img" class="w-full h-full object-cover hidden" src="" alt="">
+                    </div>
+                    <span id="sidebar-user-name" class="text-sm font-medium text-[var(--text-primary)] font-display truncate max-w-[120px]">User</span>
+                </div>
+                <button onclick="window.openSettingsPanel(event)" class="text-[var(--text-tertiary)] hover:text-[var(--brand-primary)] transition-colors p-2 rounded-xl hover:bg-[var(--bg-elevated)] cursor-pointer" title="Settings" aria-label="Open settings">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 15.5a3.5 3.5 0 100-7 3.5 3.5 0 000 7z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M19.4 15a1.7 1.7 0 00.34 1.88l.06.06-2.86 2.86-.06-.06A1.7 1.7 0 0015 19.4a1.7 1.7 0 00-1 .6l-.04.08V21h-4v-.92L9.92 20a1.7 1.7 0 00-1-.6 1.7 1.7 0 00-1.88.34l-.06.06-2.86-2.86.06-.06A1.7 1.7 0 004.6 15a1.7 1.7 0 00-.6-1l-.08-.04H3v-4h.92L4 9.92a1.7 1.7 0 00.6-1 1.7 1.7 0 00-.34-1.88L4.2 6.98l2.86-2.86.06.06A1.7 1.7 0 009 4.6a1.7 1.7 0 001-.6l.04-.08V3h4v.92l.04.08a1.7 1.7 0 001 .6 1.7 1.7 0 001.88-.34l.06-.06 2.86 2.86-.06.06A1.7 1.7 0 0019.4 9c.08.38.3.73.6 1l.08.04H21v4h-.92L20 14a1.7 1.7 0 00-.6 1z"/></svg>
+                </button>
+            </div>
+        </aside>
+
+        <div id="sidebar-overlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-30 hidden md:hidden transition-opacity" onclick="window.toggleMobileSidebar()"></div>
+
+        <!-- Main Workspace -->
+        <main id="main-content">
+            <div class="workspace-accent-line" aria-hidden="true"></div>
+            <header class="workspace-header h-16 flex items-center justify-between px-4 sm:px-6 glass-header absolute top-0 w-full">
+                <div class="flex items-center space-x-3">
+                    <button id="sidebar-toggle-btn" class="hidden md:block p-1.5 text-[var(--text-secondary)] hover:text-[var(--brand-primary)] transition-colors rounded-md hover:bg-[var(--bg-elevated)] cursor-pointer" onclick="window.toggleDesktopSidebar()" title="Open Sidebar" style="display: none;">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    </button>
+                    <button class="md:hidden text-[var(--text-secondary)] hover:text-[var(--brand-primary)] transition-colors cursor-pointer" onclick="window.toggleMobileSidebar()">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    </button>
+                    <div class="flex items-center text-sm font-medium text-[var(--text-secondary)]">
+                        <span class="workspace-eyebrow">VilotNI</span>
+                        <span class="mx-2 text-[var(--border-highlight)]">/</span>
+                        <span id="header-model-label" class="text-[var(--text-primary)] font-display font-medium">VilotNI 1.5</span>
+                    </div>
+                </div>
+                <div class="runtime-pill flex items-center px-3 py-1 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-surface)] shadow-sm">
+                    <span id="gpu-dot" class="w-2 h-2 rounded-full bg-emerald-400 mr-2"></span>
+                    <span id="gpu-text" class="text-[11px] font-medium text-[var(--text-secondary)]">Ready</span>
+                </div>
+            </header>
+
+            <div class="flex-1 overflow-y-auto px-4 sm:px-6 pt-24 pb-56 flex flex-col relative z-10" id="chat-scroll-area">
+                <div id="chat-history" class="w-full max-w-3xl mx-auto flex flex-col space-y-8 hidden pb-4"></div>
+
+                <div class="empty-state-panel max-w-2xl mx-auto w-full flex-1 flex flex-col justify-center animate-fade-in relative" id="empty-state">
+                    <div class="mb-10 text-center sm:text-left relative z-10">
+                        <div class="hero-kicker"><span class="hero-kicker-mark"></span><span>LOCAL AI ASSISTANT</span></div>
+                        <div class="hero-mark inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] mb-5 shadow-sm text-[var(--brand-primary)]">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                                <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                                <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h2 id="empty-hero-title" class="text-3xl sm:text-4xl font-display font-bold mb-3 tracking-tight text-[var(--text-primary)]">
+                            How can I help?
+                        </h2>
+                        <p id="empty-hero-desc" class="text-base text-[var(--text-secondary)] font-light leading-relaxed max-w-xl">
+                            Ask a question, explore an idea, or continue a conversation.
+                        </p>
+                        
+                    </div>
+
+                    <div id="suggestions-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 w-full relative z-10">
+                        <button type="button" class="suggestion-card p-4 rounded-xl text-left flex flex-col space-y-1.5 cursor-pointer group" onclick="window.fillInput('Synthesize a dark mode navbar directly onto a user profile card layout')">
+                            <span class="font-display font-semibold text-sm text-[var(--text-primary)] group-hover:text-[var(--brand-primary)] transition-colors">Logic Mixing</span>
+                            <span class="text-xs text-[var(--text-secondary)] leading-relaxed font-light">Synthesize a dark mode navbar directly onto a user profile card layout.</span>
+                        </button>
+                        <button type="button" class="suggestion-card p-4 rounded-xl text-left flex flex-col space-y-1.5 cursor-pointer group" onclick="window.fillInput('Explain heuristic evaluation')">
+                            <span class="font-display font-semibold text-sm text-[var(--text-primary)] group-hover:text-[var(--brand-secondary)] transition-colors">Test Cognitive Engine</span>
+                            <span class="text-xs text-[var(--text-secondary)] leading-relaxed font-light">Ask the AI about its heuristic evaluation and internal logic structures.</span>
+                        </button>
+                        <button type="button" class="suggestion-card p-4 rounded-xl text-left flex flex-col space-y-1.5 cursor-pointer group" onclick="window.fillInput('Generate a clean authentication flow with Login and Sign Up forms')">
+                            <span class="font-display font-semibold text-sm text-[var(--text-primary)] group-hover:text-emerald-400 transition-colors">Auth Forms</span>
+                            <span class="text-xs text-[var(--text-secondary)] leading-relaxed font-light">Construct a split-layout authentication flow for secure access.</span>
+                        </button>
+                        <button type="button" class="suggestion-card p-4 rounded-xl text-left flex flex-col space-y-1.5 cursor-pointer group" onclick="window.fillInput('Build a bento box layout')">
+                            <span class="font-display font-semibold text-sm text-[var(--text-primary)] group-hover:text-rose-400 transition-colors">Modern Grids</span>
+                            <span class="text-xs text-[var(--text-secondary)] leading-relaxed font-light">Deploy a responsive, multi-span CSS Grid component commonly used in dashboards.</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Floating Input Dock -->
+            <div class="composer-dock absolute bottom-0 w-full bg-gradient-to-t from-[var(--bg-base)] via-[var(--bg-base)] to-transparent pt-10 pb-7 px-4 sm:px-6 z-20">
+                <div class="max-w-3xl mx-auto relative flex flex-col items-center">
+                    
+                    <!-- Separate Stacked Floating Popovers (Learning Mode Card Above Models Card) -->
+                    <div id="popup-stack-container" class="hidden absolute bottom-[calc(100%+14px)] left-2 sm:left-4 z-50 flex flex-col gap-2 w-[268px] select-none pointer-events-auto">
+                        
+                        <!-- 1. SEPARATE LEARNING MODE CARD (Floats ABOVE model selector, exclusive to 1.5) -->
+                        <div id="learning-mode-card" class="bg-[var(--bg-surface)]/95 backdrop-blur-2xl border border-[var(--border-subtle)] p-2.5 rounded-2xl shadow-2xl transition-all duration-300 ease-out origin-bottom transform text-left animate-pop-card">
+                            
+                            <div class="px-1 mb-1.5 flex items-center justify-between">
+                                <span class="text-[10px] font-semibold text-[var(--text-tertiary)] uppercase tracking-wider">Learning Mode</span>
+                                <span id="learning-status-pill" class="text-[10px] font-mono font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">RSL</span>
+                            </div>
+
+                            <!-- 1-at-a-time Carousel with Left/Right Carets -->
+                            <div id="single-mode-card" class="p-2 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border-subtle)] flex items-center justify-between min-h-[58px] relative overflow-hidden shadow-inner">
+                                <!-- Left Caret (Active when on RL) -->
+                                <button type="button" id="caret-left-btn" onclick="window.stepLearningMode('rsl')" class="w-6 h-6 rounded-md hover:bg-[var(--border-highlight)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] flex items-center justify-center cursor-pointer transition-all shrink-0 invisible" title="Switch to RSL">
+                                    <i class="ph ph-caret-left text-base"></i>
+                                </button>
+
+                                <!-- Carousel Mode Text & Icon (Animated on switch) -->
+                                <div id="carousel-mode-content" class="flex-1 px-1.5 text-center overflow-hidden">
+                                    <div class="flex items-center justify-center gap-1.5 mb-0.5">
+                                        <i id="carousel-mode-icon" class="ph ph-lightning text-sm text-purple-400"></i>
+                                        <span id="carousel-mode-title" class="font-display font-bold text-xs text-[var(--text-primary)]">RSL</span>
+                                    </div>
+                                    <p id="carousel-mode-desc" class="text-[9.5px] text-[var(--text-tertiary)] leading-tight truncate">
+                                        User word count Adaptation & more output tokens.
+                                    </p>
+                                </div>
+
+                                <!-- Right Caret (Active when on RSL) -->
+                                <button type="button" id="caret-right-btn" onclick="window.stepLearningMode('user')" class="w-6 h-6 rounded-md hover:bg-[var(--border-highlight)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] flex items-center justify-center cursor-pointer transition-all shrink-0" title="Switch to RL">
+                                    <i class="ph ph-caret-right text-base"></i>
+                                </button>
+                            </div>
+
+                            <!-- Deep Learning (RSL Exclusive: Top Words & Full Bottom Spanning Track) -->
+                            <div id="deep-learning-container" class="mt-2.5 pt-2 border-t border-[var(--border-subtle)] flex flex-col space-y-2 transition-all duration-200">
+                                <!-- Top Side Words -->
+                                <div class="flex items-center justify-between px-1">
+                                    <div class="flex flex-col">
+                                        <span class="font-display font-semibold text-xs text-[var(--text-primary)]">Deep Learning</span>
+                                        <span id="depth-subtext" class="text-[9.5px] text-[var(--text-tertiary)] leading-tight mt-0.5">
+                                            One neural forward + live latent self-conditioning
+                                        </span>
+                                    </div>
+                                    <!-- Sun / Circle SVG -->
+                                    <div id="deep-learning-icon-wrap" class="shrink-0 cursor-pointer p-0.5" onclick="window.toggleDeepLearning(event)" title="Toggle Deep Learning">
+                                        <svg id="deep-learning-svg" class="w-4 h-4 text-orange-400 transition-all duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+                                            <rect width="256" height="256" fill="none"/>
+                                            <line class="ray-line" x1="128" y1="40" x2="128" y2="16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+                                            <circle id="deep-learning-circle" cx="128" cy="128" r="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+                                            <line class="ray-line" x1="64" y1="64" x2="48" y2="48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+                                            <line class="ray-line" x1="64" y1="192" x2="48" y2="208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+                                            <line class="ray-line" x1="192" y1="64" x2="208" y2="48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+                                            <line class="ray-line" x1="192" y1="192" x2="208" y2="208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+                                            <line class="ray-line" x1="40" y1="128" x2="16" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+                                            <line class="ray-line" x1="128" y1="216" x2="128" y2="240" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+                                            <line class="ray-line" x1="216" y1="128" x2="240" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+                                        </svg>
+                                    </div>
+                                </div>
+
+                                <!-- Bottom Side Spanning Toggle -->
+                                <button id="btn-toggle-depth" type="button" role="switch" onclick="window.toggleDeepLearning(event)" class="w-full h-7 rounded-xl bg-[var(--bg-base)] border border-[var(--border-subtle)] p-0.5 relative flex items-center cursor-pointer transition-all shadow-inner overflow-hidden" title="Toggle Deep Learning">
+                                    <div class="absolute inset-0 flex items-center justify-between px-3 text-[9px] font-mono text-[var(--text-tertiary)] pointer-events-none">
+                                        <span>Normal</span>
+                                        <span>All 3M neurons</span>
+                                    </div>
+                                    <div id="depth-slider-thumb" class="w-1/2 h-full rounded-lg transition-all duration-300 flex items-center justify-center font-display font-bold text-[10px] text-white shadow-sm z-10 bg-gradient-to-r from-amber-500 to-red-500 translate-x-full">
+                                        Active
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- MODEL SELECTOR CARD -->
+                        <div id="model-selector-card" class="bg-[var(--bg-surface)]/95 backdrop-blur-2xl border border-[var(--border-subtle)] p-2 rounded-2xl shadow-2xl transition-all duration-200 text-left animate-pop-card">
+                            <div class="px-1.5 py-1 mb-1">
+                                <span class="text-[10px] font-semibold text-[var(--text-tertiary)] uppercase tracking-wider">Models</span>
+                            </div>
+                            <div class="space-y-1">
+                                <button type="button" id="model-item-1" onclick="window.switchActiveModel('vilotni_1')" class="w-full px-2.5 py-2 rounded-xl transition-all flex items-center justify-between cursor-pointer border border-transparent hover:bg-[var(--bg-elevated)]/50 text-[var(--text-secondary)]">
+                                    <span class="font-display font-semibold text-xs tracking-tight text-[var(--text-primary)]">VilotNI 1</span>
+                                    <svg id="model-check-1" class="w-3.5 h-3.5 text-indigo-400 shrink-0 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                </button>
+                                <button type="button" id="model-item-1-5" onclick="window.switchActiveModel('vilotni_1_5')" class="w-full px-2.5 py-2 rounded-xl transition-all flex items-center justify-between cursor-pointer border border-[var(--border-highlight)] bg-[var(--bg-elevated)] text-[var(--text-primary)]">
+                                    <span class="font-display font-semibold text-xs tracking-tight text-[var(--text-primary)]">VilotNI 1.5</span>
+                                    <svg id="model-check-1-5" class="w-3.5 h-3.5 text-indigo-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                </button>
+                                <button type="button" id="model-item-2" onclick="window.switchActiveModel('vilotni_2')" class="w-full px-2.5 py-2 rounded-xl transition-all flex items-center justify-between cursor-pointer border border-transparent hover:bg-[var(--bg-elevated)]/50 text-[var(--text-secondary)]">
+                                    <span class="font-display font-semibold text-xs tracking-tight text-[var(--text-primary)]">VilotNI 2</span>
+                                    <svg id="model-check-2" class="w-3.5 h-3.5 text-indigo-400 shrink-0 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Input Box -->
+                    <div class="input-box composer-shell px-3 py-2 flex items-center relative backdrop-blur-xl bg-[var(--bg-surface)]/90 w-full min-h-[54px]">
+                        
+                        <!-- Model Switcher Trigger Button (Name + Status Badge + Caret Down) -->
+                        <button 
+                            id="model-popup-trigger" 
+                            type="button"
+                            onclick="window.toggleModelPopup(event)"
+                            class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-[var(--bg-elevated)] hover:bg-[var(--border-highlight)] border border-[var(--border-subtle)] transition-all duration-200 shrink-0 cursor-pointer select-none shadow-sm mr-1" 
+                            title="Select model"
+                        >
+                            <span id="trigger-model-name" class="font-display font-semibold text-xs tracking-tight text-[var(--text-primary)]">VilotNI 1.5</span>
+                            <span id="trigger-model-status" class="text-[11px] font-mono font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent leading-none">Medium</span>
+                            <i class="ph ph-caret-down text-xs text-[var(--text-secondary)]"></i>
+                        </button>
+
+                        <textarea 
+                            id="user-input" 
+                            rows="1" 
+                            class="w-full bg-transparent border-0 focus:ring-0 py-2 px-2 text-[15px] placeholder:text-[var(--text-tertiary)] leading-normal text-[var(--text-primary)] resize-none overflow-hidden" 
+                            placeholder="Send a message..."
+                        ></textarea>
+                        
+                        <button 
+                            id="submit-btn" 
+                            type="button"
+                            class="w-8 h-8 rounded-full bg-[var(--bg-elevated)] text-[var(--text-tertiary)] transition-all duration-300 flex items-center justify-center shrink-0 cursor-pointer hover:text-white" 
+                            onclick="window.handleSend()"
+                            title="Send"
+                        >
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"/></svg>
+                        </button>
+                    </div>
+                    
+                    <div class="composer-meta text-center mt-2.5 text-[11px] text-[var(--text-tertiary)]">
+                        <span id="dock-model-indicator">VilotNI 1.5</span><span id="dock-separator"> • </span><span id="dock-learning-indicator">RSL</span><span id="dock-depth-indicator"> • Fast Search</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Professional Settings Panel -->
+    <div id="settings-modal" class="settings-modal fixed inset-0 z-[210] hidden" onclick="window.closeSettingsPanel()" aria-hidden="true">
+        <div class="settings-panel" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+            <div class="settings-panel-header">
+                <div class="settings-header-copy">
+                    <h2 id="settings-title">Settings</h2>
+                    <span>Preferences for this browser</span>
+                </div>
+                <button type="button" class="settings-close-btn" onclick="window.closeSettingsPanel()" aria-label="Close settings">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+
+            <div class="settings-tabs" role="tablist" aria-label="Settings sections">
+                <button type="button" class="settings-tab is-selected" data-settings-tab="account" onclick="window.setSettingsTab('account')" role="tab" aria-selected="true">
+                    <i class="ph ph-user-circle"></i><span>Account</span>
+                </button>
+                <button type="button" class="settings-tab" data-settings-tab="chats" onclick="window.setSettingsTab('chats')" role="tab" aria-selected="false">
+                    <i class="ph ph-chats-circle"></i><span>Chats</span>
+                </button>
+                <button type="button" class="settings-tab" data-settings-tab="model" onclick="window.setSettingsTab('model')" role="tab" aria-selected="false">
+                    <i class="ph ph-cpu"></i><span>Models</span>
+                </button>
+                <button type="button" class="settings-tab" data-settings-tab="appearance" onclick="window.setSettingsTab('appearance')" role="tab" aria-selected="false">
+                    <i class="ph ph-palette"></i><span>Appearance</span>
+                </button>
+            </div>
+
+            <div class="settings-scroll">
+                <section class="settings-section settings-tab-panel is-active" id="settings-account-section" data-settings-panel="account" role="tabpanel">
+                    <div class="settings-section-heading">
+                        <h3>Account</h3>
+                        <p>Your local VilotNI identity for this browser.</p>
+                    </div>
+
+                    <div class="account-settings-surface">
+                        <div class="account-profile-row">
+                            <div class="settings-account-avatar-wrap">
+                                <div id="modal-avatar-preview" class="settings-account-avatar">
+                                    <span id="modal-avatar-initial">U</span>
+                                    <img id="modal-avatar-img" class="hidden" src="" alt="Profile picture">
+                                </div>
+                            </div>
+
+                            <div class="account-profile-copy">
+                                <div class="settings-account-title-row">
+                                    <strong id="settings-profile-name-preview">User</strong>
+                                    <span class="settings-local-badge">Local</span>
+                                </div>
+                                <p>Shown in the sidebar on this device.</p>
+                            </div>
+
+                            <div class="account-photo-actions">
+                                <button type="button" class="account-secondary-btn" onclick="document.getElementById('avatar-upload-input')?.click()">Change photo</button>
+                                <input type="file" id="avatar-upload-input" accept="image/*" class="hidden" onchange="window.handleAvatarUpload(event)">
+                            </div>
+                        </div>
+
+                        <div class="account-setting-row account-name-row">
+                            <div class="account-setting-copy">
+                                <strong>Display name</strong>
+                                <span>Used for your local profile.</span>
+                            </div>
+                            <div class="account-name-control">
+                                <input type="text" id="profile-name-input" class="settings-name-input" value="User" maxlength="20" autocomplete="off" onkeydown="if(event.key==='Enter'){event.preventDefault();window.saveProfile();}">
+                                <button type="button" class="settings-save-btn" onclick="window.saveProfile()">Save</button>
+                            </div>
+                        </div>
+
+                        <div class="account-setting-row">
+                            <div class="account-setting-copy">
+                                <strong>Avatar color</strong>
+                                <span>Used when no profile photo is selected.</span>
+                            </div>
+                            <div class="settings-avatar-colors" id="avatar-color-picker" aria-label="Profile fallback color">
+                                <button type="button" class="color-btn" data-color="var(--text-primary)" data-text="var(--bg-base)" style="background:var(--text-primary)" aria-label="Automatic" onclick="window.setProfileAvatarColor(this)"></button>
+                                <button type="button" class="color-btn" data-color="#6366f1" data-text="#ffffff" style="background:#6366f1" aria-label="Indigo" onclick="window.setProfileAvatarColor(this)"></button>
+                                <button type="button" class="color-btn" data-color="#f43f5e" data-text="#ffffff" style="background:#f43f5e" aria-label="Rose" onclick="window.setProfileAvatarColor(this)"></button>
+                                <button type="button" class="color-btn" data-color="#10b981" data-text="#ffffff" style="background:#10b981" aria-label="Emerald" onclick="window.setProfileAvatarColor(this)"></button>
+                                <button type="button" class="color-btn" data-color="#f59e0b" data-text="#ffffff" style="background:#f59e0b" aria-label="Amber" onclick="window.setProfileAvatarColor(this)"></button>
+                            </div>
+                        </div>
+
+                        <div id="account-photo-row" class="account-setting-row account-photo-row hidden">
+                            <div class="account-setting-copy">
+                                <strong>Profile photo</strong>
+                                <span>Remove the current image and return to your avatar color.</span>
+                            </div>
+                            <button id="remove-avatar-btn" type="button" class="account-danger-text" onclick="window.removeAvatar()">Remove photo</button>
+                        </div>
+                    </div>
+
+                    <div class="account-footer-status">
+                        <span id="settings-account-save-status" aria-live="polite"></span>
+                    </div>
+                </section>
+
+                <section class="settings-section settings-tab-panel" id="settings-chats-section" data-settings-panel="chats" role="tabpanel">
+                    <div class="settings-section-heading">
+                        <h3>Chats</h3>
+                        <p>Control deletion behavior and retained conversation context.</p>
+                    </div>
+
+                    <div class="settings-list">
+                        <label class="settings-toggle-row">
+                            <span><strong>Keep context after deletion</strong><small>Keep a deleted active chat available as short-term conversational context.</small></span>
+                            <input id="setting-keep-memory-after-delete" type="checkbox" onchange="window.setSettingsToggle('retainContextAfterDelete', this.checked)">
+                            <i aria-hidden="true"></i>
+                        </label>
+                        <label class="settings-toggle-row">
+                            <span><strong>Skip delete confirmation</strong><small>Delete saved chats immediately without showing the confirmation dialog.</small></span>
+                            <input id="setting-skip-delete-warning" type="checkbox" onchange="window.setSettingsToggle('skipDeleteWarning', this.checked)">
+                            <i aria-hidden="true"></i>
+                        </label>
+                    </div>
+
+                    <div class="settings-note">
+                        <i class="ph ph-info"></i>
+                        <span>Deleting a saved chat removes its transcript from this browser. Learned model state is separate from chat history.</span>
+                    </div>
+                </section>
+
+                <section class="settings-section settings-tab-panel" id="settings-model-section" data-settings-panel="model" role="tabpanel">
+                    <div class="settings-section-heading">
+                        <h3>Default model</h3>
+                        <p>Select the model shown when VilotNI opens.</p>
+                    </div>
+
+                    <div class="settings-model-grid" role="group" aria-label="Default model">
+                        <button type="button" data-settings-model="vilotni_1" onclick="window.setDefaultModelSetting('vilotni_1')">
+                            <span class="settings-model-icon">1</span>
+                            <span class="settings-model-copy"><strong>VilotNI 1</strong><small>Original generation</small></span>
+                            <i class="ph ph-check settings-model-check"></i>
+                        </button>
+                        <button type="button" data-settings-model="vilotni_1_5" onclick="window.setDefaultModelSetting('vilotni_1_5')">
+                            <span class="settings-model-icon">1.5</span>
+                            <span class="settings-model-copy"><strong>VilotNI 1.5</strong><small>Learning model</small></span>
+                            <i class="ph ph-check settings-model-check"></i>
+                        </button>
+                        <button type="button" data-settings-model="vilotni_2" onclick="window.setDefaultModelSetting('vilotni_2')">
+                            <span class="settings-model-icon">2</span>
+                            <span class="settings-model-copy"><strong>VilotNI 2</strong><small>Current generation</small></span>
+                            <i class="ph ph-check settings-model-check"></i>
+                        </button>
+                    </div>
+                </section>
+
+                <section class="settings-section settings-tab-panel" id="settings-appearance-section" data-settings-panel="appearance" role="tabpanel">
+                    <div class="settings-section-heading settings-section-heading-inline">
+                        <div><h3>Appearance</h3><p>Theme, surfaces, text, and accent colors.</p></div>
+                        <button type="button" class="settings-reset-btn" onclick="window.resetAppearanceSettings()">Reset</button>
+                    </div>
+
+                    <div class="settings-subsection">
+                        <div class="settings-subsection-copy">
+                            <strong>Theme</strong>
+                            <span>Choose the interface mode.</span>
+                        </div>
+                        <div class="settings-theme-buttons" role="group" aria-label="Appearance mode">
+                            <button type="button" data-settings-theme="dark" onclick="window.setThemeSetting('dark')"><span class="theme-swatch theme-swatch-dark"></span>Dark</button>
+                            <button type="button" data-settings-theme="light" onclick="window.setThemeSetting('light')"><span class="theme-swatch theme-swatch-light"></span>Light</button>
+                        </div>
+                    </div>
+
+                    <div class="settings-list settings-list-single">
+                        <label class="settings-toggle-row settings-accent-toggle">
+                            <span><strong>Use model accents</strong><small>Keep each model's own identity colors instead of the custom accent pair.</small></span>
+                            <input id="setting-use-model-accent" type="checkbox" onchange="window.setSettingsToggle('useModelAccent', this.checked)">
+                            <i aria-hidden="true"></i>
+                        </label>
+                    </div>
+
+                    <div class="settings-color-heading"><span id="settings-color-mode-name">Dark palette</span></div>
+                    <div class="settings-color-grid">
+                        <label><span>Background</span><input id="setting-color-bg" type="color" oninput="window.setAppearanceColor('bgBase', this.value)"></label>
+                        <label><span>Surface</span><input id="setting-color-surface" type="color" oninput="window.setAppearanceColor('bgSurface', this.value)"></label>
+                        <label><span>Sidebar</span><input id="setting-color-sidebar" type="color" oninput="window.setAppearanceColor('bgSidebar', this.value)"></label>
+                        <label><span>Elevated</span><input id="setting-color-elevated" type="color" oninput="window.setAppearanceColor('bgElevated', this.value)"></label>
+                        <label><span>Text</span><input id="setting-color-text" type="color" oninput="window.setAppearanceColor('textPrimary', this.value)"></label>
+                        <label class="custom-accent-control"><span>Accent 1</span><input id="setting-color-accent-primary" type="color" oninput="window.setAppearanceColor('accentPrimary', this.value)"></label>
+                        <label class="custom-accent-control"><span>Accent 2</span><input id="setting-color-accent-secondary" type="color" oninput="window.setAppearanceColor('accentSecondary', this.value)"></label>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Chat Confirmation -->
+    <div id="delete-chat-modal" class="delete-chat-modal fixed inset-0 z-[220] hidden items-center justify-center" onclick="window.closeDeleteChatModal()" aria-hidden="true">
+        <div class="delete-chat-dialog" onclick="event.stopPropagation()" role="alertdialog" aria-modal="true" aria-labelledby="delete-chat-title">
+            <div class="delete-chat-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 6h18M8 6V4h8v2m-9 0 1 14h8l1-14M10 10v6m4-6v6"/></svg>
+            </div>
+            <h2 id="delete-chat-title">Delete chat?</h2>
+            <p>Delete <strong id="delete-chat-name">this conversation</strong> from saved chats? This cannot be undone.</p>
+            <label class="delete-warning-skip"><input id="delete-warning-skip-checkbox" type="checkbox"><span>Don't show this warning again</span></label>
+            <div class="delete-chat-actions">
+                <button type="button" class="delete-cancel-btn" onclick="window.closeDeleteChatModal()">Cancel</button>
+                <button type="button" class="delete-confirm-btn" onclick="window.confirmDeleteChat()">Delete</button>
+            </div>
+        </div>
+    </div>
+
+<!-- Engine & Model Scripts -->
+    <script src="VilotNI_1/VilotNI_1.js?v=28-continuation-root-family"></script>
+    <script src="VilotNI 1.5/vocab.js?v=28-continuation-root-family"></script>
+    <script src="VilotNI 1.5/sparce_layer.js?v=28-continuation-root-family"></script>
+    <script src="VilotNI 1.5/webgpu_backend.js?v=28-continuation-root-family"></script>
+    <script src="VilotNI 1.5/network_1_5.js?v=28-continuation-root-family"></script>
+
+    <!-- V22 Memory: must load before rl_agent.js -->
+    <script src="VilotNI 1.5/memory_store.js?v=28-continuation-root-family"></script>
+    <script src="VilotNI 1.5/memory_retrieval.js?v=28-continuation-root-family"></script>
+    <script src="VilotNI 1.5/phrase_parser.js?v=28-continuation-root-family"></script>
+    <script src="VilotNI 1.5/rl_agent.js?v=28-continuation-root-family"></script>
+
+    <!-- VilotNI 2 visual identity and production engine. -->
+    <script src="VilotNI 2/Icon.js?v=2-response-ui-1"></script>
+    <script src="VilotNI 2/Server.js?v=2-rule-data-1"></script>
+
+    <!-- Root Application Controller -->
+    <script src="app.js?v=2-settings-professional-3"></script>
+</body>
+</html>
