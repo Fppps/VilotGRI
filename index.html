@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VilotGRI — VilotNI 2</title>
+  <title>VilotGRI — VilotNI 2.5</title>
   <style>
     :root {
       --bg: #101012;
@@ -544,7 +544,7 @@
         <button class="nav-link active" data-view="overview" onclick="App.navigate('overview')">Overview</button>
         <button class="nav-link" data-view="about" onclick="App.navigate('about')">About</button>
         <button class="nav-link" data-view="team" onclick="App.navigate('team')">Team</button>
-        <button class="nav-link" data-view="vilotni" onclick="App.navigate('vilotni')">VilotNI 2</button>
+        <button class="nav-link" data-view="vilotni" onclick="App.navigate('vilotni')">VilotNI 2.5</button>
         <button class="nav-link" data-view="roadmap" onclick="App.navigate('roadmap')">Roadmap</button>
       </nav>
 
@@ -566,7 +566,7 @@
     <button class="nav-link" onclick="App.mobileNavigate('overview')">Overview</button>
     <button class="nav-link" onclick="App.mobileNavigate('about')">About</button>
     <button class="nav-link" onclick="App.mobileNavigate('team')">Team</button>
-    <button class="nav-link" onclick="App.mobileNavigate('vilotni')">VilotNI 2</button>
+    <button class="nav-link" onclick="App.mobileNavigate('vilotni')">VilotNI 2.5</button>
     <button class="nav-link" onclick="App.mobileNavigate('roadmap')">Roadmap</button>
     <a class="button" href="main_website/Index.html" style="margin-top:6px;">Open workspace</a>
   </div>
@@ -588,21 +588,21 @@
           <p class="lede">VilotGRI is an independent browser-native software project focused on transparent systems, fast local execution, and tools that can evolve without hiding how they work.</p>
           <div class="hero-actions">
             <a href="main_website/Index.html" class="button">Open workspace</a>
-            <button class="button-quiet" onclick="App.navigate('vilotni')">View VilotNI 2 release</button>
+            <button class="button-quiet" onclick="App.navigate('vilotni')">View VilotNI 2.5</button>
           </div>
         </div>
         <aside class="hero-meta" aria-label="Release information">
           <div class="meta-row">
             <div class="meta-label">Release date</div>
-            <div class="meta-value date">09.26.26 at 11 AM</div>
+            <div class="meta-value date">09.30.26</div>
           </div>
           <div class="meta-row">
             <div class="meta-label">Project</div>
-            <div class="meta-value">VilotNI 2</div>
+            <div class="meta-value">VilotNI 2.5</div>
           </div>
           <div class="meta-row">
             <div class="meta-label">Status</div>
-            <div class="meta-value" style="font-size:16px;">Release</div>
+            <div class="meta-value" style="font-size:16px;">Upcoming</div>
             <div id="release-countdown" style="margin-top:7px;"></div>
           </div>
         </aside>
@@ -653,27 +653,27 @@
       <div class="page">
         <div class="teaser-header">
           <div>
-            <div class="eyebrow">VilotNI 2 / Release</div>
-            <h2 style="margin-top:18px;">A look at the next system.</h2>
-            <p class="lede">VilotNI 2 releases on September 26 at 11 AM with a larger reasoning architecture, stricter answer confidence, expanded language handling, persistent conversation features, and a cleaner product interface.</p>
+            <div class="eyebrow">VilotNI 2.5 / Teaser</div>
+            <h2 style="margin-top:18px;">A look at VilotNI 2.5.</h2>
+            <p class="lede">VilotNI 2.5 will be teased on September 27 and released on September 30. It moves beyond the VilotNI 2 release with a new advanced-model architecture built around keyword relationships, Grover-inspired candidate search, expanded between-bit processing, and new vector and matrix operations.</p>
           </div>
           <div class="teaser-date">
-            <div class="meta-label">Release date</div>
-            <div class="date">Sept 26, 11 AM</div>
+            <div class="meta-label">Teaser date</div>
+            <div class="date">Sept 27</div>
             <div style="margin-top:7px;color:var(--faint);font:700 10px/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;">2026</div>
           </div>
         </div>
 
         <div class="spec-list">
-          <div class="spec-row"><div class="spec-index">01</div><div class="spec-title">6M-neuron RSL core</div><div class="spec-copy">A substantially larger recurrent/self-learning runtime that keeps the existing learned-state architecture while expanding the model's working capacity.</div></div>
-          <div class="spec-row"><div class="spec-index">02</div><div class="spec-title">Confidence-gated responses</div><div class="spec-copy">Responses are evaluated before they are shown. Lower-confidence candidates remain internal while the system continues searching for a stronger answer.</div></div>
-          <div class="spec-row"><div class="spec-index">03</div><div class="spec-title">Focused evidence search</div><div class="spec-copy">Query planning, evidence retrieval, and candidate ranking are separated so straightforward prompts can reach relevant knowledge before broader recovery search is needed.</div></div>
-          <div class="spec-row"><div class="spec-index">04</div><div class="spec-title">Language rule data</div><div class="spec-copy">Grammar, punctuation, query patterns, semantic relations, context behavior, and lexical definition indexes now live in dedicated rule/data layers.</div></div>
-          <div class="spec-row"><div class="spec-index">05</div><div class="spec-title">Context-aware follow-ups</div><div class="spec-copy">Short prompts such as “Why?” can resolve against the active conversation instead of being treated like incomplete standalone questions.</div></div>
-          <div class="spec-row"><div class="spec-index">06</div><div class="spec-title">Product interface</div><div class="spec-copy">Saved chats, account preferences, model defaults, appearance settings, and a unified response presentation are being brought into the same workspace.</div></div>
+          <div class="spec-row"><div class="spec-index">01</div><div class="spec-title">Grover-inspired search</div><div class="spec-copy">A new candidate-search layer is designed around an approach inspired by Grover's algorithm, repeatedly emphasizing stronger possibilities instead of treating every candidate equally.</div></div>
+          <div class="spec-row"><div class="spec-index">02</div><div class="spec-title">Expanded between-bit processing</div><div class="spec-copy">The existing between-bit system is being expanded so VilotNI 2.5 can represent and compare intermediate states with more structure than the earlier implementation.</div></div>
+          <div class="spec-row"><div class="spec-index">03</div><div class="spec-title">Vector operations</div><div class="spec-copy">Vector-based representations give the model another way to organize relationships, compare candidates, and carry structured information through the advanced reasoning path.</div></div>
+          <div class="spec-row"><div class="spec-index">04</div><div class="spec-title">Matrix operations</div><div class="spec-copy">Matrix processing is being added alongside vectors to support larger transformations and interactions between multiple values inside the VilotNI 2.5 architecture.</div></div>
+          <div class="spec-row"><div class="spec-index">05</div><div class="spec-title">Keyword-driven retrieval</div><div class="spec-copy">VilotNI 2.5 is designed to respond from keywords and their learned relationships rather than simply returning the stored definitions attached to those words.</div></div>
+          <div class="spec-row"><div class="spec-index">06</div><div class="spec-title">Advanced model line</div><div class="spec-copy">VilotNI 2.5 joins VilotNI 2 in the Advanced Models group while remaining its own full model, with its architecture and files treated as a first-class release rather than an experiment.</div></div>
         </div>
 
-        <div class="teaser-note">VilotNI 2 is the current release line. Development will continue after launch, and this page reflects the September 30 public release.</div>
+        <div class="teaser-note">VilotNI 2.5 will be teased September 27 and released September 30. This page now reflects the 2.5 architecture rather than the already-released VilotNI 2 feature set.</div>
 
         <div style="margin-top:30px;display:flex;gap:9px;flex-wrap:wrap;">
           <a href="main_website/Index.html" class="button">Open workspace</a>
@@ -686,13 +686,12 @@
       <div class="page">
         <div class="section-head">
           <div class="eyebrow">Roadmap</div>
-          <div><h2>Release schedule.</h2><p class="lede">The current VilotNI release and the next-generation dates already on the calendar.</p></div>
+          <div><h2>Release schedule.</h2><p class="lede">The teaser and public release dates for VilotNI 2.5.</p></div>
         </div>
 
         <div class="timeline">
-                              <div class="timeline-row current"><div class="timeline-date">SEP 26, 11 AM, 2026</div><div class="timeline-name">VilotNI 2 Release</div><div class="timeline-copy">Public release of the VilotNI 2 architecture, language systems, confidence search, persistent chats, and redesigned interface.</div></div>
-          <div class="timeline-row"><div class="timeline-date">OCT 3, 2026</div><div class="timeline-name">VilotNI 2.5 Teaser</div><div class="timeline-copy">First public preview of the next VilotNI generation.</div></div>
-          <div class="timeline-row"><div class="timeline-date">OCT 7, 2026</div><div class="timeline-name">VilotNI 2.5 Release</div><div class="timeline-copy">Planned public release of VilotNI 3.</div></div>
+          <div class="timeline-row current"><div class="timeline-date">SEP 27, 2026</div><div class="timeline-name">VilotNI 2.5 Teaser</div><div class="timeline-copy">First public preview of VilotNI 2.5.</div></div>
+          <div class="timeline-row"><div class="timeline-date">SEP 30, 2026</div><div class="timeline-name">VilotNI 2.5 Release</div><div class="timeline-copy">Planned public release of VilotNI 2.5.</div></div>
         </div>
 
         <div class="teaser-note" style="margin-top:24px;">Development dates describe the current plan and may change as the project evolves.</div>
@@ -701,7 +700,7 @@
   </main>
 
   <footer class="footer">
-    <div class="footer-inner"><div><strong>VilotGRI</strong> / VilotNI 2</div><div>Developed by WATS (Whitty At The South)</div></div>
+    <div class="footer-inner"><div><strong>VilotGRI</strong> / VilotNI 2.5</div><div>Developed by WATS (Whitty At The South)</div></div>
   </footer>
 
   <script>
@@ -759,7 +758,7 @@
       initCountdown() {
         const el = document.getElementById('release-countdown');
         if (!el) return;
-        const release = new Date('2026-09-26T11:00:00');
+        const release = new Date('2026-09-30T00:00:00');
         const update = () => {
           const ms = release - new Date();
           if (ms <= 0) {
