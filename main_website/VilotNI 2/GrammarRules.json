@@ -1,0 +1,155 @@
+{
+  "Schema_Version": 1,
+  "Role": "Structural grammar policy for VilotNI 2. Contains generic grammatical constraints, not domain answers.",
+  "Determiners": {
+    "a": {
+      "class": "indefinite_article",
+      "number_requirement": "singular",
+      "article_onset": "consonant"
+    },
+    "an": {
+      "class": "indefinite_article",
+      "number_requirement": "singular",
+      "article_onset": "vowel"
+    },
+    "the": {
+      "class": "definite_article",
+      "number_requirement": "any"
+    },
+    "another": {
+      "class": "singular_determiner",
+      "number_requirement": "singular"
+    },
+    "each": {
+      "class": "singular_determiner",
+      "number_requirement": "singular"
+    },
+    "either": {
+      "class": "singular_determiner",
+      "number_requirement": "singular"
+    },
+    "every": {
+      "class": "singular_determiner",
+      "number_requirement": "singular"
+    },
+    "neither": {
+      "class": "singular_determiner",
+      "number_requirement": "singular"
+    },
+    "this": {
+      "class": "singular_determiner",
+      "number_requirement": "singular"
+    },
+    "that": {
+      "class": "singular_determiner",
+      "number_requirement": "singular"
+    },
+    "both": {
+      "class": "pair_quantifier",
+      "number_requirement": "plural",
+      "mismatch_fallback": "indefinite_article",
+      "requires_coordination_or_plural": true
+    },
+    "few": {
+      "class": "plural_quantifier",
+      "number_requirement": "plural",
+      "mismatch_fallback": "indefinite_article"
+    },
+    "many": {
+      "class": "plural_quantifier",
+      "number_requirement": "plural",
+      "mismatch_fallback": "indefinite_article"
+    },
+    "several": {
+      "class": "plural_quantifier",
+      "number_requirement": "plural",
+      "mismatch_fallback": "indefinite_article"
+    },
+    "these": {
+      "class": "plural_quantifier",
+      "number_requirement": "plural",
+      "mismatch_fallback": "indefinite_article"
+    },
+    "those": {
+      "class": "plural_quantifier",
+      "number_requirement": "plural",
+      "mismatch_fallback": "indefinite_article"
+    },
+    "all": {
+      "class": "number_flexible_determiner",
+      "number_requirement": "any"
+    },
+    "any": {
+      "class": "number_flexible_determiner",
+      "number_requirement": "any"
+    },
+    "enough": {
+      "class": "number_flexible_determiner",
+      "number_requirement": "any"
+    },
+    "no": {
+      "class": "number_flexible_determiner",
+      "number_requirement": "any"
+    },
+    "some": {
+      "class": "number_flexible_determiner",
+      "number_requirement": "any"
+    },
+    "such": {
+      "class": "number_flexible_determiner",
+      "number_requirement": "any"
+    }
+  },
+  "Agreement": {
+    "copula": {
+      "singular": [
+        "is",
+        "was"
+      ],
+      "plural": [
+        "are",
+        "were"
+      ],
+      "first_person_singular": [
+        "am",
+        "was"
+      ]
+    },
+    "article_selection": {
+      "vowel_onset": "an",
+      "consonant_onset": "a"
+    }
+  },
+  "Coordination": {
+    "coordinators": [
+      "and",
+      "but",
+      "or",
+      "nor",
+      "for",
+      "so",
+      "yet"
+    ],
+    "both_requires": {
+      "coordinator": "and",
+      "minimum_members": 2
+    }
+  },
+  "Clause": {
+    "subordinate_openers": [
+      "although",
+      "because",
+      "when",
+      "while",
+      "if",
+      "since",
+      "unless",
+      "after",
+      "before",
+      "once",
+      "though",
+      "whereas"
+    ],
+    "terminal_required": true
+  }
+}

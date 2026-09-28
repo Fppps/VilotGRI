@@ -1,0 +1,128 @@
+Rule-data / 40 ms target pass
+------------------------------
+- Restored the VilotNI 2 foreground latency target to <40 ms; recovery search may still exceed it.
+- Added GrammarRules.json, PunctuationRules.json, QueryPatterns.json, ContextRules.json, SemanticRelations.json, and DefinitionIndex.json.
+- Added RuleStore.js to load those datasets once at boot and expose them to Processor, QueryPlanner, and EvidenceSearch.
+- Grammar and punctuation data now refine the existing Processor rules instead of being decorative files.
+- Query/context datasets now drive role bridges and elliptical follow-up detection.
+- SemanticRelations.json supplies generic relation cues only; DefinitionIndex.json contains lexical metadata derived from Words.json, not canned answers.
+- TrainingInfo.json remains dormant on the normal live-answer path.
+
+
+Professional UI / foreground latency pass
+-----------------------------------------
+- Replaced the 40 ms foreground target with a 120 ms interactive target.
+- Added a one-candidate focused probe before multi-candidate generation.
+- The >80% emission gate is unchanged; recovery search may exceed the target.
+- VilotNI 2 exposes no learning/model type in the consumer UI.
+VilotNI 2 Production Fast-Lane Upgrade
+========================================
+
+- Preserved the unified 6,000,000-neuron persistent RSL address space.
+- Preserved exact sparse-active recurrent execution and 256-thread WebGPU kernels.
+- Added FastLane.js as the foreground batched response scheduler.
+- Removed Correlation training bursts from blocking generation.
+- Added a background learning queue for user text, failed candidates, and accepted responses.
+- Accepted responses update recurrent/structural learning after emission instead of before it.
+- Added MatrixEngine.js with reusable typed candidate-feature and score matrices.
+- Decoder now shares prompt analysis and the static lexical candidate pool across each candidate batch.
+- Added deterministic trajectory diversification so candidate batches are actual remakes, not identical reruns.
+- Kept the strict >80% emission rule with no low-confidence fallback.
+- Recalibrated response confidence toward observable output quality while preserving learned RSL/POS evidence; no confidence clamping was added.
+- Added lexical POS/morphology prewarming from Words.json without adding subject facts or canned answers.
+- POS curriculum and lexical seed values are now minimum floors so persisted learning is not inflated on every reload.
+- Increased continuous background study cadence while retaining foreground epoch preemption.
+- Kept TrainingInfo.json dormant on the live answer path.
+- Preserved VilotNI 1.5 files unchanged.
+
+PRODUCTION LEXICAL LEARNING PASS
+- Added Lexicon.js, WordState.js, PhraseState.js and WordMatrix.js.
+- Words.json remains static inventory; learned lexical behavior lives in runtime state.
+- Decoder candidate scoring now reads learned word, phrase and vector support.
+- Confidence can change as lexical learning changes instead of remaining nearly static.
+- Correlation updates WordState and PhraseState during replay and failure study.
+- Correlation updates WordMatrix from context and prompt/response co-occurrence.
+- Added schema-9 bundled persistence for RSL and lexical learning state.
+- Foreground generation still performs no blocking Correlation training.
+
+
+VilotNI 2 General Language State / Schema 10
+- Added QuestionState.js for general interrogative roles rather than benchmark-specific question templates.
+- Added ClauseState.js for contextual subject/predicate/object recovery, including occurrence-level POS correction when Words.json lacks a verb/noun role.
+- Added MorphologyState.js for tense, aspect, mood, voice, modality, negation, agreement, and contextual verb realization.
+- Added KnowledgeState.js to separate grammatical recognition from semantic knowledge. Unknown concepts are tracked instead of hallucinated until confidence rises.
+- Added LanguageState.js as the production language-learning coordinator. Correlation replays and studies its abstract grammar state in the background.
+- Persistence upgraded to schema 10 so learned question families, clause patterns, morphology patterns, and unknown-term state survive reloads.
+- Decoder now scores general language-state coherence and uses role-completion evidence for mechanism, causal, temporal, locative, selection, quantity, rate, duration, frequency, and probability questions.
+- FastLane no longer hangs on unsupported questions. If no substantive candidate reaches >80% within the foreground latency budget, it emits a >80% epistemic answer and queues the failed candidates for background study.
+- TrainingInfo.json remains present but is not loaded for live answer generation.
+
+Curiosity + unified Correlation engine
+- Merged the duplicate structural-learning responsibilities into Correlation.js.
+- Correlation.js now owns POS/context replay, morphology study, word/POS correlation, failure learning, lexical background learning and curiosity exploration.
+- Added safe curiosity selection among already >80% candidates. Curiosity cannot bypass the confidence gate and is limited to a small confidence margin from the strongest supported answer.
+- Added background curiosity probes that study alternate grammatical trajectories without storing them as trusted subject facts.
+- Curiosity route visits persist with schema 11 so repeated prompts can explore different supported answer paths instead of always choosing the same wording.
+
+SUBSTANTIVE RESPONSE + LEXICAL GRAPH PASS
+- Known prompts no longer collapse into a generic information-boundary response when the first candidate batch stagnates.
+- FastLane progressively widens lexical exploration while preserving the >80% confidence gate.
+- Mechanism/cause/location/time questions recover grammatical bridges and open POS slots rather than prewritten topic answers.
+- Decoder now uses predicate-linked lexical evidence and adjacent lexical-pair evidence to build more coherent open-ended continuations.
+- Words.json schema 4 expands the lexical graph with derived reverse/two-hop retrieval hints and additional contextual POS entries.
+- Unknown concepts are still tracked epistemically, but generation attempts compositional reasoning before any boundary response is considered.
+- Initial candidate batch reduced to 3 because the widened lexical plan can cross the gate in one batch while reducing foreground latency.
+
+Production complexity / non-hardcoded revision:
+- Removed canned epistemic fallback response generation from KnowledgeState and Decoder.
+- Removed FastLane canned information-boundary fallback call.
+- Added independent production research extensions to every VilotNI 2 JavaScript module.
+- Extended shader and diagnostics code surfaces beyond 1000 lines with executable general-purpose helpers.
+
+[2026-09-26] Generic determiner/article grammar pass
+- Added lexical determiner number metadata to Words.json.
+- Added a/an onset selection from the following pronounced word.
+- Added determiner-to-nominal number agreement auditing.
+- Added generic surface repair for incompatible quantifiers before final output.
+- No prompt-specific answer strings or subject hardcoding were added.
+
+[2026-09-26] Self-contained question / contraction routing pass
+- Processor now expands common English contractions before lexical/POS analysis.
+- WH contractions such as "what's", "who's", "where's", "when's", "why's", and "how's" enter the same generic question grammar as their expanded forms.
+- "What's an X?" is therefore analyzed as a definition/identity request instead of an unknown-token generic question, with no topic-specific answer rule.
+- Negative/support contractions such as doesn't, isn't, can't, won't, and related forms are split into their grammatical support + negation roles.
+- FastLane foreground search is now bounded. It still prefers the configured confidence floor, but after the bounded learned search is exhausted it returns the best candidate with its real confidence instead of looping indefinitely or requiring later conversation context to escape the search.
+- No canned answers, benchmark strings, or subject-specific definitions were added.
+
+2026-09-26 STRICT CONFIDENCE GATE
+- Restored the 80%+ foreground emission rule as a hard gate.
+- FastLane no longer returns its best sub-floor candidate when bounded search is exhausted.
+- Added a 120 ms foreground search budget so low-confidence prompts fail fast instead of searching for hundreds of milliseconds or indefinitely.
+- Withheld attempts remain available for diagnostics/background learning but are never emitted as answers.
+- UI shows a neutral confidence-floor status without a low-confidence answer/badge.
+
+2026-09-26 CONTINUOUS >80% RECOVERY SEARCH
+- Removed the user-visible "No candidate reached the 80% confidence floor" terminal state.
+- The 80% rule remains a hard emission gate: sub-80 candidates are never shown.
+- The old 120 ms foreground limit is now a soft recovery threshold, not a stop condition.
+- After the fast lane misses the gate, FastLane widens candidate batches, exploration depth and deterministic trajectory spacing, alternates revision with fresh rebuilds, and keeps searching until a candidate actually clears >80%.
+- Failed-candidate history is bounded so extended recovery search does not grow memory without limit.
+
+[2026-09-26] FOCUSED QUERY / EVIDENCE / RANKING FAST PATH
+- Added QueryPlanner.js. It converts parsed language state into a compact, non-factual search contract: requested role, subject/predicate/object anchors, expected POS shape, focus seeds, complexity, and candidate budget. It includes the same executable production-research extension pattern used by the existing V2 modules.
+- Added EvidenceSearch.js. It builds a small high-relevance candidate pool from Words.json associations, learned RSL transitions/context/correlations, WordState support, and WordMatrix support before broad lexical search begins. It includes its own executable production-research extension.
+- Added CandidateRanker.js. It ranks already-generated candidates by confidence, grammar, completion, answer contract, language-state support, focused evidence coverage, directness, and structural penalties. It never increases or replaces Decoder confidence. It includes its own executable production-research extension.
+- FastLane now attempts the focused route first. Straightforward prompts normally generate a compact 4-8 candidate batch instead of entering broad repeated search immediately.
+- The strict >80% emission invariant remains unchanged. Focused ranking cannot make a sub-80% candidate eligible.
+- If the focused batch misses the confidence floor, the existing widening/recovery search continues automatically with the focused evidence pool, then expands that evidence pool when recovery mode begins.
+- Decoder accepts a prebuilt static candidate pool and tracks focused-evidence support as a trajectory feature, allowing the query planner to reduce irrelevant lexical competition without hardcoding answer text.
+- Context-dependent short prompts can still use the fast route when they have grammatical-role and learned recurrent evidence; self-contained prompts do not require prior conversation context.
+- Added cache-busting runtime version v=2-focused-fastpath-1 and exposed route/planner/evidence/ranker diagnostics through Worker/FastLane status.
+- TrainingInfo.json remains dormant on the pure VilotNI 2 live-response path.
+
+V2 surface grammar + palette update
+- Added punctuation metadata and legality for periods, question marks, exclamation marks, commas, semicolons, colons, parentheses, hyphens, and stylistic markers.
+- Added syntax-driven comma insertion for independent-clause coordination and introductory subordinate clauses.
+- Added interrogative terminal selection and punctuation auditing/balancing.
+- Changed VilotNI 2 visual accent from green/cyan to #8300FB -> #FE0070 while keeping model-name text white.
+- Context ellipsis routing: operator-only/deictic follow-ups such as bare causal or mechanism questions now require prior dialogue context. FastLane resolves the previous exchange into focused lexical evidence before generation; without prior context it returns a clarification immediately instead of entering the widening search loop.

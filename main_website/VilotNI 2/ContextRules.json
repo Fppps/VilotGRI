@@ -1,0 +1,118 @@
+{
+  "Schema_Version": 1,
+  "Role": "Context dependency rules for ellipsis and deictic follow-up questions.",
+  "Pronouns": [
+    "it",
+    "this",
+    "that",
+    "these",
+    "those",
+    "he",
+    "she",
+    "they",
+    "them",
+    "him",
+    "her",
+    "there",
+    "here",
+    "one",
+    "ones",
+    "something",
+    "someone"
+  ],
+  "Question_Operators": [
+    "what",
+    "which",
+    "who",
+    "whom",
+    "whose",
+    "where",
+    "when",
+    "why",
+    "how"
+  ],
+  "Support_Verbs": [
+    "am",
+    "is",
+    "are",
+    "was",
+    "were",
+    "be",
+    "been",
+    "being",
+    "do",
+    "does",
+    "did",
+    "have",
+    "has",
+    "had",
+    "can",
+    "could",
+    "will",
+    "would",
+    "shall",
+    "should",
+    "may",
+    "might",
+    "must"
+  ],
+  "Fillers": [
+    "not",
+    "so",
+    "then",
+    "else",
+    "again",
+    "really",
+    "exactly",
+    "though",
+    "too",
+    "either",
+    "instead",
+    "about",
+    "and",
+    "but",
+    "also",
+    "still",
+    "just"
+  ],
+  "Exact_Ellipsis": {
+    "why": {
+      "requires_context": true,
+      "relation": "cause"
+    },
+    "why not": {
+      "requires_context": true,
+      "relation": "cause"
+    },
+    "how": {
+      "requires_context": true,
+      "relation": "mechanism"
+    },
+    "how so": {
+      "requires_context": true,
+      "relation": "mechanism"
+    },
+    "when": {
+      "requires_context": true,
+      "relation": "time"
+    },
+    "where": {
+      "requires_context": true,
+      "relation": "location"
+    },
+    "what about it": {
+      "requires_context": true,
+      "relation": "content"
+    },
+    "what about that": {
+      "requires_context": true,
+      "relation": "content"
+    }
+  },
+  "Rules": {
+    "operator_only_requires_context": true,
+    "short_wh_without_concrete_anchor_requires_context": true,
+    "deictic_only_requires_context": true,
+    "context_window_turns": 12
+  }
+}
