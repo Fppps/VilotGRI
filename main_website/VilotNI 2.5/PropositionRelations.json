@@ -1,0 +1,215 @@
+{
+  "Schema_Version": 1,
+  "Build": "25-system-35",
+  "Role": "Relation semantics between propositions. These rules preserve how clauses depend on one another instead of flattening the prompt to a bag of keywords.",
+  "Relations": {
+    "cause": {
+      "inverse": "result",
+      "reasoning_family": "causal",
+      "requires": [
+        "cause",
+        "effect"
+      ]
+    },
+    "cause_source": {
+      "inverse": "result",
+      "reasoning_family": "causal",
+      "requires": [
+        "cause",
+        "effect"
+      ]
+    },
+    "result": {
+      "inverse": "cause",
+      "reasoning_family": "causal",
+      "requires": [
+        "cause",
+        "effect"
+      ]
+    },
+    "condition": {
+      "inverse": "conditioned_result",
+      "reasoning_family": "conditional",
+      "requires": [
+        "condition",
+        "result"
+      ]
+    },
+    "negative_condition": {
+      "inverse": "conditioned_result",
+      "reasoning_family": "conditional",
+      "requires": [
+        "condition",
+        "result"
+      ]
+    },
+    "temporal_before": {
+      "inverse": "temporal_after",
+      "reasoning_family": "temporal",
+      "requires": [
+        "earlier",
+        "later"
+      ]
+    },
+    "temporal_after": {
+      "inverse": "temporal_before",
+      "reasoning_family": "temporal",
+      "requires": [
+        "earlier",
+        "later"
+      ]
+    },
+    "temporal_condition": {
+      "inverse": "occurs_when",
+      "reasoning_family": "temporal",
+      "requires": [
+        "event",
+        "time_or_event"
+      ]
+    },
+    "simultaneous_or_contrast": {
+      "reasoning_family": "temporal_relational",
+      "requires": [
+        "left",
+        "right"
+      ]
+    },
+    "contrast": {
+      "reasoning_family": "contrast",
+      "requires": [
+        "left",
+        "right"
+      ]
+    },
+    "concession": {
+      "reasoning_family": "contrast",
+      "requires": [
+        "expectation",
+        "counter_fact"
+      ]
+    },
+    "comparison": {
+      "reasoning_family": "comparison",
+      "requires": [
+        "left",
+        "right"
+      ]
+    },
+    "difference": {
+      "reasoning_family": "comparison",
+      "requires": [
+        "left",
+        "right"
+      ]
+    },
+    "similarity": {
+      "reasoning_family": "comparison",
+      "requires": [
+        "left",
+        "right"
+      ]
+    },
+    "addition": {
+      "reasoning_family": "coordination",
+      "requires": [
+        "left",
+        "right"
+      ]
+    },
+    "alternative": {
+      "reasoning_family": "coordination",
+      "requires": [
+        "left",
+        "right"
+      ]
+    },
+    "purpose": {
+      "inverse": "method_for",
+      "reasoning_family": "goal",
+      "requires": [
+        "action",
+        "goal"
+      ]
+    },
+    "content_complement": {
+      "reasoning_family": "complement",
+      "requires": [
+        "governing_predicate",
+        "content"
+      ]
+    },
+    "truth_complement": {
+      "reasoning_family": "complement",
+      "requires": [
+        "governing_predicate",
+        "proposition"
+      ]
+    },
+    "embedded_mechanism": {
+      "reasoning_family": "mechanism",
+      "requested_role": "mechanism"
+    },
+    "embedded_cause": {
+      "reasoning_family": "causal",
+      "requested_role": "cause"
+    },
+    "embedded_content": {
+      "reasoning_family": "content",
+      "requested_role": "content"
+    },
+    "relative_general": {
+      "reasoning_family": "attribute",
+      "requires": [
+        "antecedent",
+        "relative_clause"
+      ]
+    },
+    "relative_person": {
+      "reasoning_family": "attribute",
+      "requires": [
+        "antecedent",
+        "relative_clause"
+      ]
+    },
+    "temporal_progression": {
+      "reasoning_family": "temporal",
+      "requires": [
+        "process",
+        "time_progression"
+      ]
+    },
+    "duration": {
+      "reasoning_family": "temporal",
+      "requires": [
+        "event",
+        "duration"
+      ]
+    },
+    "temporal_overlap": {
+      "reasoning_family": "temporal",
+      "requires": [
+        "left_event",
+        "right_event"
+      ]
+    }
+  },
+  "Composition": {
+    "condition_then_cause": [
+      "condition",
+      "cause"
+    ],
+    "temporal_then_cause": [
+      "temporal_before",
+      "cause"
+    ],
+    "comparison_with_cause": [
+      "comparison",
+      "cause"
+    ],
+    "embedded_question_under_directive": [
+      "content_complement",
+      "embedded_mechanism",
+      "embedded_cause"
+    ]
+  }
+}

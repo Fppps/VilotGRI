@@ -1,0 +1,300 @@
+{
+  "Schema_Version": 1,
+  "Build": "25-system-35",
+  "Role": "Generic multi-clause syntax knowledge for parsing embedded questions, subordinate clauses, coordination, conditionals, comparison, temporal structure, purpose, concession, and nested complements.",
+  "Directive_Verbs": {
+    "explain": {
+      "act": "explain",
+      "allows_embedded_question": true
+    },
+    "describe": {
+      "act": "describe",
+      "allows_embedded_question": true
+    },
+    "show": {
+      "act": "show",
+      "allows_embedded_question": true
+    },
+    "tell": {
+      "act": "tell",
+      "allows_embedded_question": true
+    },
+    "analyze": {
+      "act": "analyze",
+      "allows_embedded_question": true
+    },
+    "compare": {
+      "act": "compare",
+      "allows_embedded_question": true
+    },
+    "discuss": {
+      "act": "discuss",
+      "allows_embedded_question": true
+    },
+    "trace": {
+      "act": "trace",
+      "allows_embedded_question": true
+    },
+    "evaluate": {
+      "act": "evaluate",
+      "allows_embedded_question": true
+    }
+  },
+  "Embedded_Question_Markers": {
+    "how": "mechanism",
+    "why": "cause",
+    "what": "content",
+    "which": "selection",
+    "who": "person",
+    "where": "location",
+    "when": "time",
+    "whether": "truth"
+  },
+  "Subordinators": {
+    "because": {
+      "relation": "cause",
+      "attachment": "result_to_cause",
+      "priority": 0.96
+    },
+    "because of": {
+      "relation": "cause_source",
+      "attachment": "result_to_nominal_cause",
+      "priority": 0.94
+    },
+    "if": {
+      "relation": "condition",
+      "attachment": "condition_to_result",
+      "priority": 0.98
+    },
+    "unless": {
+      "relation": "negative_condition",
+      "attachment": "condition_to_result",
+      "priority": 0.96
+    },
+    "after": {
+      "relation": "temporal_after",
+      "attachment": "event_order",
+      "priority": 0.9
+    },
+    "before": {
+      "relation": "temporal_before",
+      "attachment": "event_order",
+      "priority": 0.9
+    },
+    "when": {
+      "relation": "temporal_condition",
+      "attachment": "event_time",
+      "priority": 0.86
+    },
+    "while": {
+      "relation": "simultaneous_or_contrast",
+      "attachment": "parallel_clause",
+      "priority": 0.84
+    },
+    "although": {
+      "relation": "concession",
+      "attachment": "contrast",
+      "priority": 0.92
+    },
+    "though": {
+      "relation": "concession",
+      "attachment": "contrast",
+      "priority": 0.88
+    },
+    "even though": {
+      "relation": "concession",
+      "attachment": "contrast",
+      "priority": 0.96
+    },
+    "whereas": {
+      "relation": "contrast",
+      "attachment": "comparison",
+      "priority": 0.93
+    },
+    "since": {
+      "relation": "cause_or_time",
+      "attachment": "contextual",
+      "priority": 0.74
+    },
+    "once": {
+      "relation": "temporal_after",
+      "attachment": "event_order",
+      "priority": 0.82
+    },
+    "until": {
+      "relation": "temporal_limit",
+      "attachment": "event_order",
+      "priority": 0.84
+    },
+    "as long as": {
+      "relation": "condition",
+      "attachment": "condition_to_result",
+      "priority": 0.9
+    },
+    "provided that": {
+      "relation": "condition",
+      "attachment": "condition_to_result",
+      "priority": 0.92
+    },
+    "so that": {
+      "relation": "purpose",
+      "attachment": "action_to_goal",
+      "priority": 0.92
+    },
+    "in order to": {
+      "relation": "purpose",
+      "attachment": "action_to_goal",
+      "priority": 0.94
+    }
+  },
+  "Coordinators": {
+    "and": {
+      "relation": "addition",
+      "scope": "parallel"
+    },
+    "but": {
+      "relation": "contrast",
+      "scope": "parallel"
+    },
+    "or": {
+      "relation": "alternative",
+      "scope": "parallel"
+    },
+    "yet": {
+      "relation": "contrast",
+      "scope": "parallel"
+    },
+    "so": {
+      "relation": "result",
+      "scope": "parallel"
+    },
+    "nor": {
+      "relation": "negative_addition",
+      "scope": "parallel"
+    }
+  },
+  "Relative_Markers": {
+    "who": {
+      "relation": "relative_person"
+    },
+    "whom": {
+      "relation": "relative_person"
+    },
+    "whose": {
+      "relation": "relative_possession"
+    },
+    "which": {
+      "relation": "relative_object"
+    },
+    "that": {
+      "relation": "relative_general"
+    },
+    "where": {
+      "relation": "relative_location"
+    }
+  },
+  "Complementizers": {
+    "that": {
+      "relation": "content_complement"
+    },
+    "whether": {
+      "relation": "truth_complement"
+    },
+    "if": {
+      "relation": "truth_or_condition_complement"
+    }
+  },
+  "Comparison_Markers": {
+    "than": {
+      "relation": "comparison"
+    },
+    "compared with": {
+      "relation": "comparison"
+    },
+    "compared to": {
+      "relation": "comparison"
+    },
+    "as well as": {
+      "relation": "addition"
+    },
+    "rather than": {
+      "relation": "contrast_choice"
+    },
+    "different from": {
+      "relation": "difference"
+    },
+    "similar to": {
+      "relation": "similarity"
+    }
+  },
+  "Negation_Scope_Markers": [
+    "not",
+    "never",
+    "neither",
+    "nor",
+    "without",
+    "hardly",
+    "rarely"
+  ],
+  "Modal_Markers": [
+    "can",
+    "could",
+    "may",
+    "might",
+    "must",
+    "shall",
+    "should",
+    "will",
+    "would"
+  ],
+  "Boundary_Punctuation": [
+    ".",
+    "?",
+    "!",
+    ";",
+    ":"
+  ],
+  "Soft_Boundary_Punctuation": [
+    ","
+  ],
+  "Complexity_Weights": {
+    "clause": 0.12,
+    "subordination": 0.18,
+    "embedded_question": 0.16,
+    "reference": 0.08,
+    "negation": 0.08,
+    "comparison": 0.12,
+    "coordination": 0.08,
+    "conditional": 0.16,
+    "temporal": 0.1
+  },
+  "Temporal_Modifiers": {
+    "over time": {
+      "relation": "temporal_progression"
+    },
+    "later": {
+      "relation": "temporal_after"
+    },
+    "earlier": {
+      "relation": "temporal_before"
+    },
+    "previously": {
+      "relation": "temporal_before"
+    },
+    "eventually": {
+      "relation": "temporal_progression"
+    },
+    "during": {
+      "relation": "temporal_overlap"
+    },
+    "for a while": {
+      "relation": "duration"
+    },
+    "at first": {
+      "relation": "temporal_initial"
+    },
+    "then": {
+      "relation": "temporal_after"
+    }
+  }
+}

@@ -1,0 +1,924 @@
+{
+  "Schema_Version": 4,
+  "Role": "Generic broad-domain relation vocabulary for evidence routing and concept linking; no canned factual answers.",
+  "Relations": {
+    "identity": {
+      "cues": [
+        "is",
+        "type",
+        "kind",
+        "class",
+        "means",
+        "called"
+      ],
+      "preferred_pos": [
+        "Noun",
+        "ProperNoun",
+        "Adj",
+        "Det"
+      ]
+    },
+    "cause": {
+      "cues": [
+        "because",
+        "cause",
+        "reason",
+        "result",
+        "from",
+        "due",
+        "through"
+      ],
+      "preferred_pos": [
+        "Noun",
+        "Verb",
+        "Adj",
+        "Prep",
+        "Conj"
+      ]
+    },
+    "mechanism": {
+      "cues": [
+        "by",
+        "through",
+        "using",
+        "with",
+        "process",
+        "method",
+        "works"
+      ],
+      "preferred_pos": [
+        "Verb",
+        "Noun",
+        "Adj",
+        "Adv",
+        "Prep"
+      ]
+    },
+    "location": {
+      "cues": [
+        "in",
+        "at",
+        "on",
+        "inside",
+        "within",
+        "near"
+      ],
+      "preferred_pos": [
+        "Noun",
+        "ProperNoun",
+        "Prep",
+        "Det"
+      ]
+    },
+    "time": {
+      "cues": [
+        "during",
+        "before",
+        "after",
+        "when",
+        "while",
+        "time"
+      ],
+      "preferred_pos": [
+        "Noun",
+        "ProperNoun",
+        "Prep",
+        "Num",
+        "Det"
+      ]
+    },
+    "truth": {
+      "cues": [
+        "is",
+        "are",
+        "does",
+        "do",
+        "can",
+        "will",
+        "true",
+        "false"
+      ],
+      "preferred_pos": [
+        "Verb",
+        "Aux",
+        "Modal",
+        "Adj",
+        "Noun"
+      ]
+    },
+    "quantity": {
+      "cues": [
+        "number",
+        "amount",
+        "many",
+        "much",
+        "count"
+      ],
+      "preferred_pos": [
+        "Num",
+        "Noun",
+        "Det"
+      ]
+    },
+    "selection": {
+      "cues": [
+        "choice",
+        "option",
+        "among",
+        "which"
+      ],
+      "preferred_pos": [
+        "Noun",
+        "Adj",
+        "Det"
+      ]
+    },
+    "possession": {
+      "cues": [
+        "belongs",
+        "owner",
+        "of",
+        "has"
+      ],
+      "preferred_pos": [
+        "Noun",
+        "Verb",
+        "Prep"
+      ]
+    },
+    "definition": {
+      "cues": [
+        "defined as",
+        "means",
+        "refers to",
+        "is a",
+        "is an"
+      ],
+      "preferred_pos": [
+        "Noun",
+        "ProperNoun",
+        "Adj"
+      ]
+    },
+    "function": {
+      "cues": [
+        "does",
+        "function",
+        "role",
+        "performs",
+        "used"
+      ],
+      "preferred_pos": [
+        "Verb",
+        "Noun",
+        "Adj"
+      ]
+    },
+    "purpose": {
+      "cues": [
+        "purpose",
+        "used for",
+        "intended",
+        "goal",
+        "designed"
+      ],
+      "preferred_pos": [
+        "Noun",
+        "Verb",
+        "Adj"
+      ]
+    },
+    "composition": {
+      "cues": [
+        "made of",
+        "consists",
+        "contains",
+        "includes",
+        "parts"
+      ],
+      "preferred_pos": [
+        "Noun",
+        "Verb",
+        "Prep"
+      ]
+    },
+    "part_of": {
+      "cues": [
+        "part of",
+        "component of",
+        "belongs in",
+        "within"
+      ],
+      "preferred_pos": [
+        "Noun",
+        "Prep",
+        "Verb"
+      ]
+    },
+    "has_part": {
+      "cues": [
+        "has",
+        "contains",
+        "includes",
+        "composed of"
+      ],
+      "preferred_pos": [
+        "Noun",
+        "Verb"
+      ]
+    },
+    "example": {
+      "cues": [
+        "example",
+        "such as",
+        "including",
+        "instance"
+      ],
+      "preferred_pos": [
+        "Noun",
+        "ProperNoun"
+      ]
+    },
+    "contrast": {
+      "cues": [
+        "unlike",
+        "whereas",
+        "difference",
+        "versus",
+        "but"
+      ],
+      "preferred_pos": [
+        "Noun",
+        "Adj",
+        "Conj"
+      ]
+    },
+    "similarity": {
+      "cues": [
+        "similar",
+        "like",
+        "both",
+        "shared",
+        "same"
+      ],
+      "preferred_pos": [
+        "Adj",
+        "Noun",
+        "Conj"
+      ]
+    },
+    "sequence": {
+      "cues": [
+        "first",
+        "then",
+        "next",
+        "after",
+        "before"
+      ],
+      "preferred_pos": [
+        "Adv",
+        "Num",
+        "Prep"
+      ]
+    },
+    "condition": {
+      "cues": [
+        "if",
+        "unless",
+        "when",
+        "provided",
+        "condition"
+      ],
+      "preferred_pos": [
+        "Conj",
+        "Verb",
+        "Noun"
+      ]
+    },
+    "capability": {
+      "cues": [
+        "can",
+        "able",
+        "capable",
+        "supports",
+        "allows"
+      ],
+      "preferred_pos": [
+        "Modal",
+        "Verb",
+        "Adj"
+      ]
+    },
+    "limitation": {
+      "cues": [
+        "cannot",
+        "limit",
+        "restriction",
+        "fails",
+        "only"
+      ],
+      "preferred_pos": [
+        "Modal",
+        "Noun",
+        "Verb",
+        "Adv"
+      ]
+    },
+    "measurement": {
+      "cues": [
+        "measure",
+        "value",
+        "unit",
+        "scale",
+        "amount"
+      ],
+      "preferred_pos": [
+        "Noun",
+        "Num",
+        "Verb"
+      ]
+    },
+    "property": {
+      "cues": [
+        "property",
+        "feature",
+        "characteristic",
+        "has",
+        "is"
+      ],
+      "preferred_pos": [
+        "Noun",
+        "Adj",
+        "Verb"
+      ]
+    },
+    "transformation": {
+      "cues": [
+        "becomes",
+        "converts",
+        "changes",
+        "transforms",
+        "turns"
+      ],
+      "preferred_pos": [
+        "Verb",
+        "Prep"
+      ]
+    },
+    "dependency": {
+      "cues": [
+        "depends",
+        "requires",
+        "needs",
+        "relies"
+      ],
+      "preferred_pos": [
+        "Verb",
+        "Noun"
+      ]
+    },
+    "containment": {
+      "cues": [
+        "inside",
+        "contains",
+        "within",
+        "encloses",
+        "holds"
+      ],
+      "preferred_pos": [
+        "Prep",
+        "Verb",
+        "Noun"
+      ]
+    },
+    "membership": {
+      "cues": [
+        "member",
+        "belongs",
+        "part",
+        "group",
+        "class"
+      ],
+      "preferred_pos": [
+        "Noun",
+        "Verb"
+      ]
+    },
+    "representation": {
+      "cues": [
+        "represents",
+        "encodes",
+        "models",
+        "symbolizes",
+        "maps"
+      ],
+      "preferred_pos": [
+        "Verb",
+        "Noun"
+      ]
+    },
+    "communication": {
+      "cues": [
+        "transmit",
+        "send",
+        "receive",
+        "message",
+        "signal"
+      ],
+      "preferred_pos": [
+        "Verb",
+        "Noun"
+      ]
+    },
+    "input_output": {
+      "cues": [
+        "input",
+        "output",
+        "receives",
+        "produces",
+        "returns"
+      ],
+      "preferred_pos": [
+        "Noun",
+        "Verb"
+      ]
+    },
+    "state_change": {
+      "cues": [
+        "state",
+        "change",
+        "transition",
+        "before",
+        "after"
+      ],
+      "preferred_pos": [
+        "Noun",
+        "Verb"
+      ]
+    },
+    "correlation": {
+      "cues": [
+        "associated",
+        "related",
+        "correlates",
+        "together",
+        "linked"
+      ],
+      "preferred_pos": [
+        "Verb",
+        "Adj",
+        "Noun"
+      ]
+    },
+    "comparison": {
+      "cues": [
+        "compare",
+        "more",
+        "less",
+        "than",
+        "difference"
+      ],
+      "preferred_pos": [
+        "Verb",
+        "Adj",
+        "Adv"
+      ]
+    },
+    "hierarchy": {
+      "cues": [
+        "parent",
+        "child",
+        "higher",
+        "lower",
+        "level"
+      ],
+      "preferred_pos": [
+        "Noun",
+        "Adj"
+      ]
+    },
+    "origin": {
+      "cues": [
+        "from",
+        "origin",
+        "source",
+        "starts",
+        "created"
+      ],
+      "preferred_pos": [
+        "Prep",
+        "Noun",
+        "Verb"
+      ]
+    },
+    "destination": {
+      "cues": [
+        "to",
+        "toward",
+        "destination",
+        "ends",
+        "reaches"
+      ],
+      "preferred_pos": [
+        "Prep",
+        "Noun",
+        "Verb"
+      ]
+    },
+    "rate": {
+      "cues": [
+        "rate",
+        "per",
+        "speed",
+        "frequency",
+        "change"
+      ],
+      "preferred_pos": [
+        "Noun",
+        "Num"
+      ]
+    },
+    "duration": {
+      "cues": [
+        "duration",
+        "long",
+        "time",
+        "for",
+        "lasts"
+      ],
+      "preferred_pos": [
+        "Noun",
+        "Adv",
+        "Verb"
+      ]
+    },
+    "frequency": {
+      "cues": [
+        "often",
+        "frequency",
+        "times",
+        "per",
+        "repeated"
+      ],
+      "preferred_pos": [
+        "Adv",
+        "Noun",
+        "Num"
+      ]
+    },
+    "probability": {
+      "cues": [
+        "probability",
+        "likely",
+        "chance",
+        "odds",
+        "possible"
+      ],
+      "preferred_pos": [
+        "Noun",
+        "Adj",
+        "Adv"
+      ]
+    },
+    "effect": {
+      "cues": [
+        "effect",
+        "causes",
+        "leads",
+        "results",
+        "changes"
+      ],
+      "preferred_pos": [
+        "Noun",
+        "Verb"
+      ]
+    },
+    "evaluated_by": {
+      "cues": [
+        "evaluated by",
+        "measured by",
+        "scored by",
+        "tested by"
+      ],
+      "preferred_pos": [
+        "Verb",
+        "Noun"
+      ]
+    },
+    "trained_on": {
+      "cues": [
+        "trained on",
+        "learned from",
+        "fit on"
+      ],
+      "preferred_pos": [
+        "Verb",
+        "Prep"
+      ]
+    },
+    "optimized_by": {
+      "cues": [
+        "optimized by",
+        "updated by",
+        "trained with"
+      ],
+      "preferred_pos": [
+        "Verb",
+        "Prep"
+      ]
+    },
+    "optimizes": {
+      "cues": [
+        "optimizes",
+        "minimizes",
+        "maximizes",
+        "improves"
+      ],
+      "preferred_pos": [
+        "Verb"
+      ]
+    },
+    "generalizes_to": {
+      "cues": [
+        "generalizes to",
+        "works on unseen",
+        "transfers to"
+      ],
+      "preferred_pos": [
+        "Verb",
+        "Prep"
+      ]
+    },
+    "robust_to": {
+      "cues": [
+        "robust to",
+        "stable under",
+        "resistant to"
+      ],
+      "preferred_pos": [
+        "Adj",
+        "Prep"
+      ]
+    },
+    "sensitive_to": {
+      "cues": [
+        "sensitive to",
+        "changes with",
+        "affected by"
+      ],
+      "preferred_pos": [
+        "Adj",
+        "Prep"
+      ]
+    },
+    "consistent_with": {
+      "cues": [
+        "consistent with",
+        "agrees with",
+        "matches"
+      ],
+      "preferred_pos": [
+        "Adj",
+        "Verb"
+      ]
+    },
+    "contradicts": {
+      "cues": [
+        "contradicts",
+        "conflicts with",
+        "inconsistent with"
+      ],
+      "preferred_pos": [
+        "Verb",
+        "Adj"
+      ]
+    },
+    "calibrated_to": {
+      "cues": [
+        "calibrated to",
+        "confidence matches",
+        "probability matches"
+      ],
+      "preferred_pos": [
+        "Adj",
+        "Verb"
+      ]
+    },
+    "uncertain_about": {
+      "cues": [
+        "uncertain about",
+        "low confidence",
+        "ambiguous"
+      ],
+      "preferred_pos": [
+        "Adj",
+        "Noun"
+      ]
+    },
+    "retrieves_from": {
+      "cues": [
+        "retrieves from",
+        "looks up",
+        "searches"
+      ],
+      "preferred_pos": [
+        "Verb",
+        "Prep"
+      ]
+    },
+    "attends_to": {
+      "cues": [
+        "attends to",
+        "focuses on",
+        "weights"
+      ],
+      "preferred_pos": [
+        "Verb"
+      ]
+    },
+    "predicts": {
+      "cues": [
+        "predicts",
+        "estimates",
+        "scores"
+      ],
+      "preferred_pos": [
+        "Verb"
+      ]
+    },
+    "generates": {
+      "cues": [
+        "generates",
+        "produces",
+        "decodes"
+      ],
+      "preferred_pos": [
+        "Verb"
+      ]
+    },
+    "samples_from": {
+      "cues": [
+        "samples from",
+        "draws from"
+      ],
+      "preferred_pos": [
+        "Verb",
+        "Prep"
+      ]
+    },
+    "regularizes": {
+      "cues": [
+        "regularizes",
+        "constrains",
+        "penalizes"
+      ],
+      "preferred_pos": [
+        "Verb"
+      ]
+    },
+    "updates": {
+      "cues": [
+        "updates",
+        "changes parameters",
+        "adjusts"
+      ],
+      "preferred_pos": [
+        "Verb"
+      ]
+    },
+    "rewards": {
+      "cues": [
+        "rewards",
+        "scores positively",
+        "reinforces"
+      ],
+      "preferred_pos": [
+        "Verb"
+      ]
+    },
+    "penalizes": {
+      "cues": [
+        "penalizes",
+        "reduces score",
+        "discourages"
+      ],
+      "preferred_pos": [
+        "Verb"
+      ]
+    },
+    "routes_to": {
+      "cues": [
+        "routes to",
+        "assigns to",
+        "dispatches to"
+      ],
+      "preferred_pos": [
+        "Verb",
+        "Prep"
+      ]
+    },
+    "aggregates": {
+      "cues": [
+        "aggregates",
+        "combines",
+        "pools"
+      ],
+      "preferred_pos": [
+        "Verb"
+      ]
+    },
+    "normalizes": {
+      "cues": [
+        "normalizes",
+        "rescales",
+        "standardizes"
+      ],
+      "preferred_pos": [
+        "Verb"
+      ]
+    },
+    "compresses": {
+      "cues": [
+        "compresses",
+        "reduces size",
+        "reduces precision"
+      ],
+      "preferred_pos": [
+        "Verb"
+      ]
+    },
+    "verifies": {
+      "cues": [
+        "verifies",
+        "checks",
+        "validates"
+      ],
+      "preferred_pos": [
+        "Verb"
+      ]
+    },
+    "abstains_on": {
+      "cues": [
+        "abstains on",
+        "declines",
+        "defers"
+      ],
+      "preferred_pos": [
+        "Verb",
+        "Prep"
+      ]
+    },
+    "concession": {
+      "cues": [
+        "although",
+        "though",
+        "despite"
+      ],
+      "class": "proposition_relation"
+    },
+    "temporal_before": {
+      "cues": [
+        "before",
+        "earlier",
+        "prior"
+      ],
+      "class": "proposition_relation"
+    },
+    "temporal_after": {
+      "cues": [
+        "after",
+        "later",
+        "once"
+      ],
+      "class": "proposition_relation"
+    },
+    "content_complement": {
+      "cues": [
+        "that",
+        "whether"
+      ],
+      "class": "proposition_relation"
+    },
+    "embedded_mechanism": {
+      "cues": [
+        "how"
+      ],
+      "class": "proposition_relation"
+    },
+    "embedded_cause": {
+      "cues": [
+        "why"
+      ],
+      "class": "proposition_relation"
+    }
+  },
+  "General_Knowledge_Expansion": {
+    "Build": "25-system-5",
+    "Relation_Type_Count": 42
+  },
+  "AI_Knowledge_Expansion": {
+    "Build": "25-system-8",
+    "Added_AI_Relations": 26,
+    "Total_Relation_Types": 68
+  }
+}

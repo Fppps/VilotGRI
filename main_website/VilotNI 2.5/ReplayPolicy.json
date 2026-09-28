@@ -1,0 +1,234 @@
+{
+  "Schema_Version": 2,
+  "Role": "Replay curriculum mapping failure diagnoses to structurally varied replay families plus control cases.",
+  "Curricula": {
+    "surface-grammar": {
+      "families": [
+        "agreement",
+        "articles",
+        "clause-boundary",
+        "connector",
+        "terminal-legality"
+      ],
+      "variant_count": 6,
+      "control_ratio": 0.34
+    },
+    "complex-language-coverage": {
+      "families": [
+        "subordinate",
+        "embedded-question",
+        "multi-clause",
+        "negation-scope",
+        "conditional"
+      ],
+      "variant_count": 8,
+      "control_ratio": 0.3
+    },
+    "reference-or-dependency-resolution": {
+      "families": [
+        "pronoun",
+        "reflexive",
+        "demonstrative-event",
+        "proposition-reference",
+        "split-antecedent"
+      ],
+      "variant_count": 10,
+      "control_ratio": 0.3
+    },
+    "mechanism-completeness": {
+      "families": [
+        "input-operation-output",
+        "feedback-loop",
+        "conditional-process",
+        "multi-component-process",
+        "missing-stage"
+      ],
+      "variant_count": 8,
+      "control_ratio": 0.28
+    },
+    "proposition-coverage": {
+      "families": [
+        "subject-relation-object",
+        "qualifier",
+        "dependency",
+        "multi-part"
+      ],
+      "variant_count": 8,
+      "control_ratio": 0.3
+    },
+    "temporal-reasoning": {
+      "families": [
+        "before-after",
+        "overlap",
+        "duration",
+        "frequency",
+        "since-until",
+        "event-order-chain"
+      ],
+      "variant_count": 8,
+      "control_ratio": 0.3
+    },
+    "confidence-calibration": {
+      "families": [
+        "direct-vs-inferred",
+        "ambiguous-reference",
+        "contradictory-evidence",
+        "stale-evidence"
+      ],
+      "variant_count": 8,
+      "control_ratio": 0.34
+    },
+    "semantic-drift": {
+      "families": [
+        "distractor-heavy",
+        "polysemy",
+        "long-context",
+        "related-but-irrelevant"
+      ],
+      "variant_count": 8,
+      "control_ratio": 0.34
+    },
+    "reasoning-selection": {
+      "families": [
+        "causal-vs-correlation",
+        "comparison",
+        "counterfactual",
+        "mechanism-vs-definition"
+      ],
+      "variant_count": 8,
+      "control_ratio": 0.3
+    },
+    "claim-consistency": {
+      "families": [
+        "polarity-conflict",
+        "scope-conflict",
+        "evidence-conflict",
+        "temporal-conflict",
+        "control"
+      ],
+      "variant_count": 8,
+      "control_ratio": 0.34
+    },
+    "cognitive-convergence": {
+      "families": [
+        "low-gain-loop",
+        "premature-stop",
+        "unresolved-dependency",
+        "branch-disagreement",
+        "control"
+      ],
+      "variant_count": 8,
+      "control_ratio": 0.34
+    },
+    "multi-part-request-coverage": {
+      "families": [
+        "two-part",
+        "three-part",
+        "dependent-parts",
+        "shared-context-parts",
+        "control"
+      ],
+      "variant_count": 8,
+      "control_ratio": 0.34
+    },
+    "uncertainty-localization": {
+      "families": [
+        "ambiguous-reference",
+        "weak-mechanism-stage",
+        "temporal-ambiguity",
+        "conflicting-evidence",
+        "control"
+      ],
+      "variant_count": 8,
+      "control_ratio": 0.34
+    },
+    "causal-reasoning": {
+      "families": [
+        "cause-vs-correlation",
+        "multi-step-cause",
+        "necessary-vs-sufficient",
+        "inhibition",
+        "control"
+      ],
+      "variant_count": 8,
+      "control_ratio": 0.34
+    },
+    "comparison-reasoning": {
+      "families": [
+        "shared-dimensions",
+        "unit-alignment",
+        "tie-preservation",
+        "asymmetric-properties",
+        "control"
+      ],
+      "variant_count": 8,
+      "control_ratio": 0.34
+    },
+    "counterfactual-reasoning": {
+      "families": [
+        "single-intervention",
+        "baseline-separation",
+        "downstream-effects",
+        "unchanged-facts",
+        "control"
+      ],
+      "variant_count": 8,
+      "control_ratio": 0.34
+    },
+    "replay-curriculum": {
+      "families": [
+        "variant-diversity",
+        "difficulty-gradient",
+        "control-mix",
+        "retention-check",
+        "control"
+      ],
+      "variant_count": 8,
+      "control_ratio": 0.34
+    },
+    "control-regression": {
+      "families": [
+        "target-improves-control-stable",
+        "target-improves-control-regresses",
+        "rollback",
+        "cross-capability-control",
+        "control"
+      ],
+      "variant_count": 8,
+      "control_ratio": 0.34
+    },
+    "general": {
+      "families": [
+        "paraphrase",
+        "structure-variation",
+        "dependency-variation",
+        "control"
+      ],
+      "variant_count": 8,
+      "control_ratio": 0.34
+    }
+  },
+  "Priority_Weights": {
+    "predictionError": 0.22,
+    "uncertainty": 0.18,
+    "contradictionPressure": 0.14,
+    "novelty": 0.1,
+    "usefulness": 0.12,
+    "retrievalFrequency": 0.06,
+    "diagnosisPressure": 0.12,
+    "controlNeed": 0.06
+  },
+  "Spacing": {
+    "failure_multiplier": 0.55,
+    "success_multiplier": 1.35,
+    "mastery_strength": 0.86,
+    "mastery_replays": 4,
+    "min_control_cases": 2
+  },
+  "Anti_Regression": {
+    "always_include_controls_for_strategy_change": true,
+    "minimum_control_ratio": 0.25,
+    "promote_only_if_target_improves_and_controls_do_not_regress": true
+  },
+  "Build": "25-system-35"
+}

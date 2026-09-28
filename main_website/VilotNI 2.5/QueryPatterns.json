@@ -1,0 +1,663 @@
+{
+  "Schema_Version": 5,
+  "Role": "Generic query-routing patterns. No prompt-specific answers are stored here.",
+  "Question_Operators": {
+    "what": {
+      "default_role": "identity",
+      "families": [
+        "definition",
+        "content"
+      ],
+      "bridges": [
+        "type",
+        "kind",
+        "system",
+        "process",
+        "concept",
+        "object"
+      ]
+    },
+    "who": {
+      "default_role": "identity",
+      "families": [
+        "identity"
+      ],
+      "bridges": [
+        "person",
+        "name",
+        "role"
+      ]
+    },
+    "why": {
+      "default_role": "cause",
+      "families": [
+        "cause"
+      ],
+      "bridges": [
+        "because",
+        "cause",
+        "reason",
+        "result",
+        "from",
+        "through"
+      ]
+    },
+    "how": {
+      "default_role": "mechanism",
+      "families": [
+        "mechanism",
+        "manner"
+      ],
+      "bridges": [
+        "by",
+        "through",
+        "using",
+        "with",
+        "process",
+        "method"
+      ]
+    },
+    "where": {
+      "default_role": "location",
+      "families": [
+        "location"
+      ],
+      "bridges": [
+        "in",
+        "at",
+        "on",
+        "inside",
+        "within"
+      ]
+    },
+    "when": {
+      "default_role": "time",
+      "families": [
+        "time"
+      ],
+      "bridges": [
+        "during",
+        "before",
+        "after",
+        "when",
+        "while"
+      ]
+    },
+    "which": {
+      "default_role": "selection",
+      "families": [
+        "selection"
+      ],
+      "bridges": [
+        "choice",
+        "option",
+        "among"
+      ]
+    },
+    "whose": {
+      "default_role": "possession",
+      "families": [
+        "possession"
+      ],
+      "bridges": [
+        "belongs",
+        "owner",
+        "of"
+      ]
+    },
+    "whom": {
+      "default_role": "identity",
+      "families": [
+        "identity"
+      ],
+      "bridges": [
+        "person",
+        "object"
+      ]
+    }
+  },
+  "Role_Bridges": {
+    "identity": [
+      "type",
+      "kind",
+      "system",
+      "process",
+      "concept",
+      "object"
+    ],
+    "mechanism": [
+      "by",
+      "through",
+      "using",
+      "with",
+      "process",
+      "method"
+    ],
+    "cause": [
+      "because",
+      "cause",
+      "reason",
+      "result",
+      "from",
+      "through"
+    ],
+    "location": [
+      "in",
+      "at",
+      "on",
+      "inside",
+      "within"
+    ],
+    "time": [
+      "during",
+      "before",
+      "after",
+      "when",
+      "while"
+    ],
+    "quantity": [
+      "number",
+      "amount",
+      "many",
+      "much"
+    ],
+    "rate": [
+      "rate",
+      "speed",
+      "per"
+    ],
+    "duration": [
+      "time",
+      "duration",
+      "long"
+    ],
+    "frequency": [
+      "often",
+      "frequency",
+      "times"
+    ],
+    "probability": [
+      "likely",
+      "chance",
+      "probability"
+    ],
+    "truth": [
+      "is",
+      "are",
+      "does",
+      "do",
+      "can",
+      "will"
+    ],
+    "selection": [
+      "choice",
+      "option",
+      "among"
+    ],
+    "possession": [
+      "belongs",
+      "owner",
+      "of"
+    ],
+    "definition": [
+      "define",
+      "definition",
+      "meaning",
+      "means",
+      "what is",
+      "what are",
+      "refers"
+    ],
+    "function": [
+      "does",
+      "function",
+      "role",
+      "performs",
+      "used"
+    ],
+    "purpose": [
+      "purpose",
+      "used for",
+      "for what",
+      "designed"
+    ],
+    "composition": [
+      "made of",
+      "consists of",
+      "contains",
+      "parts",
+      "components"
+    ],
+    "example": [
+      "example",
+      "examples",
+      "instance",
+      "such as",
+      "including"
+    ],
+    "contrast": [
+      "difference",
+      "unlike",
+      "versus",
+      "compared with",
+      "contrast"
+    ],
+    "comparison": [
+      "compare",
+      "more",
+      "less",
+      "than",
+      "difference"
+    ],
+    "condition": [
+      "if",
+      "when",
+      "unless",
+      "condition"
+    ],
+    "capability": [
+      "can",
+      "able",
+      "support",
+      "allows",
+      "capable"
+    ],
+    "limitation": [
+      "cannot",
+      "limit",
+      "limitation",
+      "restriction"
+    ],
+    "property": [
+      "property",
+      "feature",
+      "characteristic",
+      "size",
+      "color"
+    ],
+    "effect": [
+      "effect",
+      "result",
+      "what happens",
+      "leads to",
+      "changes"
+    ],
+    "origin": [
+      "origin",
+      "source",
+      "comes from",
+      "starts"
+    ],
+    "representation": [
+      "represents",
+      "means",
+      "symbol",
+      "encoded",
+      "mapped"
+    ],
+    "input_output": [
+      "input",
+      "output",
+      "takes",
+      "returns",
+      "produces"
+    ],
+    "consistency": [
+      "consistent",
+      "consistency",
+      "agreement",
+      "contradiction",
+      "same answer"
+    ],
+    "evaluation": [
+      "evaluate",
+      "evaluation",
+      "benchmark",
+      "metric",
+      "score",
+      "test"
+    ],
+    "robustness": [
+      "robust",
+      "stability",
+      "sensitive",
+      "perturbation",
+      "invariance"
+    ],
+    "uncertainty": [
+      "uncertain",
+      "confidence",
+      "calibration",
+      "entropy",
+      "abstain"
+    ],
+    "optimization": [
+      "optimize",
+      "optimizer",
+      "gradient",
+      "learning rate",
+      "loss"
+    ],
+    "generalization": [
+      "generalize",
+      "overfit",
+      "underfit",
+      "unseen",
+      "distribution shift"
+    ],
+    "training": [
+      "train",
+      "training",
+      "fine-tune",
+      "pretrain",
+      "supervised",
+      "reinforcement"
+    ],
+    "generation": [
+      "generate",
+      "sampling",
+      "decode",
+      "temperature",
+      "token"
+    ],
+    "retrieval": [
+      "retrieve",
+      "retrieval",
+      "RAG",
+      "vector search",
+      "grounding"
+    ],
+    "failure": [
+      "failure",
+      "hallucination",
+      "word salad",
+      "error",
+      "incoherent"
+    ],
+    "explanation": [
+      "because",
+      "reason",
+      "cause",
+      "by",
+      "through",
+      "using",
+      "process",
+      "method",
+      "result",
+      "effect",
+      "leads",
+      "due",
+      "therefore"
+    ]
+  },
+  "Self_Contained": {
+    "minimum_concrete_anchor_for_short_wh": 1,
+    "short_wh_token_limit": 5,
+    "discourse_ellipsis_token_limit": 4
+  },
+  "Intent_Families": {
+    "definition": [
+      "what is <x>",
+      "what are <x>",
+      "define <x>",
+      "what does <x> mean",
+      "explain <x>"
+    ],
+    "function": [
+      "what does <x> do",
+      "how does <x> function",
+      "what is the role of <x>"
+    ],
+    "purpose": [
+      "what is <x> for",
+      "what is <x> used for",
+      "why is <x> used"
+    ],
+    "mechanism": [
+      "how does <x> work",
+      "how is <x> done",
+      "by what process does <x> happen"
+    ],
+    "cause": [
+      "why does <x> happen",
+      "what causes <x>",
+      "what is the reason for <x>"
+    ],
+    "effect": [
+      "what happens when <x>",
+      "what does <x> cause",
+      "what is the effect of <x>"
+    ],
+    "composition": [
+      "what is <x> made of",
+      "what parts does <x> have",
+      "what does <x> contain"
+    ],
+    "comparison": [
+      "how is <x> different from <y>",
+      "compare <x> and <y>"
+    ],
+    "example": [
+      "give an example of <x>",
+      "what are examples of <x>",
+      "name an instance of <x>"
+    ],
+    "quantity": [
+      "how many <x>",
+      "how much <x>",
+      "what amount of <x>"
+    ],
+    "measurement": [
+      "how fast",
+      "how far",
+      "how long",
+      "what size",
+      "what temperature"
+    ],
+    "probability": [
+      "how likely",
+      "what is the chance",
+      "what is the probability"
+    ],
+    "capability": [
+      "can <x> <verb>",
+      "is <x> able to <verb>",
+      "what can <x> do"
+    ],
+    "limitation": [
+      "what can <x> not do",
+      "what are the limits of <x>",
+      "when does <x> fail"
+    ],
+    "sequence": [
+      "what happens first",
+      "what happens next",
+      "what are the steps"
+    ],
+    "consistency": [
+      "is <x> consistent",
+      "does <x> give the same answer",
+      "why does <x> change its answer",
+      "how consistent is <x>",
+      "does <x> contradict itself"
+    ],
+    "evaluation": [
+      "how is <x> evaluated",
+      "how good is <x>",
+      "what metric measures <x>",
+      "how do you test <x>",
+      "what benchmark measures <x>"
+    ],
+    "robustness": [
+      "how robust is <x>",
+      "what happens if <x> changes slightly",
+      "is <x> sensitive to <y>",
+      "does <x> handle perturbations"
+    ],
+    "uncertainty": [
+      "how certain is <x>",
+      "what does confidence mean",
+      "how calibrated is <x>",
+      "when should <x> abstain"
+    ],
+    "optimization": [
+      "how is <x> optimized",
+      "what changes the weights",
+      "what does the optimizer do",
+      "how does gradient descent work"
+    ],
+    "generalization": [
+      "does <x> generalize",
+      "how does <x> handle unseen data",
+      "is <x> overfitting",
+      "what happens under distribution shift"
+    ],
+    "training": [
+      "how is <x> trained",
+      "what data trains <x>",
+      "what is fine tuning",
+      "what is pretraining"
+    ],
+    "generation": [
+      "how does <x> generate text",
+      "how does sampling work",
+      "what does temperature do",
+      "how is the next token chosen"
+    ],
+    "retrieval": [
+      "how does <x> retrieve information",
+      "what is retrieval augmented generation",
+      "how does vector search work"
+    ],
+    "failure_analysis": [
+      "why did <x> fail",
+      "what is a failure mode",
+      "why is the output incoherent",
+      "why does <x> hallucinate"
+    ]
+  },
+  "Surface_Normalization": {
+    "contractions": {
+      "what's": "what is",
+      "what're": "what are",
+      "how's": "how is",
+      "where's": "where is",
+      "when's": "when is",
+      "why's": "why is",
+      "who's": "who is"
+    },
+    "polite_prefixes": [
+      "please",
+      "can you",
+      "could you",
+      "would you",
+      "tell me",
+      "explain to me"
+    ],
+    "definition_verbs": [
+      "define",
+      "describe",
+      "explain",
+      "mean",
+      "identify"
+    ]
+  },
+  "General_Knowledge_Expansion": {
+    "Build": "25-system-5",
+    "Intent_Family_Count": 15
+  },
+  "AI_Knowledge_Expansion": {
+    "Build": "25-system-8",
+    "Total_Intent_Families": 25,
+    "Added_AI_Intent_Families": 10
+  },
+  "Explanation_Policy": {
+    "why": {
+      "roles": [
+        "cause",
+        "mechanism",
+        "effect",
+        "relation"
+      ],
+      "preferred_clause_types": [
+        "cause",
+        "mechanism",
+        "effect",
+        "relation"
+      ],
+      "minimum_clauses": 2
+    },
+    "how": {
+      "roles": [
+        "mechanism",
+        "composition",
+        "capability",
+        "part_of",
+        "effect"
+      ],
+      "preferred_clause_types": [
+        "mechanism",
+        "composition",
+        "capability",
+        "has_part",
+        "effect"
+      ],
+      "minimum_clauses": 2
+    },
+    "both": {
+      "roles": [
+        "cause",
+        "mechanism",
+        "effect",
+        "purpose",
+        "relation"
+      ],
+      "preferred_clause_types": [
+        "cause",
+        "mechanism",
+        "effect",
+        "purpose",
+        "relation"
+      ],
+      "minimum_clauses": 3
+    }
+  },
+  "Complex_Requests": {
+    "directive_plus_embedded_wh": {
+      "examples": [
+        "explain how X works",
+        "describe why X changes",
+        "show what X does"
+      ],
+      "preserve_directive": true,
+      "embedded_wh_controls_requested_role": true
+    },
+    "conditional_question": {
+      "markers": [
+        "if",
+        "unless",
+        "provided that"
+      ],
+      "preserve_condition": true
+    },
+    "multi_part_request": {
+      "connectors": [
+        "and",
+        "also",
+        "while",
+        "but"
+      ],
+      "preserve_each_requested_role": true
+    },
+    "comparison_request": {
+      "markers": [
+        "compare",
+        "than",
+        "whereas",
+        "difference",
+        "similar"
+      ],
+      "require_two_sides": true
+    }
+  }
+}

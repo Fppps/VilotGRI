@@ -1,0 +1,102 @@
+{
+  "Schema_Version": 1,
+  "Role": "Structure-aware sentence composition rules for deciding whether candidate ideas should merge, coordinate, subordinate, sequence, contrast, or remain separate.",
+  "Relations": {
+    "same_claim": {
+      "action": "select_or_merge",
+      "connector": "",
+      "merge_threshold": 0.82
+    },
+    "elaboration": {
+      "action": "coordinate",
+      "connector": "and",
+      "merge_threshold": 0.58
+    },
+    "cause": {
+      "action": "subordinate",
+      "connector": "because",
+      "merge_threshold": 0.44
+    },
+    "result": {
+      "action": "coordinate",
+      "connector": "so",
+      "merge_threshold": 0.44
+    },
+    "contrast": {
+      "action": "coordinate",
+      "connector": "but",
+      "merge_threshold": 0.42
+    },
+    "concession": {
+      "action": "subordinate",
+      "connector": "although",
+      "merge_threshold": 0.42
+    },
+    "condition": {
+      "action": "subordinate",
+      "connector": "if",
+      "merge_threshold": 0.38
+    },
+    "sequence": {
+      "action": "sequence",
+      "connector": "then",
+      "merge_threshold": 0.34
+    },
+    "temporal_before": {
+      "action": "subordinate",
+      "connector": "before",
+      "merge_threshold": 0.38
+    },
+    "temporal_after": {
+      "action": "subordinate",
+      "connector": "after",
+      "merge_threshold": 0.38
+    },
+    "comparison": {
+      "action": "parallel",
+      "connector": "while",
+      "merge_threshold": 0.4
+    },
+    "alternative": {
+      "action": "coordinate",
+      "connector": "or",
+      "merge_threshold": 0.4
+    },
+    "independent": {
+      "action": "separate",
+      "connector": "",
+      "merge_threshold": 1.0
+    }
+  },
+  "Structure_Features": {
+    "proposition_overlap": 0.24,
+    "relation_compatibility": 0.2,
+    "subject_continuity": 0.14,
+    "dependency_alignment": 0.16,
+    "mechanism_stage_alignment": 0.12,
+    "lexical_similarity": 0.08,
+    "order_similarity": 0.06
+  },
+  "Merge_Constraints": {
+    "max_clauses_per_sentence": 3,
+    "max_tokens_after_merge": 48,
+    "do_not_merge_conflicting_polarity": true,
+    "do_not_merge_unrelated_subjects_without_explicit_relation": true,
+    "do_not_hide_condition": true,
+    "do_not_drop_mechanism_stage": true,
+    "prefer_separate_when_reference_would_be_ambiguous": true
+  },
+  "Sentence_Order": [
+    "condition",
+    "context",
+    "cause",
+    "mechanism_input",
+    "mechanism_operation",
+    "mechanism_output",
+    "result",
+    "feedback",
+    "limitation",
+    "example"
+  ],
+  "Build": "25-system-35"
+}

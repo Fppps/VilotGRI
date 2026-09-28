@@ -1,0 +1,135 @@
+{
+  "Schema_Version": 1,
+  "Role": "Dimension weights, proposition-level uncertainty causes, confidence caps, and propagation rules.",
+  "Dimensions": {
+    "evidenceCoverage": {
+      "weight": 0.15,
+      "good": 0.78
+    },
+    "semanticAgreement": {
+      "weight": 0.11,
+      "good": 0.76
+    },
+    "branchAgreement": {
+      "weight": 0.1,
+      "good": 0.72
+    },
+    "contradictionSafety": {
+      "weight": 0.12,
+      "good": 0.84
+    },
+    "knowledgeCertainty": {
+      "weight": 0.08,
+      "good": 0.76
+    },
+    "calibrationReliability": {
+      "weight": 0.08,
+      "good": 0.82
+    },
+    "freshness": {
+      "weight": 0.06,
+      "good": 0.78
+    },
+    "referenceResolution": {
+      "weight": 0.08,
+      "good": 0.8
+    },
+    "temporalConsistency": {
+      "weight": 0.06,
+      "good": 0.78
+    },
+    "propositionCoverage": {
+      "weight": 0.08,
+      "good": 0.72
+    },
+    "mechanismCompleteness": {
+      "weight": 0.05,
+      "good": 0.72
+    },
+    "driftSafety": {
+      "weight": 0.03,
+      "good": 0.76
+    }
+  },
+  "Epistemic_Status": {
+    "known": 0.94,
+    "observed": 0.9,
+    "verified": 0.92,
+    "directly_supported": 0.88,
+    "reported": 0.78,
+    "inferred": 0.72,
+    "generalized": 0.66,
+    "predicted": 0.62,
+    "hypothesized": 0.54,
+    "assumed": 0.48,
+    "contested": 0.4,
+    "unknown": 0.25,
+    "deprecated": 0.2
+  },
+  "Proposition_Penalties": {
+    "missing_subject": 0.18,
+    "missing_relation": 0.22,
+    "missing_object": 0.16,
+    "unresolved_reference": 0.24,
+    "temporal_ambiguity": 0.14,
+    "contradiction": 0.28,
+    "inference_depth_each": 0.055,
+    "stale": 0.12,
+    "hypothetical": 0.1,
+    "source_unknown": 0.08
+  },
+  "Propagation": {
+    "dependency_discount": 0.92,
+    "reference_dependency_discount": 0.82,
+    "temporal_dependency_discount": 0.88,
+    "causal_dependency_discount": 0.9,
+    "min_confidence": 0.1,
+    "max_inferred_without_direct_evidence": 0.78
+  },
+  "States": [
+    {
+      "name": "contested",
+      "when": "contradictionPressure",
+      "threshold": 0.3
+    },
+    {
+      "name": "reference-ambiguous",
+      "when": "referenceResolution",
+      "below": 0.58
+    },
+    {
+      "name": "temporally-ambiguous",
+      "when": "temporalConsistency",
+      "below": 0.58
+    },
+    {
+      "name": "insufficient-evidence",
+      "when": "evidenceCoverage",
+      "below": 0.42
+    },
+    {
+      "name": "stale",
+      "when": "freshness",
+      "below": 0.62
+    },
+    {
+      "name": "inference-heavy",
+      "when": "reasoningDependence",
+      "threshold": 0.65
+    },
+    {
+      "name": "strong",
+      "when": "reliability",
+      "threshold": 0.84
+    },
+    {
+      "name": "moderate",
+      "when": "reliability",
+      "threshold": 0.68
+    },
+    {
+      "name": "uncertain"
+    }
+  ],
+  "Build": "25-system-35"
+}

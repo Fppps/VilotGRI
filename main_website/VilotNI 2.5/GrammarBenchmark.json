@@ -1,0 +1,439 @@
+{
+  "Schema_Version": 1,
+  "Build": "25-system-37",
+  "Role": "Generic grammar regression benchmark; contains no answer key or domain-specific canned response.",
+  "Cases": [
+    {
+      "id": "valid-001",
+      "family": "simple_declarative",
+      "text": "The system processes input.",
+      "expected": "accept",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "valid-002",
+      "family": "transitive",
+      "text": "The model evaluates candidate responses.",
+      "expected": "accept",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "valid-003",
+      "family": "copular",
+      "text": "The result is useful.",
+      "expected": "accept",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "valid-004",
+      "family": "modal",
+      "text": "The model can compare several candidates.",
+      "expected": "accept",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "valid-005",
+      "family": "perfect",
+      "text": "The system has processed the evidence.",
+      "expected": "accept",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "valid-006",
+      "family": "progressive",
+      "text": "The model is evaluating the response.",
+      "expected": "accept",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "valid-007",
+      "family": "passive",
+      "text": "The evidence is stored by the system.",
+      "expected": "accept",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "valid-008",
+      "family": "yes_no",
+      "text": "Does the model preserve context?",
+      "expected": "accept",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "valid-009",
+      "family": "wh_object",
+      "text": "How does the model represent entities?",
+      "expected": "accept",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "valid-010",
+      "family": "wh_subject",
+      "text": "What changed after evaluation?",
+      "expected": "accept",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "valid-011",
+      "family": "embedded_wh",
+      "text": "The system explains how the process works.",
+      "expected": "accept",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "valid-012",
+      "family": "that_clause",
+      "text": "The evaluator reports that the candidate is weak.",
+      "expected": "accept",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "valid-013",
+      "family": "conditional",
+      "text": "If the score falls, the system rechecks the response.",
+      "expected": "accept",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "valid-014",
+      "family": "causal",
+      "text": "The candidate improves because the model repairs the structure.",
+      "expected": "accept",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "valid-015",
+      "family": "temporal",
+      "text": "The system evaluates the answer before it promotes a change.",
+      "expected": "accept",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "valid-016",
+      "family": "concession",
+      "text": "Although the path is long, the system preserves the dependency.",
+      "expected": "accept",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "valid-017",
+      "family": "relative",
+      "text": "The candidate that preserves the subject receives a higher score.",
+      "expected": "accept",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "valid-018",
+      "family": "coord_np",
+      "text": "People and entities can share structural properties.",
+      "expected": "accept",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "valid-019",
+      "family": "coord_vp",
+      "text": "The system retrieves evidence and compares candidates.",
+      "expected": "accept",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "valid-020",
+      "family": "comparison",
+      "text": "One candidate is clearer than another.",
+      "expected": "accept",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "valid-021",
+      "family": "purpose",
+      "text": "The model replays failures to test a new strategy.",
+      "expected": "accept",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "valid-022",
+      "family": "result",
+      "text": "The grammar is stronger, so the final surface is more stable.",
+      "expected": "accept",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "valid-023",
+      "family": "mechanism",
+      "text": "The system improves by evaluating failures and replaying them.",
+      "expected": "accept",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "valid-024",
+      "family": "appositive",
+      "text": "The evaluator, a scoring component, checks the response.",
+      "expected": "accept",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "valid-025",
+      "family": "existential",
+      "text": "There are several candidate paths.",
+      "expected": "accept",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "valid-026",
+      "family": "negated_modal",
+      "text": "The model should not remove a negation.",
+      "expected": "accept",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "valid-027",
+      "family": "semicolon",
+      "text": "The first clause is complete; the second clause adds detail.",
+      "expected": "accept",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "valid-028",
+      "family": "colon",
+      "text": "The system has one goal: preserve the structure.",
+      "expected": "accept",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "valid-029",
+      "family": "reporting",
+      "text": "The analyzer shows that the sentence has two clauses.",
+      "expected": "accept",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "valid-030",
+      "family": "object_control",
+      "text": "The controller allows the model to retry the parse.",
+      "expected": "accept",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "valid-031",
+      "family": "mechanism_prompt",
+      "text": "Explain how semantic associations work in VilotNI 2.5.",
+      "expected": "accept",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "invalid-001",
+      "family": "orphan_bridge",
+      "text": "By.",
+      "expected": "reject_or_repair",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "invalid-002",
+      "family": "missing_predicate",
+      "text": "The model and the evidence.",
+      "expected": "reject_or_repair",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "invalid-003",
+      "family": "dangling_modal",
+      "text": "The model can.",
+      "expected": "reject_or_repair",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "invalid-004",
+      "family": "dangling_determiner",
+      "text": "The model uses the.",
+      "expected": "reject_or_repair",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "invalid-005",
+      "family": "determiner_number",
+      "text": "A inputs are processed.",
+      "expected": "reject_or_repair",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "invalid-006",
+      "family": "article_onset",
+      "text": "A evaluation is useful.",
+      "expected": "reject_or_repair",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "invalid-007",
+      "family": "agreement_singular",
+      "text": "The model are ready.",
+      "expected": "reject_or_repair",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "invalid-008",
+      "family": "agreement_plural",
+      "text": "The candidates is ready.",
+      "expected": "reject_or_repair",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "invalid-009",
+      "family": "modal_inflection",
+      "text": "The model can evaluates evidence.",
+      "expected": "reject_or_repair",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "invalid-010",
+      "family": "duplicate_modal",
+      "text": "The model can can compare candidates.",
+      "expected": "reject_or_repair",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "invalid-011",
+      "family": "empty_coord",
+      "text": "The model compares and.",
+      "expected": "reject_or_repair",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "invalid-012",
+      "family": "orphan_preposition",
+      "text": "Through.",
+      "expected": "reject_or_repair",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "invalid-013",
+      "family": "question_form",
+      "text": "How the model works?",
+      "expected": "reject_or_repair",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "invalid-014",
+      "family": "comparison_incomplete",
+      "text": "The result is better than.",
+      "expected": "reject_or_repair",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "invalid-015",
+      "family": "dangling_subordinator",
+      "text": "The system improves because.",
+      "expected": "reject_or_repair",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "invalid-016",
+      "family": "missing_subject",
+      "text": "Is useful for evaluation.",
+      "expected": "reject_or_repair",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "invalid-017",
+      "family": "missing_object",
+      "text": "The system represents.",
+      "expected": "reject_or_repair",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "invalid-018",
+      "family": "bad_pronoun_case",
+      "text": "Him evaluates the response.",
+      "expected": "reject_or_repair",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "invalid-019",
+      "family": "bad_preposition_pronoun",
+      "text": "The system gives evidence to he.",
+      "expected": "reject_or_repair",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "invalid-020",
+      "family": "double_determiner",
+      "text": "The the model evaluates input.",
+      "expected": "reject_or_repair",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "invalid-021",
+      "family": "fragment",
+      "text": "Semantic association structure.",
+      "expected": "reject_or_repair",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "invalid-022",
+      "family": "comma_splice",
+      "text": "The model evaluates input, the controller stores the result.",
+      "expected": "reject_or_repair",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "invalid-023",
+      "family": "bad_modal",
+      "text": "The system will processes the response.",
+      "expected": "reject_or_repair",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "invalid-024",
+      "family": "missing_relative_clause",
+      "text": "The model that.",
+      "expected": "reject_or_repair",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "invalid-025",
+      "family": "orphan_to",
+      "text": "To.",
+      "expected": "reject_or_repair",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "invalid-026",
+      "family": "orphan_of",
+      "text": "Of the model.",
+      "expected": "reject_or_repair",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "invalid-027",
+      "family": "bad_coord",
+      "text": "The system and because the model.",
+      "expected": "reject_or_repair",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "invalid-028",
+      "family": "bare_bridge",
+      "text": "Using.",
+      "expected": "reject_or_repair",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "invalid-029",
+      "family": "incomplete_if",
+      "text": "If the model evaluates.",
+      "expected": "reject_or_repair",
+      "purpose": "grammar-structure-regression"
+    },
+    {
+      "id": "invalid-030",
+      "family": "incomplete_explain",
+      "text": "Explain how.",
+      "expected": "reject_or_repair",
+      "purpose": "grammar-structure-regression"
+    }
+  ],
+  "Counts": {
+    "valid": 31,
+    "invalid": 30,
+    "total": 61
+  }
+}

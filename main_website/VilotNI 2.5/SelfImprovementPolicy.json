@@ -1,0 +1,318 @@
+{
+  "Schema_Version": 2,
+  "Role": "Bounded strategy adaptation policy. Maps diagnosed failure modes to targeted profile changes, replay curricula, evaluation metrics, and rollback guards.",
+  "Diagnosis_Targets": {
+    "surface-grammar": {
+      "metrics": [
+        "grammar"
+      ],
+      "profiles": {
+        "grammarScale": 1.0,
+        "transitionScale": 0.8,
+        "structurePenaltyScale": 0.5
+      },
+      "replay": "surface-grammar"
+    },
+    "semantic-retrieval": {
+      "metrics": [
+        "semantic"
+      ],
+      "profiles": {
+        "semanticScale": 1.0,
+        "relationScale": 0.5
+      },
+      "replay": "semantic-drift"
+    },
+    "reasoning-selection": {
+      "metrics": [
+        "reasoning"
+      ],
+      "profiles": {
+        "reasoningScale": 1.0,
+        "reflectionScale": 0.5,
+        "relationScale": 0.35
+      },
+      "replay": "reasoning-selection"
+    },
+    "conversation-focus": {
+      "metrics": [
+        "context",
+        "driftSafety"
+      ],
+      "profiles": {
+        "contextScale": 1.0,
+        "propositionScale": 0.25
+      },
+      "replay": "semantic-drift"
+    },
+    "complex-language-coverage": {
+      "metrics": [
+        "structureCoverage"
+      ],
+      "profiles": {
+        "structureReasoningScale": 1.0,
+        "reasoningScale": 0.5,
+        "relationScale": 0.35
+      },
+      "replay": "complex-language-coverage"
+    },
+    "reference-or-dependency-resolution": {
+      "metrics": [
+        "referenceResolution"
+      ],
+      "profiles": {
+        "referenceScale": 1.0,
+        "contextScale": 0.45,
+        "structureReasoningScale": 0.35
+      },
+      "replay": "reference-or-dependency-resolution"
+    },
+    "proposition-coverage": {
+      "metrics": [
+        "propositionCoverage"
+      ],
+      "profiles": {
+        "propositionScale": 1.0,
+        "structureReasoningScale": 0.55,
+        "reasoningScale": 0.35
+      },
+      "replay": "proposition-coverage"
+    },
+    "mechanism-completeness": {
+      "metrics": [
+        "mechanismCompleteness"
+      ],
+      "profiles": {
+        "mechanismScale": 1.0,
+        "causalScale": 0.6,
+        "relationScale": 0.3
+      },
+      "replay": "mechanism-completeness"
+    },
+    "temporal-reasoning": {
+      "metrics": [
+        "temporalConsistency"
+      ],
+      "profiles": {
+        "structureReasoningScale": 0.6,
+        "causalScale": 0.25,
+        "relationScale": 0.35
+      },
+      "replay": "temporal-reasoning"
+    },
+    "confidence-calibration": {
+      "metrics": [
+        "calibration"
+      ],
+      "profiles": {
+        "semanticScale": 0.35,
+        "grammarScale": 0.25,
+        "referenceScale": 0.2
+      },
+      "replay": "confidence-calibration"
+    },
+    "semantic-drift": {
+      "metrics": [
+        "driftSafety",
+        "context"
+      ],
+      "profiles": {
+        "contextScale": 0.6,
+        "propositionScale": 0.45,
+        "semanticScale": 0.2
+      },
+      "replay": "semantic-drift"
+    },
+    "claim-consistency": {
+      "metrics": [
+        "contradictionSafety"
+      ],
+      "profiles": {
+        "contradictionScale": 1.0,
+        "reasoningScale": 0.35,
+        "propositionScale": 0.3
+      },
+      "replay": "claim-consistency"
+    },
+    "cognitive-convergence": {
+      "metrics": [
+        "cognitiveProgress"
+      ],
+      "profiles": {
+        "reasoningScale": 0.55,
+        "reflectionScale": 0.75,
+        "structureReasoningScale": 0.25
+      },
+      "replay": "cognitive-convergence"
+    },
+    "multi-part-request-coverage": {
+      "metrics": [
+        "multiPartCoverage"
+      ],
+      "profiles": {
+        "structureReasoningScale": 0.7,
+        "propositionScale": 0.55,
+        "contextScale": 0.35
+      },
+      "replay": "multi-part-request-coverage"
+    },
+    "uncertainty-localization": {
+      "metrics": [
+        "uncertaintyLocalization"
+      ],
+      "profiles": {
+        "referenceScale": 0.25,
+        "structureReasoningScale": 0.3,
+        "reasoningScale": 0.25
+      },
+      "replay": "uncertainty-localization"
+    },
+    "causal-reasoning": {
+      "metrics": [
+        "reasoning",
+        "mechanismCompleteness"
+      ],
+      "profiles": {
+        "causalScale": 1.0,
+        "relationScale": 0.45,
+        "reasoningScale": 0.35
+      },
+      "replay": "causal-reasoning"
+    },
+    "comparison-reasoning": {
+      "metrics": [
+        "reasoning",
+        "propositionCoverage"
+      ],
+      "profiles": {
+        "reasoningScale": 0.55,
+        "propositionScale": 0.45,
+        "structureReasoningScale": 0.35
+      },
+      "replay": "comparison-reasoning"
+    },
+    "counterfactual-reasoning": {
+      "metrics": [
+        "reasoning",
+        "driftSafety"
+      ],
+      "profiles": {
+        "counterfactualScale": 1.0,
+        "reasoningScale": 0.45,
+        "contextScale": 0.25
+      },
+      "replay": "counterfactual-reasoning"
+    },
+    "replay-curriculum": {
+      "metrics": [
+        "reasoning"
+      ],
+      "profiles": {
+        "reflectionScale": 0.35,
+        "reasoningScale": 0.2
+      },
+      "replay": "replay-curriculum"
+    },
+    "control-regression": {
+      "metrics": [
+        "calibration"
+      ],
+      "profiles": {
+        "reflectionScale": 0.3,
+        "contextScale": 0.2
+      },
+      "replay": "control-regression"
+    }
+  },
+  "Promotion": {
+    "evaluation_window": 10,
+    "target_gain_min": 0.012,
+    "control_regression_max": 0.025,
+    "overall_utility_regression_max": 0.025,
+    "require_replay_evidence_when_available": true
+  },
+  "Bounds": {
+    "grammarScale": [
+      0.88,
+      1.24
+    ],
+    "semanticScale": [
+      0.88,
+      1.24
+    ],
+    "reasoningScale": [
+      0.88,
+      1.3
+    ],
+    "transitionScale": [
+      0.88,
+      1.3
+    ],
+    "structurePenaltyScale": [
+      0.88,
+      1.3
+    ],
+    "terminalScale": [
+      0.92,
+      1.16
+    ],
+    "relationScale": [
+      0.86,
+      1.32
+    ],
+    "causalScale": [
+      0.86,
+      1.32
+    ],
+    "contextScale": [
+      0.86,
+      1.3
+    ],
+    "reflectionScale": [
+      0.86,
+      1.32
+    ],
+    "structureReasoningScale": [
+      0.86,
+      1.36
+    ],
+    "referenceScale": [
+      0.86,
+      1.36
+    ],
+    "propositionScale": [
+      0.86,
+      1.36
+    ],
+    "mechanismScale": [
+      0.86,
+      1.38
+    ],
+    "counterfactualScale": [
+      0.86,
+      1.3
+    ],
+    "contradictionScale": [
+      0.86,
+      1.3
+    ]
+  },
+  "Safeguards": {
+    "sourceRewrite": false,
+    "modelBreadthReduction": false,
+    "branchReduction": false,
+    "knowledgeSourceRemoval": false,
+    "rollback": true,
+    "control_set_required_for_major_change": true
+  },
+  "Build": "25-system-35",
+  "Fallback_Diagnosis": {
+    "metrics": [
+      "reasoning"
+    ],
+    "profiles": {
+      "reasoningScale": 0.15
+    },
+    "replay": "general"
+  }
+}

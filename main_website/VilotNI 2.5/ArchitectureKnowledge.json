@@ -1,0 +1,1097 @@
+{
+  "Schema_Version": 4,
+  "Model": "VilotNI 2.5",
+  "Purpose": "Structured self-knowledge for reasoning about the model architecture. Entries describe components and relationships, not canned answers.",
+  "Components": [
+    {
+      "id": "semantic-associations",
+      "canonical": "Semantic associations",
+      "aliases": [
+        "semantic association",
+        "semantic associations",
+        "associations",
+        "keyword relationships"
+      ],
+      "type": "reasoning-system",
+      "purpose": "Connect active keywords and concepts through learned lexical and knowledge-graph relationships so related concepts can participate in reasoning.",
+      "inputs": [
+        "prompt concepts",
+        "keywords",
+        "semantic relations",
+        "learned correlations",
+        "knowledge graph"
+      ],
+      "outputs": [
+        "related concepts",
+        "association paths",
+        "semantic support"
+      ],
+      "concepts": [
+        "keywords",
+        "relationships",
+        "knowledge graph",
+        "multi-hop association",
+        "semantic support"
+      ],
+      "relations": {
+        "uses": [
+          "KnowledgeGraph",
+          "SemanticRelations",
+          "Correlation",
+          "WordMatrix"
+        ],
+        "feeds": [
+          "QueryPlanner",
+          "EvidenceSearch",
+          "CandidateRanker",
+          "ReasoningCoordinator"
+        ],
+        "interacts_with": [
+          "GraphReasoner",
+          "Cognitive",
+          "InterferenceDecoder"
+        ]
+      }
+    },
+    {
+      "id": "reasoning-coordinator",
+      "canonical": "ReasoningCoordinator",
+      "aliases": [
+        "reasoning coordinator",
+        "reasoning planner",
+        "reasoning workspace",
+        "thought planner"
+      ],
+      "type": "cognitive-system",
+      "purpose": "Build a foreground reasoning workspace before language generation by combining task interpretation, background cognition, graph reasoning, hypotheses, and amplitude-based state selection.",
+      "inputs": [
+        "prompt analysis",
+        "background thoughts",
+        "knowledge graph",
+        "hypotheses",
+        "entities",
+        "architecture knowledge"
+      ],
+      "outputs": [
+        "reasoning states",
+        "priority concepts",
+        "reasoning plan",
+        "unresolved questions"
+      ],
+      "concepts": [
+        "problem decomposition",
+        "reasoning states",
+        "planning",
+        "foreground cognition",
+        "thought interference"
+      ],
+      "relations": {
+        "uses": [
+          "Cognitive",
+          "GraphReasoner",
+          "StateProcessor",
+          "MatrixEngine",
+          "HypothesisStore"
+        ],
+        "feeds": [
+          "QueryPlanner",
+          "EvidenceSearch",
+          "CandidateRanker",
+          "InterferenceDecoder"
+        ]
+      }
+    },
+    {
+      "id": "cognitive",
+      "canonical": "Cognitive",
+      "aliases": [
+        "Cognitive.js",
+        "cognitive system",
+        "background cognition",
+        "background thoughts"
+      ],
+      "type": "cognitive-system",
+      "purpose": "Maintain autonomous background study, attention, reflection, goals, hypotheses, and a persistent cognitive workspace outside the immediate response path.",
+      "inputs": [
+        "training knowledge",
+        "learning state",
+        "knowledge graph",
+        "prediction error",
+        "uncertainty"
+      ],
+      "outputs": [
+        "background thoughts",
+        "attention state",
+        "cognitive goals",
+        "workspace context"
+      ],
+      "concepts": [
+        "background thoughts",
+        "reflection",
+        "attention",
+        "curiosity",
+        "cognitive workspace"
+      ],
+      "relations": {
+        "uses": [
+          "TrainingKnowledge",
+          "KnowledgeGraph",
+          "HypothesisStore",
+          "LearningEvaluator",
+          "PredictionError"
+        ],
+        "feeds": [
+          "ReasoningCoordinator",
+          "SelfImprovement"
+        ]
+      }
+    },
+    {
+      "id": "grover-search",
+      "canonical": "Grover-inspired search",
+      "aliases": [
+        "Grover inspired search",
+        "Grover search",
+        "amplitude amplification",
+        "oracle search"
+      ],
+      "type": "search-system",
+      "purpose": "Use a classical amplitude-amplification analogue to emphasize candidate states that project strongly onto the current query while retaining interference between compatible states.",
+      "inputs": [
+        "candidate state vectors",
+        "query vector",
+        "compatibility matrix",
+        "prior scores"
+      ],
+      "outputs": [
+        "amplitude probabilities",
+        "oracle marks",
+        "state projections",
+        "selected state support"
+      ],
+      "concepts": [
+        "amplitude",
+        "oracle",
+        "diffusion",
+        "projection",
+        "interference",
+        "candidate states"
+      ],
+      "relations": {
+        "implemented_by": [
+          "MatrixEngine",
+          "StateProcessor"
+        ],
+        "used_by": [
+          "InterferenceDecoder",
+          "ReasoningCoordinator"
+        ]
+      }
+    },
+    {
+      "id": "matrix-engine",
+      "canonical": "MatrixEngine",
+      "aliases": [
+        "MatrixEngine.js",
+        "matrix engine",
+        "matrix operations",
+        "vector operations"
+      ],
+      "type": "compute-system",
+      "purpose": "Represent candidate or reasoning states as feature vectors and apply query projection, Gram-matrix compatibility, and Grover-inspired amplitude amplification.",
+      "inputs": [
+        "feature vectors",
+        "query vector",
+        "compatibility matrix"
+      ],
+      "outputs": [
+        "projections",
+        "amplitudes",
+        "probabilities",
+        "oracle discrimination"
+      ],
+      "concepts": [
+        "matrices",
+        "vectors",
+        "projection",
+        "Gram matrix",
+        "amplitude amplification"
+      ],
+      "relations": {
+        "feeds": [
+          "StateProcessor",
+          "ReasoningCoordinator",
+          "InterferenceDecoder"
+        ],
+        "implements": [
+          "Grover-inspired search"
+        ]
+      }
+    },
+    {
+      "id": "state-processor",
+      "canonical": "StateProcessor",
+      "aliases": [
+        "StateProcessor.js",
+        "state processor",
+        "state lattice",
+        "continuous state processor"
+      ],
+      "type": "reasoning-system",
+      "purpose": "Combine support, conflict, context, semantics, reliability, uncertainty, graph centrality, and amplitude probabilities to collapse competing continuous states.",
+      "inputs": [
+        "candidate states",
+        "semantic support",
+        "context support",
+        "reliability",
+        "compatibility"
+      ],
+      "outputs": [
+        "collapsed state",
+        "state diagnostics",
+        "stability",
+        "uncertainty"
+      ],
+      "concepts": [
+        "continuous states",
+        "collapse",
+        "support",
+        "conflict",
+        "stability",
+        "uncertainty"
+      ],
+      "relations": {
+        "uses": [
+          "MatrixEngine"
+        ],
+        "feeds": [
+          "InterferenceDecoder",
+          "ReasoningCoordinator"
+        ]
+      }
+    },
+    {
+      "id": "interference-decoder",
+      "canonical": "InterferenceDecoder",
+      "aliases": [
+        "InterferenceDecoder.js",
+        "interference decoder",
+        "four branch interference",
+        "four-branch system"
+      ],
+      "type": "generation-system",
+      "purpose": "Generate multiple full-sentence branches, compare their sentence and word states, and mix compatible information while preserving confidence and grammar constraints.",
+      "inputs": [
+        "decoder candidates",
+        "reasoning plan",
+        "semantic evidence",
+        "state processing"
+      ],
+      "outputs": [
+        "mixed response candidate",
+        "interference diagnostics",
+        "confidence calibration"
+      ],
+      "concepts": [
+        "four branches",
+        "sentence interference",
+        "word interference",
+        "mixing",
+        "candidate generation"
+      ],
+      "relations": {
+        "uses": [
+          "StateProcessor",
+          "MatrixEngine",
+          "SurfaceRealizer",
+          "OutputCoherence"
+        ],
+        "receives": [
+          "ReasoningCoordinator"
+        ]
+      }
+    },
+    {
+      "id": "knowledge-graph",
+      "canonical": "KnowledgeGraph",
+      "aliases": [
+        "KnowledgeGraph.js",
+        "knowledge graph",
+        "graph knowledge"
+      ],
+      "type": "knowledge-system",
+      "purpose": "Store typed, weighted relationships with provenance, trust, usefulness, freshness, and learned support so reasoning can traverse structured knowledge.",
+      "inputs": [
+        "training knowledge",
+        "entity relations",
+        "learned relations",
+        "architecture relations"
+      ],
+      "outputs": [
+        "related edges",
+        "relation scores",
+        "graph paths"
+      ],
+      "concepts": [
+        "nodes",
+        "edges",
+        "relations",
+        "provenance",
+        "trust",
+        "multi-hop paths"
+      ],
+      "relations": {
+        "used_by": [
+          "GraphReasoner",
+          "EvidenceSearch",
+          "Cognitive",
+          "ReasoningCoordinator",
+          "ClaimVerifier"
+        ]
+      }
+    },
+    {
+      "id": "graph-reasoner",
+      "canonical": "GraphReasoner",
+      "aliases": [
+        "GraphReasoner.js",
+        "graph reasoner",
+        "multi-hop graph reasoning"
+      ],
+      "type": "reasoning-system",
+      "purpose": "Explore bounded multi-hop paths through eligible knowledge-graph edges and derive factual propositions only when relation composition is explicitly safe.",
+      "inputs": [
+        "seed concepts",
+        "KnowledgeGraph",
+        "temporal knowledge"
+      ],
+      "outputs": [
+        "reasoning paths",
+        "derived propositions"
+      ],
+      "concepts": [
+        "multi-hop reasoning",
+        "relation paths",
+        "transitive reasoning",
+        "graph traversal"
+      ],
+      "relations": {
+        "uses": [
+          "KnowledgeGraph",
+          "TemporalKnowledge"
+        ],
+        "feeds": [
+          "ReasoningCoordinator",
+          "LearnedKnowledgeBridge",
+          "ClaimVerifier"
+        ]
+      }
+    },
+    {
+      "id": "hypothesis-store",
+      "canonical": "HypothesisStore",
+      "aliases": [
+        "HypothesisStore.js",
+        "hypothesis store",
+        "hypotheses"
+      ],
+      "type": "learning-system",
+      "purpose": "Keep inferred relations separate from factual knowledge while accumulating confirmation, contradiction, trust, prediction error, and promotion state.",
+      "inputs": [
+        "inferred relations",
+        "evidence",
+        "prediction error"
+      ],
+      "outputs": [
+        "provisional hypotheses",
+        "promotable hypotheses",
+        "contested hypotheses"
+      ],
+      "concepts": [
+        "hypothesis",
+        "confirmation",
+        "contradiction",
+        "promotion",
+        "uncertainty"
+      ],
+      "relations": {
+        "feeds": [
+          "Cognitive",
+          "ReasoningCoordinator",
+          "SelfImprovement"
+        ]
+      }
+    },
+    {
+      "id": "entity-knowledge",
+      "canonical": "Entity knowledge",
+      "aliases": [
+        "EntityKnowledge",
+        "EntityKnowledge.json",
+        "entity knowledge",
+        "entity resolver"
+      ],
+      "type": "knowledge-system",
+      "purpose": "Resolve named real-world people and other structured entities before ordinary keyword splitting, then expose aliases, roles, concepts, and graph relationships.",
+      "inputs": [
+        "proper names",
+        "aliases"
+      ],
+      "outputs": [
+        "canonical entities",
+        "entity concepts",
+        "structured relations"
+      ],
+      "concepts": [
+        "names",
+        "people",
+        "aliases",
+        "entities",
+        "structured knowledge"
+      ],
+      "relations": {
+        "implemented_by": [
+          "EntityResolver"
+        ],
+        "feeds": [
+          "QueryPlanner",
+          "KnowledgeGraph",
+          "ReasoningCoordinator"
+        ]
+      }
+    },
+    {
+      "id": "surface-language",
+      "canonical": "Structured language generation",
+      "aliases": [
+        "surface realization",
+        "syntax smoothing",
+        "syntactic bridging",
+        "structured language generation"
+      ],
+      "type": "generation-system",
+      "purpose": "Turn selected semantic concepts into grammatical sentences by bridging content words, realizing surface forms, enforcing determiners, and smoothing syntax.",
+      "inputs": [
+        "semantic plan",
+        "keywords",
+        "grammatical relations"
+      ],
+      "outputs": [
+        "grammatical response text"
+      ],
+      "concepts": [
+        "KeywordSelector",
+        "SyntacticBridge",
+        "SurfaceRealizer",
+        "SyntaxSmoother",
+        "determiners",
+        "function words"
+      ],
+      "relations": {
+        "uses": [
+          "KeywordSelector",
+          "SyntacticBridge",
+          "SurfaceRealizer",
+          "SyntaxSmoother"
+        ],
+        "feeds": [
+          "OutputCoherence"
+        ]
+      }
+    },
+    {
+      "id": "self-improvement",
+      "canonical": "SelfImprovement",
+      "aliases": [
+        "SelfImprovement.js",
+        "self improvement",
+        "self-improvement",
+        "learning loop"
+      ],
+      "type": "learning-system",
+      "purpose": "Diagnose stage-specific failures, schedule targeted replay curricula, test bounded strategy-profile changes against target and control behavior, and roll back changes that regress measured utility.",
+      "inputs": [
+        "response quality",
+        "grammar",
+        "semantic support",
+        "reasoning alignment",
+        "latency",
+        "prediction error",
+        "reasoning quality",
+        "proposition coverage",
+        "mechanism completeness",
+        "reasoning memory"
+      ],
+      "outputs": [
+        "bounded scoring profile",
+        "bounded reasoning strategy profile",
+        "rollback decisions",
+        "reusable reasoning strategies",
+        "proposition strategy profile",
+        "mechanism strategy profile"
+      ],
+      "concepts": [
+        "evaluation",
+        "adaptation",
+        "rollback",
+        "reasoning strategy",
+        "learning"
+      ],
+      "relations": {
+        "uses": [
+          "LearningEvaluator",
+          "PredictionError",
+          "HypothesisStore",
+          "ReplayScheduler",
+          "ReasoningQuality",
+          "ReasoningMemory"
+        ],
+        "influences": [
+          "CandidateRanker",
+          "ReasoningCoordinator",
+          "Decoder"
+        ],
+        "evaluates": [
+          "response quality",
+          "reasoning quality",
+          "mechanism completeness",
+          "proposition coverage"
+        ],
+        "updates": [
+          "bounded scoring profile",
+          "reasoning strategy profile"
+        ],
+        "returns_to": [
+          "ReasoningCoordinator",
+          "CandidateRanker"
+        ]
+      },
+      "uses": [
+        "SelfImprovementPolicy.json",
+        "ReplayScheduler",
+        "LearningEvaluator",
+        "PredictionError",
+        "HypothesisStore"
+      ]
+    },
+    {
+      "id": "complex-language",
+      "canonical": "Complex language understanding",
+      "aliases": [
+        "complex sentences",
+        "complex syntax",
+        "proposition graph",
+        "clause graph",
+        "language structure"
+      ],
+      "type": "language-reasoning-system",
+      "purpose": "Preserve multi-clause sentence structure, embedded questions, references, conditions, time, comparison, negation and proposition relationships before semantic reasoning.",
+      "inputs": [
+        "prompt tokens",
+        "grammar rules",
+        "complex syntax patterns",
+        "reference rules",
+        "discourse rules"
+      ],
+      "outputs": [
+        "clause graph",
+        "proposition graph",
+        "reference links",
+        "requested roles",
+        "structural complexity"
+      ],
+      "concepts": [
+        "clauses",
+        "propositions",
+        "subordination",
+        "embedded questions",
+        "coreference",
+        "conditionals",
+        "temporal relations",
+        "negation scope"
+      ],
+      "relations": {
+        "uses": [
+          "ComplexLanguage",
+          "RuleStore",
+          "ClauseState",
+          "QuestionState",
+          "LanguageState"
+        ],
+        "feeds": [
+          "Processor",
+          "QueryPlanner",
+          "Cognitive",
+          "ReasoningCoordinator",
+          "CandidateRanker",
+          "ClaimVerifier"
+        ],
+        "interacts_with": [
+          "Correlation",
+          "SemanticComposer",
+          "ClausePlanner",
+          "SyntacticBridge",
+          "SelfImprovement"
+        ]
+      }
+    },
+    {
+      "id": "proposition-graph",
+      "canonical": "PropositionGraph",
+      "aliases": [
+        "proposition graph",
+        "proposition reasoning",
+        "structured propositions",
+        "proposition layer"
+      ],
+      "type": "reasoning-system",
+      "purpose": "Preserve subject, relation, object, condition, time, polarity, certainty, and source as a canonical structure above the keyword layer.",
+      "inputs": [
+        "complex language clauses",
+        "references",
+        "typed correlations",
+        "knowledge graph relations"
+      ],
+      "outputs": [
+        "canonical propositions",
+        "dependency edges",
+        "structural coverage",
+        "support edges"
+      ],
+      "concepts": [
+        "propositions",
+        "subject relation object",
+        "dependency graph",
+        "polarity",
+        "certainty"
+      ],
+      "relations": {
+        "uses": [
+          "ComplexLanguage",
+          "Correlation",
+          "KnowledgeGraph"
+        ],
+        "feeds": [
+          "Cognitive",
+          "ReasoningCoordinator",
+          "QueryPlanner",
+          "CandidateRanker",
+          "ReasoningQuality"
+        ]
+      }
+    },
+    {
+      "id": "mechanism-graph",
+      "canonical": "MechanismGraph",
+      "aliases": [
+        "mechanism graph",
+        "process graph",
+        "how reasoning",
+        "mechanism reasoning"
+      ],
+      "type": "reasoning-system",
+      "purpose": "Turn structured and learned relations into ordered process slots such as input, operation, transition, output, feedback, conditions, and constraints.",
+      "inputs": [
+        "PropositionGraph",
+        "ExplanationPlanner",
+        "typed relations"
+      ],
+      "outputs": [
+        "mechanism stages",
+        "missing mechanism slots",
+        "process completeness",
+        "priority terms"
+      ],
+      "concepts": [
+        "mechanism",
+        "process",
+        "input",
+        "operation",
+        "output",
+        "feedback loop",
+        "condition"
+      ],
+      "relations": {
+        "uses": [
+          "PropositionGraph",
+          "ExplanationPlanner",
+          "Correlation"
+        ],
+        "feeds": [
+          "Cognitive",
+          "ReasoningCoordinator",
+          "QueryPlanner",
+          "EvidenceSearch",
+          "CandidateRanker"
+        ]
+      }
+    },
+    {
+      "id": "reasoning-memory",
+      "canonical": "ReasoningMemory",
+      "aliases": [
+        "reasoning memory",
+        "strategy memory",
+        "reasoning strategy memory"
+      ],
+      "type": "learning-system",
+      "purpose": "Remember which reasoning strategies performed well for structurally similar tasks without storing canned answers.",
+      "inputs": [
+        "reasoning plan",
+        "quality evaluation",
+        "task structure"
+      ],
+      "outputs": [
+        "strategy hints",
+        "success rates",
+        "reusable reasoning priors"
+      ],
+      "concepts": [
+        "strategy learning",
+        "replay",
+        "reasoning priors",
+        "task similarity"
+      ],
+      "relations": {
+        "uses": [
+          "ReasoningQuality",
+          "ReasoningCoordinator"
+        ],
+        "feeds": [
+          "Cognitive",
+          "ReasoningCoordinator",
+          "SelfImprovement"
+        ]
+      }
+    },
+    {
+      "id": "reasoning-quality",
+      "canonical": "ReasoningQuality",
+      "aliases": [
+        "reasoning quality",
+        "quality monitor",
+        "reasoning monitor",
+        "self correction monitor"
+      ],
+      "type": "verification-system",
+      "purpose": "Measure whether an answer still covers the prompt propositions, mechanism stages, multiple requested parts, and active reasoning priorities while avoiding contradictions and drift.",
+      "inputs": [
+        "generated response",
+        "PropositionGraph",
+        "MechanismGraph",
+        "reasoning plan",
+        "contradiction results"
+      ],
+      "outputs": [
+        "proposition coverage",
+        "mechanism completeness",
+        "multi-part coverage",
+        "drift safety",
+        "overall reasoning quality"
+      ],
+      "concepts": [
+        "coverage",
+        "self correction",
+        "drift detection",
+        "mechanism completeness",
+        "contradiction safety"
+      ],
+      "relations": {
+        "uses": [
+          "PropositionGraph",
+          "MechanismGraph",
+          "ContradictionResolver"
+        ],
+        "feeds": [
+          "SelfImprovement",
+          "ReasoningMemory"
+        ]
+      }
+    },
+    {
+      "id": "uncertainty-state",
+      "canonical": "UncertaintyState",
+      "aliases": [
+        "UncertaintyState.js",
+        "uncertainty model",
+        "confidence uncertainty",
+        "epistemic uncertainty"
+      ],
+      "type": "reasoning-support-system",
+      "purpose": "Track uncertainty by cause and by proposition, including evidence coverage, contradictions, reference ambiguity, temporal ambiguity, inference dependence, freshness, calibration, and mechanism completeness.",
+      "inputs": [
+        "response branches",
+        "claim verification",
+        "proposition graph",
+        "reference resolution",
+        "temporal assessment",
+        "knowledge evidence"
+      ],
+      "outputs": [
+        "reliability vector",
+        "confidence ceiling",
+        "proposition uncertainty",
+        "uncertainty reasons"
+      ],
+      "concepts": [
+        "epistemic state",
+        "localized uncertainty",
+        "confidence calibration",
+        "ambiguity",
+        "inference dependence"
+      ],
+      "relations": {
+        "uses": [
+          "UncertaintyRules.json",
+          "TemporalKnowledge",
+          "LearningEvaluator"
+        ],
+        "feeds": [
+          "InterferenceDecoder",
+          "ReasoningCoordinator",
+          "SelfImprovement",
+          "ClaimVerifier"
+        ]
+      }
+    },
+    {
+      "id": "temporal-knowledge",
+      "canonical": "TemporalKnowledge",
+      "aliases": [
+        "TemporalKnowledge.js",
+        "temporal reasoning",
+        "event ordering",
+        "freshness layer"
+      ],
+      "type": "reasoning-support-system",
+      "purpose": "Track validity and freshness of learned evidence while also building conservative event-order relations such as before, after, overlap, duration, repetition, and temporal boundaries.",
+      "inputs": [
+        "knowledge metadata",
+        "proposition graph",
+        "temporal cues",
+        "explicit times"
+      ],
+      "outputs": [
+        "freshness",
+        "event relations",
+        "temporal consistency",
+        "temporal contradictions"
+      ],
+      "concepts": [
+        "event order",
+        "interval relation",
+        "freshness",
+        "duration",
+        "frequency",
+        "before and after"
+      ],
+      "relations": {
+        "uses": [
+          "TemporalRelations.json",
+          "PropositionGraph"
+        ],
+        "feeds": [
+          "UncertaintyState",
+          "GraphReasoner",
+          "ClaimVerifier",
+          "ReasoningCoordinator"
+        ]
+      }
+    },
+    {
+      "id": "reference-system",
+      "canonical": "Reference rules",
+      "aliases": [
+        "ReferenceRules.json",
+        "coreference",
+        "reference resolution",
+        "pronoun resolution"
+      ],
+      "type": "language-support-system",
+      "purpose": "Resolve entity, event, process, proposition, group, possessive, reflexive, relative, demonstrative, and discourse references while retaining ambiguity when several antecedents remain plausible.",
+      "inputs": [
+        "clauses",
+        "pronouns",
+        "demonstratives",
+        "recent entities",
+        "recent propositions",
+        "conversation focus"
+      ],
+      "outputs": [
+        "antecedent candidates",
+        "resolved references",
+        "ambiguity estimates"
+      ],
+      "concepts": [
+        "coreference",
+        "anaphora",
+        "reflexive binding",
+        "event reference",
+        "proposition reference"
+      ],
+      "relations": {
+        "implemented_by": [
+          "ComplexLanguage"
+        ],
+        "feeds": [
+          "PropositionGraph",
+          "UncertaintyState",
+          "ReasoningCoordinator"
+        ]
+      }
+    },
+    {
+      "id": "syntactic-bridge",
+      "canonical": "SyntacticBridge",
+      "aliases": [
+        "SyntacticBridge.js",
+        "syntax bridge",
+        "function word bridge"
+      ],
+      "type": "language-generation-system",
+      "purpose": "Convert clause and proposition relations into grammatical function-word bridges and connectors without inventing topic content.",
+      "inputs": [
+        "clause type",
+        "proposition relation",
+        "selected content anchors",
+        "syntax rules"
+      ],
+      "outputs": [
+        "bridged clauses",
+        "connectors",
+        "composition scaffolds"
+      ],
+      "concepts": [
+        "subordination",
+        "coordination",
+        "function words",
+        "clause bridge"
+      ],
+      "relations": {
+        "uses": [
+          "SyntaxPatterns.json",
+          "SentenceCompositionRules.json"
+        ],
+        "feeds": [
+          "SurfaceRealizer",
+          "SyntaxSmoother"
+        ]
+      }
+    },
+    {
+      "id": "syntax-smoother",
+      "canonical": "SyntaxSmoother",
+      "aliases": [
+        "SyntaxSmoother.js",
+        "syntax smoother",
+        "grammar cleanup"
+      ],
+      "type": "language-generation-system",
+      "purpose": "Apply clause-aware, semantically conservative repairs for punctuation, local agreement, duplicate function words, connector collisions, articles, and terminal legality, with rollback when content changes too much.",
+      "inputs": [
+        "realized response",
+        "complex-language analysis",
+        "syntax rules"
+      ],
+      "outputs": [
+        "smoothed response",
+        "repair trace",
+        "semantic safety result"
+      ],
+      "concepts": [
+        "surface realization",
+        "agreement",
+        "punctuation",
+        "semantic safety"
+      ],
+      "relations": {
+        "uses": [
+          "SyntaxPatterns.json",
+          "Processor"
+        ],
+        "feeds": [
+          "final response",
+          "SelfImprovement"
+        ]
+      }
+    },
+    {
+      "id": "sentence-mixer",
+      "canonical": "SentenceMixer",
+      "aliases": [
+        "SentenceMixer.js",
+        "sentence interference",
+        "candidate sentence mixer"
+      ],
+      "type": "candidate-composition-system",
+      "purpose": "Compare the four complete response branches using lexical similarity and structural similarity across relation families, proposition roles, mechanism stages, polarity, clause count, and subject continuity before interference.",
+      "inputs": [
+        "four candidate sentences",
+        "candidate diagnostics",
+        "matrix engine",
+        "composition rules"
+      ],
+      "outputs": [
+        "eligible branch pairs",
+        "structural similarity",
+        "amplitude weights",
+        "composition decisions"
+      ],
+      "concepts": [
+        "sentence interference",
+        "structural similarity",
+        "branch compatibility",
+        "composition"
+      ],
+      "relations": {
+        "uses": [
+          "SentenceCompositionRules.json",
+          "StructuredReasoningRules.json",
+          "MatrixEngine"
+        ],
+        "feeds": [
+          "InterferenceDecoder"
+        ]
+      }
+    },
+    {
+      "id": "replay-scheduler",
+      "canonical": "ReplayScheduler",
+      "aliases": [
+        "ReplayScheduler.js",
+        "replay curriculum",
+        "reasoning replay"
+      ],
+      "type": "learning-support-system",
+      "purpose": "Turn diagnosed failures into targeted replay curricula with structural variants and control cases, then space future replay according to residual error and mastery.",
+      "inputs": [
+        "failure diagnosis",
+        "prediction error",
+        "uncertainty",
+        "contradiction pressure"
+      ],
+      "outputs": [
+        "targeted replay cases",
+        "control cases",
+        "curriculum outcomes",
+        "spacing schedule"
+      ],
+      "concepts": [
+        "replay curriculum",
+        "anti-regression",
+        "spaced replay",
+        "control cases"
+      ],
+      "relations": {
+        "uses": [
+          "ReplayPolicy.json"
+        ],
+        "feeds": [
+          "LearningController",
+          "SelfImprovement"
+        ]
+      }
+    }
+  ],
+  "Build": "25-system-35"
+}

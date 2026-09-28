@@ -1,0 +1,476 @@
+{
+  "Schema_Version": 2,
+  "Role": "Broad knowledge-domain taxonomy used for coverage tracking and retrieval hints; it contains no canned answers.",
+  "Policy": "expand by domain rather than by failed prompt",
+  "Domains": {
+    "computing": {
+      "description": "Computers, hardware, software, memory, processing, algorithms, and data systems.",
+      "anchor_terms": [
+        "computer",
+        "hardware",
+        "software",
+        "data",
+        "system"
+      ],
+      "retrieval_roles": [
+        "definition",
+        "mechanism",
+        "purpose",
+        "composition",
+        "cause",
+        "effect",
+        "comparison",
+        "example",
+        "capability",
+        "limitation"
+      ],
+      "coverage_target": "general-purpose foundational coverage"
+    },
+    "mathematics": {
+      "description": "Numbers, algebra, geometry, statistics, probability, and mathematical structures.",
+      "anchor_terms": [
+        "number",
+        "quantity",
+        "equation",
+        "function",
+        "measurement"
+      ],
+      "retrieval_roles": [
+        "definition",
+        "mechanism",
+        "purpose",
+        "composition",
+        "cause",
+        "effect",
+        "comparison",
+        "example",
+        "capability",
+        "limitation"
+      ],
+      "coverage_target": "general-purpose foundational coverage"
+    },
+    "physics": {
+      "description": "Matter, energy, forces, motion, waves, electricity, and physical quantities.",
+      "anchor_terms": [
+        "matter",
+        "energy",
+        "motion",
+        "force",
+        "measurement"
+      ],
+      "retrieval_roles": [
+        "definition",
+        "mechanism",
+        "purpose",
+        "composition",
+        "cause",
+        "effect",
+        "comparison",
+        "example",
+        "capability",
+        "limitation"
+      ],
+      "coverage_target": "general-purpose foundational coverage"
+    },
+    "chemistry": {
+      "description": "Atoms, molecules, substances, bonding, reactions, and chemical properties.",
+      "anchor_terms": [
+        "matter",
+        "atom",
+        "molecule",
+        "reaction",
+        "substance"
+      ],
+      "retrieval_roles": [
+        "definition",
+        "mechanism",
+        "purpose",
+        "composition",
+        "cause",
+        "effect",
+        "comparison",
+        "example",
+        "capability",
+        "limitation"
+      ],
+      "coverage_target": "general-purpose foundational coverage"
+    },
+    "biology": {
+      "description": "Cells, genetics, organisms, evolution, ecosystems, and biological processes.",
+      "anchor_terms": [
+        "life",
+        "cell",
+        "organism",
+        "gene",
+        "system"
+      ],
+      "retrieval_roles": [
+        "definition",
+        "mechanism",
+        "purpose",
+        "composition",
+        "cause",
+        "effect",
+        "comparison",
+        "example",
+        "capability",
+        "limitation"
+      ],
+      "coverage_target": "general-purpose foundational coverage"
+    },
+    "earth_science": {
+      "description": "Weather, climate, geology, oceans, atmosphere, and Earth systems.",
+      "anchor_terms": [
+        "earth",
+        "atmosphere",
+        "water",
+        "weather",
+        "geology"
+      ],
+      "retrieval_roles": [
+        "definition",
+        "mechanism",
+        "purpose",
+        "composition",
+        "cause",
+        "effect",
+        "comparison",
+        "example",
+        "capability",
+        "limitation"
+      ],
+      "coverage_target": "general-purpose foundational coverage"
+    },
+    "astronomy": {
+      "description": "Stars, planets, galaxies, orbital motion, and large-scale space phenomena.",
+      "anchor_terms": [
+        "space",
+        "star",
+        "planet",
+        "gravity",
+        "universe"
+      ],
+      "retrieval_roles": [
+        "definition",
+        "mechanism",
+        "purpose",
+        "composition",
+        "cause",
+        "effect",
+        "comparison",
+        "example",
+        "capability",
+        "limitation"
+      ],
+      "coverage_target": "general-purpose foundational coverage"
+    },
+    "electronics": {
+      "description": "Circuits, electrical components, signals, sensors, motors, and control.",
+      "anchor_terms": [
+        "circuit",
+        "signal",
+        "current",
+        "voltage",
+        "component"
+      ],
+      "retrieval_roles": [
+        "definition",
+        "mechanism",
+        "purpose",
+        "composition",
+        "cause",
+        "effect",
+        "comparison",
+        "example",
+        "capability",
+        "limitation"
+      ],
+      "coverage_target": "general-purpose foundational coverage"
+    },
+    "language": {
+      "description": "Grammar, syntax, semantics, morphology, sentence structure, and word classes.",
+      "anchor_terms": [
+        "language",
+        "word",
+        "sentence",
+        "grammar",
+        "meaning"
+      ],
+      "retrieval_roles": [
+        "definition",
+        "mechanism",
+        "purpose",
+        "composition",
+        "cause",
+        "effect",
+        "comparison",
+        "example",
+        "capability",
+        "limitation"
+      ],
+      "coverage_target": "general-purpose foundational coverage"
+    },
+    "cognition_ai": {
+      "description": "Learning, memory, reasoning, artificial intelligence, models, and representation.",
+      "anchor_terms": [
+        "information",
+        "learning",
+        "model",
+        "reasoning",
+        "memory"
+      ],
+      "retrieval_roles": [
+        "definition",
+        "mechanism",
+        "purpose",
+        "composition",
+        "cause",
+        "effect",
+        "comparison",
+        "example",
+        "capability",
+        "limitation"
+      ],
+      "coverage_target": "general-purpose foundational coverage",
+      "subdomains": {
+        "reasoning_search": {
+          "description": "Heuristics, search, planning, decision rules, exploration, and inference strategies.",
+          "anchors": [
+            "heuristic",
+            "search",
+            "planning",
+            "decision rule",
+            "inference rule"
+          ]
+        },
+        "consistency_reliability": {
+          "description": "Consistency, reproducibility, reliability, robustness, stability, and contradiction checking.",
+          "anchors": [
+            "model consistency",
+            "reliability",
+            "robustness",
+            "stability",
+            "verification"
+          ]
+        },
+        "uncertainty_calibration": {
+          "description": "Confidence, uncertainty, calibration, entropy, thresholds, and abstention.",
+          "anchors": [
+            "calibration",
+            "uncertainty",
+            "confidence",
+            "entropy",
+            "abstention"
+          ]
+        },
+        "learning_optimization": {
+          "description": "Objectives, losses, gradients, optimizers, parameter updates, and regularization.",
+          "anchors": [
+            "loss function",
+            "gradient descent",
+            "optimizer",
+            "learning rate",
+            "regularization"
+          ]
+        },
+        "generalization_data": {
+          "description": "Generalization, overfitting, datasets, distribution shift, drift, and leakage.",
+          "anchors": [
+            "generalization",
+            "overfitting",
+            "training set",
+            "distribution shift",
+            "data leakage"
+          ]
+        },
+        "evaluation_metrics": {
+          "description": "Benchmarks, metrics, classification measures, baselines, and ablation.",
+          "anchors": [
+            "benchmark",
+            "accuracy",
+            "precision",
+            "recall",
+            "F1 score"
+          ]
+        },
+        "model_architecture": {
+          "description": "Transformers, attention, layers, residuals, normalization, and expert routing.",
+          "anchors": [
+            "transformer",
+            "self-attention",
+            "layer normalization",
+            "mixture of experts"
+          ]
+        },
+        "language_generation": {
+          "description": "Language models, tokenization, decoding, sampling, temperature, and prompts.",
+          "anchors": [
+            "language model",
+            "tokenizer",
+            "sampling",
+            "temperature",
+            "prompt"
+          ]
+        },
+        "retrieval_grounding": {
+          "description": "Retrieval, grounding, vector search, knowledge bases, and evidence.",
+          "anchors": [
+            "retrieval",
+            "grounding",
+            "vector search",
+            "knowledge base",
+            "evidence"
+          ]
+        },
+        "training_paradigms": {
+          "description": "Pretraining, fine-tuning, supervised learning, reinforcement learning, and continual learning.",
+          "anchors": [
+            "pretraining",
+            "fine-tuning",
+            "reinforcement learning",
+            "continual learning"
+          ]
+        },
+        "agents_memory": {
+          "description": "Agents, policies, rewards, actions, observations, tools, planning, and memory retrieval.",
+          "anchors": [
+            "agent",
+            "policy",
+            "reward",
+            "tool use",
+            "memory retrieval"
+          ]
+        },
+        "failure_quality": {
+          "description": "Hallucination, factuality, faithfulness, coherence, word salad, and failure analysis.",
+          "anchors": [
+            "hallucination",
+            "factuality",
+            "coherence",
+            "word salad",
+            "failure mode"
+          ]
+        }
+      }
+    },
+    "web_software": {
+      "description": "Programming languages, web standards, networking protocols, and browser systems.",
+      "anchor_terms": [
+        "software",
+        "web",
+        "data",
+        "program",
+        "network"
+      ],
+      "retrieval_roles": [
+        "definition",
+        "mechanism",
+        "purpose",
+        "composition",
+        "cause",
+        "effect",
+        "comparison",
+        "example",
+        "capability",
+        "limitation"
+      ],
+      "coverage_target": "general-purpose foundational coverage"
+    },
+    "systems": {
+      "description": "General system structure, flow, concurrency, queues, graphs, performance, and feedback.",
+      "anchor_terms": [
+        "system",
+        "state",
+        "input",
+        "output",
+        "process"
+      ],
+      "retrieval_roles": [
+        "definition",
+        "mechanism",
+        "purpose",
+        "composition",
+        "cause",
+        "effect",
+        "comparison",
+        "example",
+        "capability",
+        "limitation"
+      ],
+      "coverage_target": "general-purpose foundational coverage"
+    },
+    "materials": {
+      "description": "States of matter, common material classes, structure, and physical properties.",
+      "anchor_terms": [
+        "material",
+        "matter",
+        "structure",
+        "property",
+        "substance"
+      ],
+      "retrieval_roles": [
+        "definition",
+        "mechanism",
+        "purpose",
+        "composition",
+        "cause",
+        "effect",
+        "comparison",
+        "example",
+        "capability",
+        "limitation"
+      ],
+      "coverage_target": "general-purpose foundational coverage"
+    },
+    "communication": {
+      "description": "Signals, information, encoding, compression, channels, noise, and error handling.",
+      "anchor_terms": [
+        "information",
+        "signal",
+        "message",
+        "channel",
+        "data"
+      ],
+      "retrieval_roles": [
+        "definition",
+        "mechanism",
+        "purpose",
+        "composition",
+        "cause",
+        "effect",
+        "comparison",
+        "example",
+        "capability",
+        "limitation"
+      ],
+      "coverage_target": "general-purpose foundational coverage"
+    },
+    "measurement": {
+      "description": "Distance, time, area, volume, density, speed, units, scales, and uncertainty.",
+      "anchor_terms": [
+        "measurement",
+        "unit",
+        "quantity",
+        "scale",
+        "value"
+      ],
+      "retrieval_roles": [
+        "definition",
+        "mechanism",
+        "purpose",
+        "composition",
+        "cause",
+        "effect",
+        "comparison",
+        "example",
+        "capability",
+        "limitation"
+      ],
+      "coverage_target": "general-purpose foundational coverage"
+    }
+  },
+  "AI_Knowledge_Expansion": {
+    "Build": "25-system-8",
+    "AI_Subdomain_Count": 12
+  }
+}

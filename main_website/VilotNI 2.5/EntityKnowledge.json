@@ -1,0 +1,5797 @@
+{
+  "Schema_Version": 1,
+  "Build": "25-system-35",
+  "Scope": "Real-world people only. Fictional/cartoon characters are intentionally not seeded.",
+  "Design_Rules": [
+    "Resolve the longest matching alias before ordinary token splitting.",
+    "Entity relations seed the semantic graph; they are not canned response templates.",
+    "Associations remain free to expand beyond the entity node.",
+    "Entity evidence can guide search but does not bypass normal candidate generation.",
+    "Self-improvement may change learned weights around entity retrieval but may not invent new trusted entity facts without evidence."
+  ],
+  "Entity_Count": 122,
+  "Entities": [
+    {
+      "id": "person_albert_einstein",
+      "canonical": "Albert Einstein",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Einstein"
+      ],
+      "roles": [
+        "physicist"
+      ],
+      "fields": [
+        "physics"
+      ],
+      "concepts": [
+        "relativity",
+        "spacetime",
+        "mass-energy equivalence",
+        "gravity"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "physicist"
+        ],
+        "field": [
+          "physics"
+        ],
+        "associated_with": [
+          "relativity",
+          "spacetime",
+          "mass-energy equivalence",
+          "gravity"
+        ],
+        "known_for": [
+          "relativity",
+          "spacetime",
+          "mass-energy equivalence",
+          "gravity"
+        ],
+        "works_in": [
+          "physics"
+        ]
+      }
+    },
+    {
+      "id": "person_isaac_newton",
+      "canonical": "Isaac Newton",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Newton"
+      ],
+      "roles": [
+        "physicist",
+        "mathematician"
+      ],
+      "fields": [
+        "physics",
+        "mathematics"
+      ],
+      "concepts": [
+        "classical mechanics",
+        "gravity",
+        "calculus",
+        "optics"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "physicist",
+          "mathematician"
+        ],
+        "field": [
+          "physics",
+          "mathematics"
+        ],
+        "associated_with": [
+          "classical mechanics",
+          "gravity",
+          "calculus",
+          "optics"
+        ],
+        "known_for": [
+          "classical mechanics",
+          "gravity",
+          "calculus",
+          "optics"
+        ],
+        "works_in": [
+          "physics",
+          "mathematics"
+        ]
+      }
+    },
+    {
+      "id": "person_marie_curie",
+      "canonical": "Marie Curie",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Curie"
+      ],
+      "roles": [
+        "physicist",
+        "chemist"
+      ],
+      "fields": [
+        "physics",
+        "chemistry"
+      ],
+      "concepts": [
+        "radioactivity",
+        "radium",
+        "polonium"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "physicist",
+          "chemist"
+        ],
+        "field": [
+          "physics",
+          "chemistry"
+        ],
+        "associated_with": [
+          "radioactivity",
+          "radium",
+          "polonium"
+        ],
+        "known_for": [
+          "radioactivity",
+          "radium",
+          "polonium"
+        ],
+        "works_in": [
+          "physics",
+          "chemistry"
+        ]
+      }
+    },
+    {
+      "id": "person_alan_turing",
+      "canonical": "Alan Turing",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Turing"
+      ],
+      "roles": [
+        "mathematician",
+        "computer scientist"
+      ],
+      "fields": [
+        "computer science",
+        "mathematics"
+      ],
+      "concepts": [
+        "computation",
+        "cryptography",
+        "artificial intelligence",
+        "Turing machine"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "mathematician",
+          "computer scientist"
+        ],
+        "field": [
+          "computer science",
+          "mathematics"
+        ],
+        "associated_with": [
+          "computation",
+          "cryptography",
+          "artificial intelligence",
+          "Turing machine"
+        ],
+        "known_for": [
+          "computation",
+          "cryptography",
+          "artificial intelligence",
+          "Turing machine"
+        ],
+        "works_in": [
+          "computer science",
+          "mathematics"
+        ]
+      }
+    },
+    {
+      "id": "person_ada_lovelace",
+      "canonical": "Ada Lovelace",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Lovelace"
+      ],
+      "roles": [
+        "mathematician",
+        "writer"
+      ],
+      "fields": [
+        "mathematics",
+        "computing"
+      ],
+      "concepts": [
+        "analytical engine",
+        "algorithms",
+        "programming"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "mathematician",
+          "writer"
+        ],
+        "field": [
+          "mathematics",
+          "computing"
+        ],
+        "associated_with": [
+          "analytical engine",
+          "algorithms",
+          "programming"
+        ],
+        "known_for": [
+          "analytical engine",
+          "algorithms",
+          "programming"
+        ],
+        "works_in": [
+          "mathematics",
+          "computing"
+        ]
+      }
+    },
+    {
+      "id": "person_john_von_neumann",
+      "canonical": "John von Neumann",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "von Neumann",
+        "Neumann"
+      ],
+      "roles": [
+        "mathematician",
+        "physicist",
+        "computer scientist"
+      ],
+      "fields": [
+        "mathematics",
+        "physics",
+        "computing"
+      ],
+      "concepts": [
+        "computer architecture",
+        "game theory",
+        "quantum mechanics"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "mathematician",
+          "physicist",
+          "computer scientist"
+        ],
+        "field": [
+          "mathematics",
+          "physics",
+          "computing"
+        ],
+        "associated_with": [
+          "computer architecture",
+          "game theory",
+          "quantum mechanics"
+        ],
+        "known_for": [
+          "computer architecture",
+          "game theory",
+          "quantum mechanics"
+        ],
+        "works_in": [
+          "mathematics",
+          "physics",
+          "computing"
+        ]
+      }
+    },
+    {
+      "id": "person_claude_shannon",
+      "canonical": "Claude Shannon",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Shannon"
+      ],
+      "roles": [
+        "mathematician",
+        "electrical engineer"
+      ],
+      "fields": [
+        "information theory",
+        "engineering"
+      ],
+      "concepts": [
+        "information theory",
+        "communication",
+        "bits",
+        "entropy"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "mathematician",
+          "electrical engineer"
+        ],
+        "field": [
+          "information theory",
+          "engineering"
+        ],
+        "associated_with": [
+          "information theory",
+          "communication",
+          "bits",
+          "entropy"
+        ],
+        "known_for": [
+          "information theory",
+          "communication",
+          "bits",
+          "entropy"
+        ],
+        "works_in": [
+          "information theory",
+          "engineering"
+        ]
+      }
+    },
+    {
+      "id": "person_grace_hopper",
+      "canonical": "Grace Hopper",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Hopper"
+      ],
+      "roles": [
+        "computer scientist"
+      ],
+      "fields": [
+        "computer science"
+      ],
+      "concepts": [
+        "compilers",
+        "programming languages",
+        "COBOL"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "computer scientist"
+        ],
+        "field": [
+          "computer science"
+        ],
+        "associated_with": [
+          "compilers",
+          "programming languages",
+          "COBOL"
+        ],
+        "known_for": [
+          "compilers",
+          "programming languages",
+          "COBOL"
+        ],
+        "works_in": [
+          "computer science"
+        ]
+      }
+    },
+    {
+      "id": "person_dennis_ritchie",
+      "canonical": "Dennis Ritchie",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Ritchie"
+      ],
+      "roles": [
+        "computer scientist"
+      ],
+      "fields": [
+        "computer science"
+      ],
+      "concepts": [
+        "C programming language",
+        "Unix",
+        "systems programming"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "computer scientist"
+        ],
+        "field": [
+          "computer science"
+        ],
+        "associated_with": [
+          "C programming language",
+          "Unix",
+          "systems programming"
+        ],
+        "known_for": [
+          "C programming language",
+          "Unix",
+          "systems programming"
+        ],
+        "works_in": [
+          "computer science"
+        ]
+      }
+    },
+    {
+      "id": "person_ken_thompson",
+      "canonical": "Ken Thompson",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Thompson"
+      ],
+      "roles": [
+        "computer scientist"
+      ],
+      "fields": [
+        "computer science"
+      ],
+      "concepts": [
+        "Unix",
+        "systems programming",
+        "programming languages"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "computer scientist"
+        ],
+        "field": [
+          "computer science"
+        ],
+        "associated_with": [
+          "Unix",
+          "systems programming",
+          "programming languages"
+        ],
+        "known_for": [
+          "Unix",
+          "systems programming",
+          "programming languages"
+        ],
+        "works_in": [
+          "computer science"
+        ]
+      }
+    },
+    {
+      "id": "person_linus_torvalds",
+      "canonical": "Linus Torvalds",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Torvalds"
+      ],
+      "roles": [
+        "software engineer"
+      ],
+      "fields": [
+        "computer science",
+        "software"
+      ],
+      "concepts": [
+        "Linux",
+        "open source",
+        "operating systems"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "software engineer"
+        ],
+        "field": [
+          "computer science",
+          "software"
+        ],
+        "associated_with": [
+          "Linux",
+          "open source",
+          "operating systems"
+        ],
+        "known_for": [
+          "Linux",
+          "open source",
+          "operating systems"
+        ],
+        "works_in": [
+          "computer science",
+          "software"
+        ]
+      }
+    },
+    {
+      "id": "person_tim_berners_lee",
+      "canonical": "Tim Berners-Lee",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Berners-Lee",
+        "Tim Berners Lee"
+      ],
+      "roles": [
+        "computer scientist"
+      ],
+      "fields": [
+        "computer science",
+        "internet"
+      ],
+      "concepts": [
+        "World Wide Web",
+        "HTTP",
+        "HTML",
+        "web standards"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "computer scientist"
+        ],
+        "field": [
+          "computer science",
+          "internet"
+        ],
+        "associated_with": [
+          "World Wide Web",
+          "HTTP",
+          "HTML",
+          "web standards"
+        ],
+        "known_for": [
+          "World Wide Web",
+          "HTTP",
+          "HTML",
+          "web standards"
+        ],
+        "works_in": [
+          "computer science",
+          "internet"
+        ]
+      }
+    },
+    {
+      "id": "person_donald_knuth",
+      "canonical": "Donald Knuth",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Knuth"
+      ],
+      "roles": [
+        "computer scientist",
+        "mathematician"
+      ],
+      "fields": [
+        "computer science",
+        "mathematics"
+      ],
+      "concepts": [
+        "algorithms",
+        "computer programming",
+        "TeX"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "computer scientist",
+          "mathematician"
+        ],
+        "field": [
+          "computer science",
+          "mathematics"
+        ],
+        "associated_with": [
+          "algorithms",
+          "computer programming",
+          "TeX"
+        ],
+        "known_for": [
+          "algorithms",
+          "computer programming",
+          "TeX"
+        ],
+        "works_in": [
+          "computer science",
+          "mathematics"
+        ]
+      }
+    },
+    {
+      "id": "person_edsger_dijkstra",
+      "canonical": "Edsger Dijkstra",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Dijkstra"
+      ],
+      "roles": [
+        "computer scientist"
+      ],
+      "fields": [
+        "computer science"
+      ],
+      "concepts": [
+        "algorithms",
+        "graph theory",
+        "structured programming"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "computer scientist"
+        ],
+        "field": [
+          "computer science"
+        ],
+        "associated_with": [
+          "algorithms",
+          "graph theory",
+          "structured programming"
+        ],
+        "known_for": [
+          "algorithms",
+          "graph theory",
+          "structured programming"
+        ],
+        "works_in": [
+          "computer science"
+        ]
+      }
+    },
+    {
+      "id": "person_barbara_liskov",
+      "canonical": "Barbara Liskov",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Liskov"
+      ],
+      "roles": [
+        "computer scientist"
+      ],
+      "fields": [
+        "computer science"
+      ],
+      "concepts": [
+        "programming languages",
+        "distributed systems",
+        "data abstraction"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "computer scientist"
+        ],
+        "field": [
+          "computer science"
+        ],
+        "associated_with": [
+          "programming languages",
+          "distributed systems",
+          "data abstraction"
+        ],
+        "known_for": [
+          "programming languages",
+          "distributed systems",
+          "data abstraction"
+        ],
+        "works_in": [
+          "computer science"
+        ]
+      }
+    },
+    {
+      "id": "person_margaret_hamilton",
+      "canonical": "Margaret Hamilton",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Hamilton"
+      ],
+      "roles": [
+        "software engineer",
+        "computer scientist"
+      ],
+      "fields": [
+        "software engineering"
+      ],
+      "concepts": [
+        "Apollo software",
+        "software engineering",
+        "reliability"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "software engineer",
+          "computer scientist"
+        ],
+        "field": [
+          "software engineering"
+        ],
+        "associated_with": [
+          "Apollo software",
+          "software engineering",
+          "reliability"
+        ],
+        "known_for": [
+          "Apollo software",
+          "software engineering",
+          "reliability"
+        ],
+        "works_in": [
+          "software engineering"
+        ]
+      }
+    },
+    {
+      "id": "person_katherine_johnson",
+      "canonical": "Katherine Johnson",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Johnson"
+      ],
+      "roles": [
+        "mathematician"
+      ],
+      "fields": [
+        "mathematics",
+        "spaceflight"
+      ],
+      "concepts": [
+        "orbital mechanics",
+        "trajectory calculation",
+        "NASA"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "mathematician"
+        ],
+        "field": [
+          "mathematics",
+          "spaceflight"
+        ],
+        "associated_with": [
+          "orbital mechanics",
+          "trajectory calculation",
+          "NASA"
+        ],
+        "known_for": [
+          "orbital mechanics",
+          "trajectory calculation",
+          "NASA"
+        ],
+        "works_in": [
+          "mathematics",
+          "spaceflight"
+        ]
+      }
+    },
+    {
+      "id": "person_dorothy_vaughan",
+      "canonical": "Dorothy Vaughan",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Vaughan"
+      ],
+      "roles": [
+        "mathematician",
+        "programmer"
+      ],
+      "fields": [
+        "mathematics",
+        "computing"
+      ],
+      "concepts": [
+        "programming",
+        "NASA",
+        "FORTRAN"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "mathematician",
+          "programmer"
+        ],
+        "field": [
+          "mathematics",
+          "computing"
+        ],
+        "associated_with": [
+          "programming",
+          "NASA",
+          "FORTRAN"
+        ],
+        "known_for": [
+          "programming",
+          "NASA",
+          "FORTRAN"
+        ],
+        "works_in": [
+          "mathematics",
+          "computing"
+        ]
+      }
+    },
+    {
+      "id": "person_mary_jackson",
+      "canonical": "Mary Jackson",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Jackson"
+      ],
+      "roles": [
+        "engineer",
+        "mathematician"
+      ],
+      "fields": [
+        "engineering",
+        "aeronautics"
+      ],
+      "concepts": [
+        "aeronautics",
+        "NASA",
+        "engineering"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "engineer",
+          "mathematician"
+        ],
+        "field": [
+          "engineering",
+          "aeronautics"
+        ],
+        "associated_with": [
+          "aeronautics",
+          "NASA",
+          "engineering"
+        ],
+        "known_for": [
+          "aeronautics",
+          "NASA",
+          "engineering"
+        ],
+        "works_in": [
+          "engineering",
+          "aeronautics"
+        ]
+      }
+    },
+    {
+      "id": "person_geoffrey_hinton",
+      "canonical": "Geoffrey Hinton",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Hinton"
+      ],
+      "roles": [
+        "computer scientist",
+        "AI researcher"
+      ],
+      "fields": [
+        "artificial intelligence",
+        "machine learning"
+      ],
+      "concepts": [
+        "neural networks",
+        "deep learning",
+        "machine learning"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "computer scientist",
+          "AI researcher"
+        ],
+        "field": [
+          "artificial intelligence",
+          "machine learning"
+        ],
+        "associated_with": [
+          "neural networks",
+          "deep learning",
+          "machine learning"
+        ],
+        "known_for": [
+          "neural networks",
+          "deep learning",
+          "machine learning"
+        ],
+        "works_in": [
+          "artificial intelligence",
+          "machine learning"
+        ]
+      }
+    },
+    {
+      "id": "person_yann_lecun",
+      "canonical": "Yann LeCun",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "LeCun",
+        "Yann Le Cun"
+      ],
+      "roles": [
+        "computer scientist",
+        "AI researcher"
+      ],
+      "fields": [
+        "artificial intelligence",
+        "machine learning"
+      ],
+      "concepts": [
+        "convolutional neural networks",
+        "deep learning",
+        "computer vision"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "computer scientist",
+          "AI researcher"
+        ],
+        "field": [
+          "artificial intelligence",
+          "machine learning"
+        ],
+        "associated_with": [
+          "convolutional neural networks",
+          "deep learning",
+          "computer vision"
+        ],
+        "known_for": [
+          "convolutional neural networks",
+          "deep learning",
+          "computer vision"
+        ],
+        "works_in": [
+          "artificial intelligence",
+          "machine learning"
+        ]
+      }
+    },
+    {
+      "id": "person_yoshua_bengio",
+      "canonical": "Yoshua Bengio",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Bengio"
+      ],
+      "roles": [
+        "computer scientist",
+        "AI researcher"
+      ],
+      "fields": [
+        "artificial intelligence",
+        "machine learning"
+      ],
+      "concepts": [
+        "deep learning",
+        "neural networks",
+        "machine learning"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "computer scientist",
+          "AI researcher"
+        ],
+        "field": [
+          "artificial intelligence",
+          "machine learning"
+        ],
+        "associated_with": [
+          "deep learning",
+          "neural networks",
+          "machine learning"
+        ],
+        "known_for": [
+          "deep learning",
+          "neural networks",
+          "machine learning"
+        ],
+        "works_in": [
+          "artificial intelligence",
+          "machine learning"
+        ]
+      }
+    },
+    {
+      "id": "person_fei_fei_li",
+      "canonical": "Fei-Fei Li",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Fei-Fei",
+        "Fei Fei Li"
+      ],
+      "roles": [
+        "computer scientist",
+        "AI researcher"
+      ],
+      "fields": [
+        "artificial intelligence",
+        "computer vision"
+      ],
+      "concepts": [
+        "computer vision",
+        "ImageNet",
+        "machine learning"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "computer scientist",
+          "AI researcher"
+        ],
+        "field": [
+          "artificial intelligence",
+          "computer vision"
+        ],
+        "associated_with": [
+          "computer vision",
+          "ImageNet",
+          "machine learning"
+        ],
+        "known_for": [
+          "computer vision",
+          "ImageNet",
+          "machine learning"
+        ],
+        "works_in": [
+          "artificial intelligence",
+          "computer vision"
+        ]
+      }
+    },
+    {
+      "id": "person_andrew_ng",
+      "canonical": "Andrew Ng",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Ng"
+      ],
+      "roles": [
+        "computer scientist",
+        "AI researcher"
+      ],
+      "fields": [
+        "artificial intelligence",
+        "machine learning"
+      ],
+      "concepts": [
+        "machine learning",
+        "deep learning",
+        "AI education"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "computer scientist",
+          "AI researcher"
+        ],
+        "field": [
+          "artificial intelligence",
+          "machine learning"
+        ],
+        "associated_with": [
+          "machine learning",
+          "deep learning",
+          "AI education"
+        ],
+        "known_for": [
+          "machine learning",
+          "deep learning",
+          "AI education"
+        ],
+        "works_in": [
+          "artificial intelligence",
+          "machine learning"
+        ]
+      }
+    },
+    {
+      "id": "person_demis_hassabis",
+      "canonical": "Demis Hassabis",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Hassabis"
+      ],
+      "roles": [
+        "AI researcher",
+        "entrepreneur"
+      ],
+      "fields": [
+        "artificial intelligence",
+        "neuroscience"
+      ],
+      "concepts": [
+        "artificial intelligence",
+        "reinforcement learning",
+        "neuroscience"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "AI researcher",
+          "entrepreneur"
+        ],
+        "field": [
+          "artificial intelligence",
+          "neuroscience"
+        ],
+        "associated_with": [
+          "artificial intelligence",
+          "reinforcement learning",
+          "neuroscience"
+        ],
+        "known_for": [
+          "artificial intelligence",
+          "reinforcement learning",
+          "neuroscience"
+        ],
+        "works_in": [
+          "artificial intelligence",
+          "neuroscience"
+        ]
+      }
+    },
+    {
+      "id": "person_sam_altman",
+      "canonical": "Sam Altman",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Altman",
+        "San Altman"
+      ],
+      "roles": [
+        "technology executive",
+        "entrepreneur"
+      ],
+      "fields": [
+        "technology",
+        "artificial intelligence"
+      ],
+      "concepts": [
+        "artificial intelligence",
+        "startups",
+        "technology"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "technology executive",
+          "entrepreneur"
+        ],
+        "field": [
+          "technology",
+          "artificial intelligence"
+        ],
+        "associated_with": [
+          "artificial intelligence",
+          "startups",
+          "technology"
+        ],
+        "known_for": [
+          "artificial intelligence",
+          "startups",
+          "technology"
+        ],
+        "works_in": [
+          "technology",
+          "artificial intelligence"
+        ]
+      }
+    },
+    {
+      "id": "person_jensen_huang",
+      "canonical": "Jensen Huang",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Huang"
+      ],
+      "roles": [
+        "technology executive",
+        "electrical engineer"
+      ],
+      "fields": [
+        "computing",
+        "semiconductors"
+      ],
+      "concepts": [
+        "GPUs",
+        "parallel computing",
+        "semiconductors",
+        "artificial intelligence"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "technology executive",
+          "electrical engineer"
+        ],
+        "field": [
+          "computing",
+          "semiconductors"
+        ],
+        "associated_with": [
+          "GPUs",
+          "parallel computing",
+          "semiconductors",
+          "artificial intelligence"
+        ],
+        "known_for": [
+          "GPUs",
+          "parallel computing",
+          "semiconductors",
+          "artificial intelligence"
+        ],
+        "works_in": [
+          "computing",
+          "semiconductors"
+        ]
+      }
+    },
+    {
+      "id": "person_steve_jobs",
+      "canonical": "Steve Jobs",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Jobs"
+      ],
+      "roles": [
+        "technology entrepreneur"
+      ],
+      "fields": [
+        "technology",
+        "business"
+      ],
+      "concepts": [
+        "personal computers",
+        "smartphones",
+        "product design"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "technology entrepreneur"
+        ],
+        "field": [
+          "technology",
+          "business"
+        ],
+        "associated_with": [
+          "personal computers",
+          "smartphones",
+          "product design"
+        ],
+        "known_for": [
+          "personal computers",
+          "smartphones",
+          "product design"
+        ],
+        "works_in": [
+          "technology",
+          "business"
+        ]
+      }
+    },
+    {
+      "id": "person_steve_wozniak",
+      "canonical": "Steve Wozniak",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Wozniak",
+        "Woz"
+      ],
+      "roles": [
+        "engineer",
+        "technology entrepreneur"
+      ],
+      "fields": [
+        "computing",
+        "electronics"
+      ],
+      "concepts": [
+        "personal computers",
+        "electronics",
+        "computer engineering"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "engineer",
+          "technology entrepreneur"
+        ],
+        "field": [
+          "computing",
+          "electronics"
+        ],
+        "associated_with": [
+          "personal computers",
+          "electronics",
+          "computer engineering"
+        ],
+        "known_for": [
+          "personal computers",
+          "electronics",
+          "computer engineering"
+        ],
+        "works_in": [
+          "computing",
+          "electronics"
+        ]
+      }
+    },
+    {
+      "id": "person_bill_gates",
+      "canonical": "Bill Gates",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Gates"
+      ],
+      "roles": [
+        "software entrepreneur"
+      ],
+      "fields": [
+        "software",
+        "technology"
+      ],
+      "concepts": [
+        "personal computers",
+        "software",
+        "Microsoft"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "software entrepreneur"
+        ],
+        "field": [
+          "software",
+          "technology"
+        ],
+        "associated_with": [
+          "personal computers",
+          "software",
+          "Microsoft"
+        ],
+        "known_for": [
+          "personal computers",
+          "software",
+          "Microsoft"
+        ],
+        "works_in": [
+          "software",
+          "technology"
+        ]
+      }
+    },
+    {
+      "id": "person_larry_page",
+      "canonical": "Larry Page",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Page"
+      ],
+      "roles": [
+        "computer scientist",
+        "technology entrepreneur"
+      ],
+      "fields": [
+        "internet",
+        "technology"
+      ],
+      "concepts": [
+        "search engines",
+        "web",
+        "Google"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "computer scientist",
+          "technology entrepreneur"
+        ],
+        "field": [
+          "internet",
+          "technology"
+        ],
+        "associated_with": [
+          "search engines",
+          "web",
+          "Google"
+        ],
+        "known_for": [
+          "search engines",
+          "web",
+          "Google"
+        ],
+        "works_in": [
+          "internet",
+          "technology"
+        ]
+      }
+    },
+    {
+      "id": "person_sergey_brin",
+      "canonical": "Sergey Brin",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Brin"
+      ],
+      "roles": [
+        "computer scientist",
+        "technology entrepreneur"
+      ],
+      "fields": [
+        "internet",
+        "technology"
+      ],
+      "concepts": [
+        "search engines",
+        "web",
+        "Google"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "computer scientist",
+          "technology entrepreneur"
+        ],
+        "field": [
+          "internet",
+          "technology"
+        ],
+        "associated_with": [
+          "search engines",
+          "web",
+          "Google"
+        ],
+        "known_for": [
+          "search engines",
+          "web",
+          "Google"
+        ],
+        "works_in": [
+          "internet",
+          "technology"
+        ]
+      }
+    },
+    {
+      "id": "person_jeff_bezos",
+      "canonical": "Jeff Bezos",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Bezos"
+      ],
+      "roles": [
+        "entrepreneur"
+      ],
+      "fields": [
+        "technology",
+        "business",
+        "spaceflight"
+      ],
+      "concepts": [
+        "e-commerce",
+        "cloud computing",
+        "spaceflight"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "entrepreneur"
+        ],
+        "field": [
+          "technology",
+          "business",
+          "spaceflight"
+        ],
+        "associated_with": [
+          "e-commerce",
+          "cloud computing",
+          "spaceflight"
+        ],
+        "known_for": [
+          "e-commerce",
+          "cloud computing",
+          "spaceflight"
+        ],
+        "works_in": [
+          "technology",
+          "business",
+          "spaceflight"
+        ]
+      }
+    },
+    {
+      "id": "person_nikola_tesla",
+      "canonical": "Nikola Tesla",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Tesla"
+      ],
+      "roles": [
+        "inventor",
+        "electrical engineer"
+      ],
+      "fields": [
+        "electrical engineering"
+      ],
+      "concepts": [
+        "alternating current",
+        "electric motors",
+        "electromagnetism"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "inventor",
+          "electrical engineer"
+        ],
+        "field": [
+          "electrical engineering"
+        ],
+        "associated_with": [
+          "alternating current",
+          "electric motors",
+          "electromagnetism"
+        ],
+        "known_for": [
+          "alternating current",
+          "electric motors",
+          "electromagnetism"
+        ],
+        "works_in": [
+          "electrical engineering"
+        ]
+      }
+    },
+    {
+      "id": "person_thomas_edison",
+      "canonical": "Thomas Edison",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Edison"
+      ],
+      "roles": [
+        "inventor"
+      ],
+      "fields": [
+        "engineering",
+        "invention"
+      ],
+      "concepts": [
+        "electric power",
+        "phonograph",
+        "lighting"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "inventor"
+        ],
+        "field": [
+          "engineering",
+          "invention"
+        ],
+        "associated_with": [
+          "electric power",
+          "phonograph",
+          "lighting"
+        ],
+        "known_for": [
+          "electric power",
+          "phonograph",
+          "lighting"
+        ],
+        "works_in": [
+          "engineering",
+          "invention"
+        ]
+      }
+    },
+    {
+      "id": "person_alexander_graham_bell",
+      "canonical": "Alexander Graham Bell",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Bell"
+      ],
+      "roles": [
+        "inventor",
+        "scientist"
+      ],
+      "fields": [
+        "communication",
+        "engineering"
+      ],
+      "concepts": [
+        "telephone",
+        "sound",
+        "communication"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "inventor",
+          "scientist"
+        ],
+        "field": [
+          "communication",
+          "engineering"
+        ],
+        "associated_with": [
+          "telephone",
+          "sound",
+          "communication"
+        ],
+        "known_for": [
+          "telephone",
+          "sound",
+          "communication"
+        ],
+        "works_in": [
+          "communication",
+          "engineering"
+        ]
+      }
+    },
+    {
+      "id": "person_james_watt",
+      "canonical": "James Watt",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Watt"
+      ],
+      "roles": [
+        "engineer",
+        "inventor"
+      ],
+      "fields": [
+        "engineering"
+      ],
+      "concepts": [
+        "steam engine",
+        "mechanical engineering",
+        "power"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "engineer",
+          "inventor"
+        ],
+        "field": [
+          "engineering"
+        ],
+        "associated_with": [
+          "steam engine",
+          "mechanical engineering",
+          "power"
+        ],
+        "known_for": [
+          "steam engine",
+          "mechanical engineering",
+          "power"
+        ],
+        "works_in": [
+          "engineering"
+        ]
+      }
+    },
+    {
+      "id": "person_michael_faraday",
+      "canonical": "Michael Faraday",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Faraday"
+      ],
+      "roles": [
+        "scientist"
+      ],
+      "fields": [
+        "physics",
+        "chemistry"
+      ],
+      "concepts": [
+        "electromagnetism",
+        "electromagnetic induction",
+        "electrochemistry"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "scientist"
+        ],
+        "field": [
+          "physics",
+          "chemistry"
+        ],
+        "associated_with": [
+          "electromagnetism",
+          "electromagnetic induction",
+          "electrochemistry"
+        ],
+        "known_for": [
+          "electromagnetism",
+          "electromagnetic induction",
+          "electrochemistry"
+        ],
+        "works_in": [
+          "physics",
+          "chemistry"
+        ]
+      }
+    },
+    {
+      "id": "person_james_clerk_maxwell",
+      "canonical": "James Clerk Maxwell",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Maxwell"
+      ],
+      "roles": [
+        "physicist",
+        "mathematician"
+      ],
+      "fields": [
+        "physics",
+        "mathematics"
+      ],
+      "concepts": [
+        "electromagnetism",
+        "Maxwell equations",
+        "light"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "physicist",
+          "mathematician"
+        ],
+        "field": [
+          "physics",
+          "mathematics"
+        ],
+        "associated_with": [
+          "electromagnetism",
+          "Maxwell equations",
+          "light"
+        ],
+        "known_for": [
+          "electromagnetism",
+          "Maxwell equations",
+          "light"
+        ],
+        "works_in": [
+          "physics",
+          "mathematics"
+        ]
+      }
+    },
+    {
+      "id": "person_niels_bohr",
+      "canonical": "Niels Bohr",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Bohr"
+      ],
+      "roles": [
+        "physicist"
+      ],
+      "fields": [
+        "physics"
+      ],
+      "concepts": [
+        "atomic model",
+        "quantum theory",
+        "atomic physics"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "physicist"
+        ],
+        "field": [
+          "physics"
+        ],
+        "associated_with": [
+          "atomic model",
+          "quantum theory",
+          "atomic physics"
+        ],
+        "known_for": [
+          "atomic model",
+          "quantum theory",
+          "atomic physics"
+        ],
+        "works_in": [
+          "physics"
+        ]
+      }
+    },
+    {
+      "id": "person_max_planck",
+      "canonical": "Max Planck",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Planck"
+      ],
+      "roles": [
+        "physicist"
+      ],
+      "fields": [
+        "physics"
+      ],
+      "concepts": [
+        "quantum theory",
+        "Planck constant",
+        "black-body radiation"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "physicist"
+        ],
+        "field": [
+          "physics"
+        ],
+        "associated_with": [
+          "quantum theory",
+          "Planck constant",
+          "black-body radiation"
+        ],
+        "known_for": [
+          "quantum theory",
+          "Planck constant",
+          "black-body radiation"
+        ],
+        "works_in": [
+          "physics"
+        ]
+      }
+    },
+    {
+      "id": "person_richard_feynman",
+      "canonical": "Richard Feynman",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Feynman"
+      ],
+      "roles": [
+        "physicist"
+      ],
+      "fields": [
+        "physics"
+      ],
+      "concepts": [
+        "quantum electrodynamics",
+        "Feynman diagrams",
+        "particle physics"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "physicist"
+        ],
+        "field": [
+          "physics"
+        ],
+        "associated_with": [
+          "quantum electrodynamics",
+          "Feynman diagrams",
+          "particle physics"
+        ],
+        "known_for": [
+          "quantum electrodynamics",
+          "Feynman diagrams",
+          "particle physics"
+        ],
+        "works_in": [
+          "physics"
+        ]
+      }
+    },
+    {
+      "id": "person_erwin_schr_dinger",
+      "canonical": "Erwin Schrödinger",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Schrodinger",
+        "Erwin Schrodinger"
+      ],
+      "roles": [
+        "physicist"
+      ],
+      "fields": [
+        "physics"
+      ],
+      "concepts": [
+        "quantum mechanics",
+        "wave equation",
+        "Schrodinger equation"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "physicist"
+        ],
+        "field": [
+          "physics"
+        ],
+        "associated_with": [
+          "quantum mechanics",
+          "wave equation",
+          "Schrodinger equation"
+        ],
+        "known_for": [
+          "quantum mechanics",
+          "wave equation",
+          "Schrodinger equation"
+        ],
+        "works_in": [
+          "physics"
+        ]
+      }
+    },
+    {
+      "id": "person_werner_heisenberg",
+      "canonical": "Werner Heisenberg",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Heisenberg"
+      ],
+      "roles": [
+        "physicist"
+      ],
+      "fields": [
+        "physics"
+      ],
+      "concepts": [
+        "quantum mechanics",
+        "uncertainty principle",
+        "matrix mechanics"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "physicist"
+        ],
+        "field": [
+          "physics"
+        ],
+        "associated_with": [
+          "quantum mechanics",
+          "uncertainty principle",
+          "matrix mechanics"
+        ],
+        "known_for": [
+          "quantum mechanics",
+          "uncertainty principle",
+          "matrix mechanics"
+        ],
+        "works_in": [
+          "physics"
+        ]
+      }
+    },
+    {
+      "id": "person_stephen_hawking",
+      "canonical": "Stephen Hawking",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Hawking"
+      ],
+      "roles": [
+        "physicist",
+        "cosmologist"
+      ],
+      "fields": [
+        "physics",
+        "cosmology"
+      ],
+      "concepts": [
+        "black holes",
+        "cosmology",
+        "Hawking radiation"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "physicist",
+          "cosmologist"
+        ],
+        "field": [
+          "physics",
+          "cosmology"
+        ],
+        "associated_with": [
+          "black holes",
+          "cosmology",
+          "Hawking radiation"
+        ],
+        "known_for": [
+          "black holes",
+          "cosmology",
+          "Hawking radiation"
+        ],
+        "works_in": [
+          "physics",
+          "cosmology"
+        ]
+      }
+    },
+    {
+      "id": "person_galileo_galilei",
+      "canonical": "Galileo Galilei",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Galileo"
+      ],
+      "roles": [
+        "astronomer",
+        "physicist"
+      ],
+      "fields": [
+        "astronomy",
+        "physics"
+      ],
+      "concepts": [
+        "telescopic astronomy",
+        "motion",
+        "heliocentrism"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "astronomer",
+          "physicist"
+        ],
+        "field": [
+          "astronomy",
+          "physics"
+        ],
+        "associated_with": [
+          "telescopic astronomy",
+          "motion",
+          "heliocentrism"
+        ],
+        "known_for": [
+          "telescopic astronomy",
+          "motion",
+          "heliocentrism"
+        ],
+        "works_in": [
+          "astronomy",
+          "physics"
+        ]
+      }
+    },
+    {
+      "id": "person_johannes_kepler",
+      "canonical": "Johannes Kepler",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Kepler"
+      ],
+      "roles": [
+        "astronomer",
+        "mathematician"
+      ],
+      "fields": [
+        "astronomy",
+        "mathematics"
+      ],
+      "concepts": [
+        "planetary motion",
+        "orbits",
+        "astronomy"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "astronomer",
+          "mathematician"
+        ],
+        "field": [
+          "astronomy",
+          "mathematics"
+        ],
+        "associated_with": [
+          "planetary motion",
+          "orbits",
+          "astronomy"
+        ],
+        "known_for": [
+          "planetary motion",
+          "orbits",
+          "astronomy"
+        ],
+        "works_in": [
+          "astronomy",
+          "mathematics"
+        ]
+      }
+    },
+    {
+      "id": "person_nicolaus_copernicus",
+      "canonical": "Nicolaus Copernicus",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Copernicus"
+      ],
+      "roles": [
+        "astronomer",
+        "mathematician"
+      ],
+      "fields": [
+        "astronomy"
+      ],
+      "concepts": [
+        "heliocentrism",
+        "planetary motion",
+        "astronomy"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "astronomer",
+          "mathematician"
+        ],
+        "field": [
+          "astronomy"
+        ],
+        "associated_with": [
+          "heliocentrism",
+          "planetary motion",
+          "astronomy"
+        ],
+        "known_for": [
+          "heliocentrism",
+          "planetary motion",
+          "astronomy"
+        ],
+        "works_in": [
+          "astronomy"
+        ]
+      }
+    },
+    {
+      "id": "person_edwin_hubble",
+      "canonical": "Edwin Hubble",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Hubble"
+      ],
+      "roles": [
+        "astronomer"
+      ],
+      "fields": [
+        "astronomy"
+      ],
+      "concepts": [
+        "galaxies",
+        "cosmic expansion",
+        "observational astronomy"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "astronomer"
+        ],
+        "field": [
+          "astronomy"
+        ],
+        "associated_with": [
+          "galaxies",
+          "cosmic expansion",
+          "observational astronomy"
+        ],
+        "known_for": [
+          "galaxies",
+          "cosmic expansion",
+          "observational astronomy"
+        ],
+        "works_in": [
+          "astronomy"
+        ]
+      }
+    },
+    {
+      "id": "person_carl_sagan",
+      "canonical": "Carl Sagan",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Sagan"
+      ],
+      "roles": [
+        "astronomer",
+        "science communicator"
+      ],
+      "fields": [
+        "astronomy",
+        "planetary science"
+      ],
+      "concepts": [
+        "planetary science",
+        "astrobiology",
+        "science communication"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "astronomer",
+          "science communicator"
+        ],
+        "field": [
+          "astronomy",
+          "planetary science"
+        ],
+        "associated_with": [
+          "planetary science",
+          "astrobiology",
+          "science communication"
+        ],
+        "known_for": [
+          "planetary science",
+          "astrobiology",
+          "science communication"
+        ],
+        "works_in": [
+          "astronomy",
+          "planetary science"
+        ]
+      }
+    },
+    {
+      "id": "person_vera_rubin",
+      "canonical": "Vera Rubin",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Rubin"
+      ],
+      "roles": [
+        "astronomer"
+      ],
+      "fields": [
+        "astronomy"
+      ],
+      "concepts": [
+        "galaxy rotation",
+        "dark matter",
+        "observational astronomy"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "astronomer"
+        ],
+        "field": [
+          "astronomy"
+        ],
+        "associated_with": [
+          "galaxy rotation",
+          "dark matter",
+          "observational astronomy"
+        ],
+        "known_for": [
+          "galaxy rotation",
+          "dark matter",
+          "observational astronomy"
+        ],
+        "works_in": [
+          "astronomy"
+        ]
+      }
+    },
+    {
+      "id": "person_henrietta_swan_leavitt",
+      "canonical": "Henrietta Swan Leavitt",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Leavitt"
+      ],
+      "roles": [
+        "astronomer"
+      ],
+      "fields": [
+        "astronomy"
+      ],
+      "concepts": [
+        "Cepheid variables",
+        "cosmic distances",
+        "astronomy"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "astronomer"
+        ],
+        "field": [
+          "astronomy"
+        ],
+        "associated_with": [
+          "Cepheid variables",
+          "cosmic distances",
+          "astronomy"
+        ],
+        "known_for": [
+          "Cepheid variables",
+          "cosmic distances",
+          "astronomy"
+        ],
+        "works_in": [
+          "astronomy"
+        ]
+      }
+    },
+    {
+      "id": "person_subrahmanyan_chandrasekhar",
+      "canonical": "Subrahmanyan Chandrasekhar",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Chandrasekhar"
+      ],
+      "roles": [
+        "astrophysicist"
+      ],
+      "fields": [
+        "astrophysics"
+      ],
+      "concepts": [
+        "stellar evolution",
+        "white dwarfs",
+        "Chandrasekhar limit"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "astrophysicist"
+        ],
+        "field": [
+          "astrophysics"
+        ],
+        "associated_with": [
+          "stellar evolution",
+          "white dwarfs",
+          "Chandrasekhar limit"
+        ],
+        "known_for": [
+          "stellar evolution",
+          "white dwarfs",
+          "Chandrasekhar limit"
+        ],
+        "works_in": [
+          "astrophysics"
+        ]
+      }
+    },
+    {
+      "id": "person_srinivasa_ramanujan",
+      "canonical": "Srinivasa Ramanujan",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Ramanujan"
+      ],
+      "roles": [
+        "mathematician"
+      ],
+      "fields": [
+        "mathematics"
+      ],
+      "concepts": [
+        "number theory",
+        "infinite series",
+        "mathematical analysis"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "mathematician"
+        ],
+        "field": [
+          "mathematics"
+        ],
+        "associated_with": [
+          "number theory",
+          "infinite series",
+          "mathematical analysis"
+        ],
+        "known_for": [
+          "number theory",
+          "infinite series",
+          "mathematical analysis"
+        ],
+        "works_in": [
+          "mathematics"
+        ]
+      }
+    },
+    {
+      "id": "person_leonhard_euler",
+      "canonical": "Leonhard Euler",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Euler"
+      ],
+      "roles": [
+        "mathematician"
+      ],
+      "fields": [
+        "mathematics"
+      ],
+      "concepts": [
+        "calculus",
+        "graph theory",
+        "number theory"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "mathematician"
+        ],
+        "field": [
+          "mathematics"
+        ],
+        "associated_with": [
+          "calculus",
+          "graph theory",
+          "number theory"
+        ],
+        "known_for": [
+          "calculus",
+          "graph theory",
+          "number theory"
+        ],
+        "works_in": [
+          "mathematics"
+        ]
+      }
+    },
+    {
+      "id": "person_carl_friedrich_gauss",
+      "canonical": "Carl Friedrich Gauss",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Gauss"
+      ],
+      "roles": [
+        "mathematician"
+      ],
+      "fields": [
+        "mathematics"
+      ],
+      "concepts": [
+        "number theory",
+        "statistics",
+        "geometry"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "mathematician"
+        ],
+        "field": [
+          "mathematics"
+        ],
+        "associated_with": [
+          "number theory",
+          "statistics",
+          "geometry"
+        ],
+        "known_for": [
+          "number theory",
+          "statistics",
+          "geometry"
+        ],
+        "works_in": [
+          "mathematics"
+        ]
+      }
+    },
+    {
+      "id": "person_bernhard_riemann",
+      "canonical": "Bernhard Riemann",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Riemann"
+      ],
+      "roles": [
+        "mathematician"
+      ],
+      "fields": [
+        "mathematics"
+      ],
+      "concepts": [
+        "geometry",
+        "complex analysis",
+        "Riemann hypothesis"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "mathematician"
+        ],
+        "field": [
+          "mathematics"
+        ],
+        "associated_with": [
+          "geometry",
+          "complex analysis",
+          "Riemann hypothesis"
+        ],
+        "known_for": [
+          "geometry",
+          "complex analysis",
+          "Riemann hypothesis"
+        ],
+        "works_in": [
+          "mathematics"
+        ]
+      }
+    },
+    {
+      "id": "person_emmy_noether",
+      "canonical": "Emmy Noether",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Noether"
+      ],
+      "roles": [
+        "mathematician"
+      ],
+      "fields": [
+        "mathematics",
+        "physics"
+      ],
+      "concepts": [
+        "abstract algebra",
+        "symmetry",
+        "Noether theorem"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "mathematician"
+        ],
+        "field": [
+          "mathematics",
+          "physics"
+        ],
+        "associated_with": [
+          "abstract algebra",
+          "symmetry",
+          "Noether theorem"
+        ],
+        "known_for": [
+          "abstract algebra",
+          "symmetry",
+          "Noether theorem"
+        ],
+        "works_in": [
+          "mathematics",
+          "physics"
+        ]
+      }
+    },
+    {
+      "id": "person_david_hilbert",
+      "canonical": "David Hilbert",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Hilbert"
+      ],
+      "roles": [
+        "mathematician"
+      ],
+      "fields": [
+        "mathematics"
+      ],
+      "concepts": [
+        "geometry",
+        "mathematical logic",
+        "Hilbert space"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "mathematician"
+        ],
+        "field": [
+          "mathematics"
+        ],
+        "associated_with": [
+          "geometry",
+          "mathematical logic",
+          "Hilbert space"
+        ],
+        "known_for": [
+          "geometry",
+          "mathematical logic",
+          "Hilbert space"
+        ],
+        "works_in": [
+          "mathematics"
+        ]
+      }
+    },
+    {
+      "id": "person_kurt_g_del",
+      "canonical": "Kurt Gödel",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Godel",
+        "Kurt Godel"
+      ],
+      "roles": [
+        "logician",
+        "mathematician"
+      ],
+      "fields": [
+        "mathematics",
+        "logic"
+      ],
+      "concepts": [
+        "incompleteness theorems",
+        "logic",
+        "foundations of mathematics"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "logician",
+          "mathematician"
+        ],
+        "field": [
+          "mathematics",
+          "logic"
+        ],
+        "associated_with": [
+          "incompleteness theorems",
+          "logic",
+          "foundations of mathematics"
+        ],
+        "known_for": [
+          "incompleteness theorems",
+          "logic",
+          "foundations of mathematics"
+        ],
+        "works_in": [
+          "mathematics",
+          "logic"
+        ]
+      }
+    },
+    {
+      "id": "person_george_boole",
+      "canonical": "George Boole",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Boole"
+      ],
+      "roles": [
+        "mathematician",
+        "logician"
+      ],
+      "fields": [
+        "mathematics",
+        "logic"
+      ],
+      "concepts": [
+        "Boolean algebra",
+        "logic",
+        "computation"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "mathematician",
+          "logician"
+        ],
+        "field": [
+          "mathematics",
+          "logic"
+        ],
+        "associated_with": [
+          "Boolean algebra",
+          "logic",
+          "computation"
+        ],
+        "known_for": [
+          "Boolean algebra",
+          "logic",
+          "computation"
+        ],
+        "works_in": [
+          "mathematics",
+          "logic"
+        ]
+      }
+    },
+    {
+      "id": "person_blaise_pascal",
+      "canonical": "Blaise Pascal",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Pascal"
+      ],
+      "roles": [
+        "mathematician",
+        "physicist"
+      ],
+      "fields": [
+        "mathematics",
+        "physics"
+      ],
+      "concepts": [
+        "probability",
+        "geometry",
+        "fluid mechanics"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "mathematician",
+          "physicist"
+        ],
+        "field": [
+          "mathematics",
+          "physics"
+        ],
+        "associated_with": [
+          "probability",
+          "geometry",
+          "fluid mechanics"
+        ],
+        "known_for": [
+          "probability",
+          "geometry",
+          "fluid mechanics"
+        ],
+        "works_in": [
+          "mathematics",
+          "physics"
+        ]
+      }
+    },
+    {
+      "id": "person_ren_descartes",
+      "canonical": "René Descartes",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Rene Descartes",
+        "Descartes"
+      ],
+      "roles": [
+        "philosopher",
+        "mathematician"
+      ],
+      "fields": [
+        "philosophy",
+        "mathematics"
+      ],
+      "concepts": [
+        "analytic geometry",
+        "Cartesian coordinates",
+        "rationalism"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "philosopher",
+          "mathematician"
+        ],
+        "field": [
+          "philosophy",
+          "mathematics"
+        ],
+        "associated_with": [
+          "analytic geometry",
+          "Cartesian coordinates",
+          "rationalism"
+        ],
+        "known_for": [
+          "analytic geometry",
+          "Cartesian coordinates",
+          "rationalism"
+        ],
+        "works_in": [
+          "philosophy",
+          "mathematics"
+        ]
+      }
+    },
+    {
+      "id": "person_leonardo_da_vinci",
+      "canonical": "Leonardo da Vinci",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Leonardo",
+        "da Vinci"
+      ],
+      "roles": [
+        "artist",
+        "inventor",
+        "engineer"
+      ],
+      "fields": [
+        "art",
+        "engineering",
+        "anatomy"
+      ],
+      "concepts": [
+        "painting",
+        "engineering",
+        "anatomy",
+        "design"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "artist",
+          "inventor",
+          "engineer"
+        ],
+        "field": [
+          "art",
+          "engineering",
+          "anatomy"
+        ],
+        "associated_with": [
+          "painting",
+          "engineering",
+          "anatomy",
+          "design"
+        ],
+        "known_for": [
+          "painting",
+          "engineering",
+          "anatomy",
+          "design"
+        ],
+        "works_in": [
+          "art",
+          "engineering",
+          "anatomy"
+        ]
+      }
+    },
+    {
+      "id": "person_charles_darwin",
+      "canonical": "Charles Darwin",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Darwin"
+      ],
+      "roles": [
+        "naturalist"
+      ],
+      "fields": [
+        "biology"
+      ],
+      "concepts": [
+        "evolution",
+        "natural selection",
+        "biology"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "naturalist"
+        ],
+        "field": [
+          "biology"
+        ],
+        "associated_with": [
+          "evolution",
+          "natural selection",
+          "biology"
+        ],
+        "known_for": [
+          "evolution",
+          "natural selection",
+          "biology"
+        ],
+        "works_in": [
+          "biology"
+        ]
+      }
+    },
+    {
+      "id": "person_gregor_mendel",
+      "canonical": "Gregor Mendel",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Mendel"
+      ],
+      "roles": [
+        "scientist"
+      ],
+      "fields": [
+        "genetics",
+        "biology"
+      ],
+      "concepts": [
+        "genetics",
+        "inheritance",
+        "heredity"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "scientist"
+        ],
+        "field": [
+          "genetics",
+          "biology"
+        ],
+        "associated_with": [
+          "genetics",
+          "inheritance",
+          "heredity"
+        ],
+        "known_for": [
+          "genetics",
+          "inheritance",
+          "heredity"
+        ],
+        "works_in": [
+          "genetics",
+          "biology"
+        ]
+      }
+    },
+    {
+      "id": "person_rosalind_franklin",
+      "canonical": "Rosalind Franklin",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Franklin"
+      ],
+      "roles": [
+        "chemist"
+      ],
+      "fields": [
+        "chemistry",
+        "molecular biology"
+      ],
+      "concepts": [
+        "DNA structure",
+        "X-ray diffraction",
+        "molecular biology"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "chemist"
+        ],
+        "field": [
+          "chemistry",
+          "molecular biology"
+        ],
+        "associated_with": [
+          "DNA structure",
+          "X-ray diffraction",
+          "molecular biology"
+        ],
+        "known_for": [
+          "DNA structure",
+          "X-ray diffraction",
+          "molecular biology"
+        ],
+        "works_in": [
+          "chemistry",
+          "molecular biology"
+        ]
+      }
+    },
+    {
+      "id": "person_james_watson",
+      "canonical": "James Watson",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Watson"
+      ],
+      "roles": [
+        "molecular biologist"
+      ],
+      "fields": [
+        "molecular biology"
+      ],
+      "concepts": [
+        "DNA structure",
+        "genetics",
+        "molecular biology"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "molecular biologist"
+        ],
+        "field": [
+          "molecular biology"
+        ],
+        "associated_with": [
+          "DNA structure",
+          "genetics",
+          "molecular biology"
+        ],
+        "known_for": [
+          "DNA structure",
+          "genetics",
+          "molecular biology"
+        ],
+        "works_in": [
+          "molecular biology"
+        ]
+      }
+    },
+    {
+      "id": "person_francis_crick",
+      "canonical": "Francis Crick",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Crick"
+      ],
+      "roles": [
+        "molecular biologist"
+      ],
+      "fields": [
+        "molecular biology"
+      ],
+      "concepts": [
+        "DNA structure",
+        "genetics",
+        "molecular biology"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "molecular biologist"
+        ],
+        "field": [
+          "molecular biology"
+        ],
+        "associated_with": [
+          "DNA structure",
+          "genetics",
+          "molecular biology"
+        ],
+        "known_for": [
+          "DNA structure",
+          "genetics",
+          "molecular biology"
+        ],
+        "works_in": [
+          "molecular biology"
+        ]
+      }
+    },
+    {
+      "id": "person_louis_pasteur",
+      "canonical": "Louis Pasteur",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Pasteur"
+      ],
+      "roles": [
+        "chemist",
+        "microbiologist"
+      ],
+      "fields": [
+        "biology",
+        "chemistry"
+      ],
+      "concepts": [
+        "germ theory",
+        "vaccination",
+        "pasteurization"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "chemist",
+          "microbiologist"
+        ],
+        "field": [
+          "biology",
+          "chemistry"
+        ],
+        "associated_with": [
+          "germ theory",
+          "vaccination",
+          "pasteurization"
+        ],
+        "known_for": [
+          "germ theory",
+          "vaccination",
+          "pasteurization"
+        ],
+        "works_in": [
+          "biology",
+          "chemistry"
+        ]
+      }
+    },
+    {
+      "id": "person_alexander_fleming",
+      "canonical": "Alexander Fleming",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Fleming"
+      ],
+      "roles": [
+        "physician",
+        "microbiologist"
+      ],
+      "fields": [
+        "medicine",
+        "biology"
+      ],
+      "concepts": [
+        "penicillin",
+        "antibiotics",
+        "microbiology"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "physician",
+          "microbiologist"
+        ],
+        "field": [
+          "medicine",
+          "biology"
+        ],
+        "associated_with": [
+          "penicillin",
+          "antibiotics",
+          "microbiology"
+        ],
+        "known_for": [
+          "penicillin",
+          "antibiotics",
+          "microbiology"
+        ],
+        "works_in": [
+          "medicine",
+          "biology"
+        ]
+      }
+    },
+    {
+      "id": "person_jonas_salk",
+      "canonical": "Jonas Salk",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Salk"
+      ],
+      "roles": [
+        "medical researcher"
+      ],
+      "fields": [
+        "medicine",
+        "biology"
+      ],
+      "concepts": [
+        "polio vaccine",
+        "virology",
+        "public health"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "medical researcher"
+        ],
+        "field": [
+          "medicine",
+          "biology"
+        ],
+        "associated_with": [
+          "polio vaccine",
+          "virology",
+          "public health"
+        ],
+        "known_for": [
+          "polio vaccine",
+          "virology",
+          "public health"
+        ],
+        "works_in": [
+          "medicine",
+          "biology"
+        ]
+      }
+    },
+    {
+      "id": "person_barbara_mcclintock",
+      "canonical": "Barbara McClintock",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "McClintock"
+      ],
+      "roles": [
+        "geneticist"
+      ],
+      "fields": [
+        "genetics"
+      ],
+      "concepts": [
+        "transposons",
+        "genetics",
+        "chromosomes"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "geneticist"
+        ],
+        "field": [
+          "genetics"
+        ],
+        "associated_with": [
+          "transposons",
+          "genetics",
+          "chromosomes"
+        ],
+        "known_for": [
+          "transposons",
+          "genetics",
+          "chromosomes"
+        ],
+        "works_in": [
+          "genetics"
+        ]
+      }
+    },
+    {
+      "id": "person_jane_goodall",
+      "canonical": "Jane Goodall",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Goodall"
+      ],
+      "roles": [
+        "primatologist"
+      ],
+      "fields": [
+        "biology",
+        "animal behavior"
+      ],
+      "concepts": [
+        "chimpanzees",
+        "primatology",
+        "animal behavior"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "primatologist"
+        ],
+        "field": [
+          "biology",
+          "animal behavior"
+        ],
+        "associated_with": [
+          "chimpanzees",
+          "primatology",
+          "animal behavior"
+        ],
+        "known_for": [
+          "chimpanzees",
+          "primatology",
+          "animal behavior"
+        ],
+        "works_in": [
+          "biology",
+          "animal behavior"
+        ]
+      }
+    },
+    {
+      "id": "person_rachel_carson",
+      "canonical": "Rachel Carson",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Carson"
+      ],
+      "roles": [
+        "biologist",
+        "writer"
+      ],
+      "fields": [
+        "biology",
+        "environmental science"
+      ],
+      "concepts": [
+        "ecology",
+        "environment",
+        "conservation"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "biologist",
+          "writer"
+        ],
+        "field": [
+          "biology",
+          "environmental science"
+        ],
+        "associated_with": [
+          "ecology",
+          "environment",
+          "conservation"
+        ],
+        "known_for": [
+          "ecology",
+          "environment",
+          "conservation"
+        ],
+        "works_in": [
+          "biology",
+          "environmental science"
+        ]
+      }
+    },
+    {
+      "id": "person_neil_armstrong",
+      "canonical": "Neil Armstrong",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Armstrong"
+      ],
+      "roles": [
+        "astronaut",
+        "engineer"
+      ],
+      "fields": [
+        "spaceflight",
+        "engineering"
+      ],
+      "concepts": [
+        "Moon landing",
+        "Apollo 11",
+        "spaceflight"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "astronaut",
+          "engineer"
+        ],
+        "field": [
+          "spaceflight",
+          "engineering"
+        ],
+        "associated_with": [
+          "Moon landing",
+          "Apollo 11",
+          "spaceflight"
+        ],
+        "known_for": [
+          "Moon landing",
+          "Apollo 11",
+          "spaceflight"
+        ],
+        "works_in": [
+          "spaceflight",
+          "engineering"
+        ]
+      }
+    },
+    {
+      "id": "person_buzz_aldrin",
+      "canonical": "Buzz Aldrin",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Aldrin"
+      ],
+      "roles": [
+        "astronaut",
+        "engineer"
+      ],
+      "fields": [
+        "spaceflight"
+      ],
+      "concepts": [
+        "Moon landing",
+        "Apollo 11",
+        "spaceflight"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "astronaut",
+          "engineer"
+        ],
+        "field": [
+          "spaceflight"
+        ],
+        "associated_with": [
+          "Moon landing",
+          "Apollo 11",
+          "spaceflight"
+        ],
+        "known_for": [
+          "Moon landing",
+          "Apollo 11",
+          "spaceflight"
+        ],
+        "works_in": [
+          "spaceflight"
+        ]
+      }
+    },
+    {
+      "id": "person_yuri_gagarin",
+      "canonical": "Yuri Gagarin",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Gagarin"
+      ],
+      "roles": [
+        "cosmonaut"
+      ],
+      "fields": [
+        "spaceflight"
+      ],
+      "concepts": [
+        "human spaceflight",
+        "orbital flight",
+        "space exploration"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "cosmonaut"
+        ],
+        "field": [
+          "spaceflight"
+        ],
+        "associated_with": [
+          "human spaceflight",
+          "orbital flight",
+          "space exploration"
+        ],
+        "known_for": [
+          "human spaceflight",
+          "orbital flight",
+          "space exploration"
+        ],
+        "works_in": [
+          "spaceflight"
+        ]
+      }
+    },
+    {
+      "id": "person_sally_ride",
+      "canonical": "Sally Ride",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Ride"
+      ],
+      "roles": [
+        "astronaut",
+        "physicist"
+      ],
+      "fields": [
+        "spaceflight",
+        "physics"
+      ],
+      "concepts": [
+        "spaceflight",
+        "NASA",
+        "science education"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "astronaut",
+          "physicist"
+        ],
+        "field": [
+          "spaceflight",
+          "physics"
+        ],
+        "associated_with": [
+          "spaceflight",
+          "NASA",
+          "science education"
+        ],
+        "known_for": [
+          "spaceflight",
+          "NASA",
+          "science education"
+        ],
+        "works_in": [
+          "spaceflight",
+          "physics"
+        ]
+      }
+    },
+    {
+      "id": "person_mae_jemison",
+      "canonical": "Mae Jemison",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Jemison"
+      ],
+      "roles": [
+        "astronaut",
+        "physician"
+      ],
+      "fields": [
+        "spaceflight",
+        "medicine"
+      ],
+      "concepts": [
+        "spaceflight",
+        "NASA",
+        "science education"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "astronaut",
+          "physician"
+        ],
+        "field": [
+          "spaceflight",
+          "medicine"
+        ],
+        "associated_with": [
+          "spaceflight",
+          "NASA",
+          "science education"
+        ],
+        "known_for": [
+          "spaceflight",
+          "NASA",
+          "science education"
+        ],
+        "works_in": [
+          "spaceflight",
+          "medicine"
+        ]
+      }
+    },
+    {
+      "id": "person_robert_goddard",
+      "canonical": "Robert Goddard",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Goddard"
+      ],
+      "roles": [
+        "engineer",
+        "physicist"
+      ],
+      "fields": [
+        "rocketry",
+        "engineering"
+      ],
+      "concepts": [
+        "rockets",
+        "liquid-fueled rockets",
+        "spaceflight"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "engineer",
+          "physicist"
+        ],
+        "field": [
+          "rocketry",
+          "engineering"
+        ],
+        "associated_with": [
+          "rockets",
+          "liquid-fueled rockets",
+          "spaceflight"
+        ],
+        "known_for": [
+          "rockets",
+          "liquid-fueled rockets",
+          "spaceflight"
+        ],
+        "works_in": [
+          "rocketry",
+          "engineering"
+        ]
+      }
+    },
+    {
+      "id": "person_wernher_von_braun",
+      "canonical": "Wernher von Braun",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "von Braun",
+        "Wernher Von Braun"
+      ],
+      "roles": [
+        "engineer"
+      ],
+      "fields": [
+        "rocketry",
+        "spaceflight"
+      ],
+      "concepts": [
+        "rockets",
+        "Saturn V",
+        "spaceflight"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "engineer"
+        ],
+        "field": [
+          "rocketry",
+          "spaceflight"
+        ],
+        "associated_with": [
+          "rockets",
+          "Saturn V",
+          "spaceflight"
+        ],
+        "known_for": [
+          "rockets",
+          "Saturn V",
+          "spaceflight"
+        ],
+        "works_in": [
+          "rocketry",
+          "spaceflight"
+        ]
+      }
+    },
+    {
+      "id": "person_orville_wright",
+      "canonical": "Orville Wright",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Orville"
+      ],
+      "roles": [
+        "inventor",
+        "aviation pioneer"
+      ],
+      "fields": [
+        "aviation",
+        "engineering"
+      ],
+      "concepts": [
+        "powered flight",
+        "aircraft",
+        "aviation"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "inventor",
+          "aviation pioneer"
+        ],
+        "field": [
+          "aviation",
+          "engineering"
+        ],
+        "associated_with": [
+          "powered flight",
+          "aircraft",
+          "aviation"
+        ],
+        "known_for": [
+          "powered flight",
+          "aircraft",
+          "aviation"
+        ],
+        "works_in": [
+          "aviation",
+          "engineering"
+        ]
+      }
+    },
+    {
+      "id": "person_wilbur_wright",
+      "canonical": "Wilbur Wright",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Wilbur"
+      ],
+      "roles": [
+        "inventor",
+        "aviation pioneer"
+      ],
+      "fields": [
+        "aviation",
+        "engineering"
+      ],
+      "concepts": [
+        "powered flight",
+        "aircraft",
+        "aviation"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "inventor",
+          "aviation pioneer"
+        ],
+        "field": [
+          "aviation",
+          "engineering"
+        ],
+        "associated_with": [
+          "powered flight",
+          "aircraft",
+          "aviation"
+        ],
+        "known_for": [
+          "powered flight",
+          "aircraft",
+          "aviation"
+        ],
+        "works_in": [
+          "aviation",
+          "engineering"
+        ]
+      }
+    },
+    {
+      "id": "person_hedy_lamarr",
+      "canonical": "Hedy Lamarr",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Lamarr"
+      ],
+      "roles": [
+        "inventor",
+        "actor"
+      ],
+      "fields": [
+        "communication",
+        "engineering"
+      ],
+      "concepts": [
+        "frequency hopping",
+        "wireless communication",
+        "invention"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "inventor",
+          "actor"
+        ],
+        "field": [
+          "communication",
+          "engineering"
+        ],
+        "associated_with": [
+          "frequency hopping",
+          "wireless communication",
+          "invention"
+        ],
+        "known_for": [
+          "frequency hopping",
+          "wireless communication",
+          "invention"
+        ],
+        "works_in": [
+          "communication",
+          "engineering"
+        ]
+      }
+    },
+    {
+      "id": "person_george_washington_carver",
+      "canonical": "George Washington Carver",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Carver"
+      ],
+      "roles": [
+        "scientist",
+        "educator"
+      ],
+      "fields": [
+        "agriculture",
+        "biology"
+      ],
+      "concepts": [
+        "agriculture",
+        "crop science",
+        "soil improvement"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "scientist",
+          "educator"
+        ],
+        "field": [
+          "agriculture",
+          "biology"
+        ],
+        "associated_with": [
+          "agriculture",
+          "crop science",
+          "soil improvement"
+        ],
+        "known_for": [
+          "agriculture",
+          "crop science",
+          "soil improvement"
+        ],
+        "works_in": [
+          "agriculture",
+          "biology"
+        ]
+      }
+    },
+    {
+      "id": "person_norman_borlaug",
+      "canonical": "Norman Borlaug",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Borlaug"
+      ],
+      "roles": [
+        "agronomist"
+      ],
+      "fields": [
+        "agriculture",
+        "biology"
+      ],
+      "concepts": [
+        "crop breeding",
+        "agriculture",
+        "food production"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "agronomist"
+        ],
+        "field": [
+          "agriculture",
+          "biology"
+        ],
+        "associated_with": [
+          "crop breeding",
+          "agriculture",
+          "food production"
+        ],
+        "known_for": [
+          "crop breeding",
+          "agriculture",
+          "food production"
+        ],
+        "works_in": [
+          "agriculture",
+          "biology"
+        ]
+      }
+    },
+    {
+      "id": "person_archimedes",
+      "canonical": "Archimedes",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Archimedes of Syracuse"
+      ],
+      "roles": [
+        "mathematician",
+        "engineer"
+      ],
+      "fields": [
+        "mathematics",
+        "physics"
+      ],
+      "concepts": [
+        "geometry",
+        "buoyancy",
+        "mechanics"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "mathematician",
+          "engineer"
+        ],
+        "field": [
+          "mathematics",
+          "physics"
+        ],
+        "associated_with": [
+          "geometry",
+          "buoyancy",
+          "mechanics"
+        ],
+        "known_for": [
+          "geometry",
+          "buoyancy",
+          "mechanics"
+        ],
+        "works_in": [
+          "mathematics",
+          "physics"
+        ]
+      }
+    },
+    {
+      "id": "person_aristotle",
+      "canonical": "Aristotle",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Aristotle of Stagira"
+      ],
+      "roles": [
+        "philosopher"
+      ],
+      "fields": [
+        "philosophy",
+        "science"
+      ],
+      "concepts": [
+        "logic",
+        "ethics",
+        "natural philosophy"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "philosopher"
+        ],
+        "field": [
+          "philosophy",
+          "science"
+        ],
+        "associated_with": [
+          "logic",
+          "ethics",
+          "natural philosophy"
+        ],
+        "known_for": [
+          "logic",
+          "ethics",
+          "natural philosophy"
+        ],
+        "works_in": [
+          "philosophy",
+          "science"
+        ]
+      }
+    },
+    {
+      "id": "person_plato",
+      "canonical": "Plato",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Plato of Athens"
+      ],
+      "roles": [
+        "philosopher"
+      ],
+      "fields": [
+        "philosophy"
+      ],
+      "concepts": [
+        "philosophy",
+        "epistemology",
+        "ethics"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "philosopher"
+        ],
+        "field": [
+          "philosophy"
+        ],
+        "associated_with": [
+          "philosophy",
+          "epistemology",
+          "ethics"
+        ],
+        "known_for": [
+          "philosophy",
+          "epistemology",
+          "ethics"
+        ],
+        "works_in": [
+          "philosophy"
+        ]
+      }
+    },
+    {
+      "id": "person_socrates",
+      "canonical": "Socrates",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Socrates of Athens"
+      ],
+      "roles": [
+        "philosopher"
+      ],
+      "fields": [
+        "philosophy"
+      ],
+      "concepts": [
+        "Socratic method",
+        "ethics",
+        "reasoning"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "philosopher"
+        ],
+        "field": [
+          "philosophy"
+        ],
+        "associated_with": [
+          "Socratic method",
+          "ethics",
+          "reasoning"
+        ],
+        "known_for": [
+          "Socratic method",
+          "ethics",
+          "reasoning"
+        ],
+        "works_in": [
+          "philosophy"
+        ]
+      }
+    },
+    {
+      "id": "person_euclid",
+      "canonical": "Euclid",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Euclid of Alexandria"
+      ],
+      "roles": [
+        "mathematician"
+      ],
+      "fields": [
+        "mathematics"
+      ],
+      "concepts": [
+        "geometry",
+        "proof",
+        "Euclidean geometry"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "mathematician"
+        ],
+        "field": [
+          "mathematics"
+        ],
+        "associated_with": [
+          "geometry",
+          "proof",
+          "Euclidean geometry"
+        ],
+        "known_for": [
+          "geometry",
+          "proof",
+          "Euclidean geometry"
+        ],
+        "works_in": [
+          "mathematics"
+        ]
+      }
+    },
+    {
+      "id": "person_hypatia",
+      "canonical": "Hypatia",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Hypatia of Alexandria"
+      ],
+      "roles": [
+        "mathematician",
+        "philosopher"
+      ],
+      "fields": [
+        "mathematics",
+        "astronomy"
+      ],
+      "concepts": [
+        "mathematics",
+        "astronomy",
+        "philosophy"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "mathematician",
+          "philosopher"
+        ],
+        "field": [
+          "mathematics",
+          "astronomy"
+        ],
+        "associated_with": [
+          "mathematics",
+          "astronomy",
+          "philosophy"
+        ],
+        "known_for": [
+          "mathematics",
+          "astronomy",
+          "philosophy"
+        ],
+        "works_in": [
+          "mathematics",
+          "astronomy"
+        ]
+      }
+    },
+    {
+      "id": "person_ibn_al_haytham",
+      "canonical": "Ibn al-Haytham",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Alhazen",
+        "Ibn al Haytham"
+      ],
+      "roles": [
+        "scientist",
+        "mathematician"
+      ],
+      "fields": [
+        "optics",
+        "physics"
+      ],
+      "concepts": [
+        "optics",
+        "vision",
+        "scientific method"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "scientist",
+          "mathematician"
+        ],
+        "field": [
+          "optics",
+          "physics"
+        ],
+        "associated_with": [
+          "optics",
+          "vision",
+          "scientific method"
+        ],
+        "known_for": [
+          "optics",
+          "vision",
+          "scientific method"
+        ],
+        "works_in": [
+          "optics",
+          "physics"
+        ]
+      }
+    },
+    {
+      "id": "person_al_khwarizmi",
+      "canonical": "Al-Khwarizmi",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Al Khwarizmi"
+      ],
+      "roles": [
+        "mathematician",
+        "astronomer"
+      ],
+      "fields": [
+        "mathematics"
+      ],
+      "concepts": [
+        "algebra",
+        "algorithms",
+        "arithmetic"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "mathematician",
+          "astronomer"
+        ],
+        "field": [
+          "mathematics"
+        ],
+        "associated_with": [
+          "algebra",
+          "algorithms",
+          "arithmetic"
+        ],
+        "known_for": [
+          "algebra",
+          "algorithms",
+          "arithmetic"
+        ],
+        "works_in": [
+          "mathematics"
+        ]
+      }
+    },
+    {
+      "id": "person_omar_khayyam",
+      "canonical": "Omar Khayyam",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Khayyam"
+      ],
+      "roles": [
+        "mathematician",
+        "astronomer"
+      ],
+      "fields": [
+        "mathematics",
+        "astronomy"
+      ],
+      "concepts": [
+        "algebra",
+        "geometry",
+        "astronomy"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "mathematician",
+          "astronomer"
+        ],
+        "field": [
+          "mathematics",
+          "astronomy"
+        ],
+        "associated_with": [
+          "algebra",
+          "geometry",
+          "astronomy"
+        ],
+        "known_for": [
+          "algebra",
+          "geometry",
+          "astronomy"
+        ],
+        "works_in": [
+          "mathematics",
+          "astronomy"
+        ]
+      }
+    },
+    {
+      "id": "person_mary_anning",
+      "canonical": "Mary Anning",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Anning"
+      ],
+      "roles": [
+        "paleontologist"
+      ],
+      "fields": [
+        "paleontology"
+      ],
+      "concepts": [
+        "fossils",
+        "paleontology",
+        "geology"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "paleontologist"
+        ],
+        "field": [
+          "paleontology"
+        ],
+        "associated_with": [
+          "fossils",
+          "paleontology",
+          "geology"
+        ],
+        "known_for": [
+          "fossils",
+          "paleontology",
+          "geology"
+        ],
+        "works_in": [
+          "paleontology"
+        ]
+      }
+    },
+    {
+      "id": "person_alfred_wegener",
+      "canonical": "Alfred Wegener",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Wegener"
+      ],
+      "roles": [
+        "scientist"
+      ],
+      "fields": [
+        "geology"
+      ],
+      "concepts": [
+        "continental drift",
+        "geology",
+        "climate"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "scientist"
+        ],
+        "field": [
+          "geology"
+        ],
+        "associated_with": [
+          "continental drift",
+          "geology",
+          "climate"
+        ],
+        "known_for": [
+          "continental drift",
+          "geology",
+          "climate"
+        ],
+        "works_in": [
+          "geology"
+        ]
+      }
+    },
+    {
+      "id": "person_charles_babbage",
+      "canonical": "Charles Babbage",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Babbage"
+      ],
+      "roles": [
+        "mathematician",
+        "inventor"
+      ],
+      "fields": [
+        "computing",
+        "mathematics"
+      ],
+      "concepts": [
+        "analytical engine",
+        "difference engine",
+        "computing"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "mathematician",
+          "inventor"
+        ],
+        "field": [
+          "computing",
+          "mathematics"
+        ],
+        "associated_with": [
+          "analytical engine",
+          "difference engine",
+          "computing"
+        ],
+        "known_for": [
+          "analytical engine",
+          "difference engine",
+          "computing"
+        ],
+        "works_in": [
+          "computing",
+          "mathematics"
+        ]
+      }
+    },
+    {
+      "id": "person_george_westinghouse",
+      "canonical": "George Westinghouse",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Westinghouse"
+      ],
+      "roles": [
+        "inventor",
+        "engineer"
+      ],
+      "fields": [
+        "electrical engineering"
+      ],
+      "concepts": [
+        "electric power",
+        "alternating current",
+        "engineering"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "inventor",
+          "engineer"
+        ],
+        "field": [
+          "electrical engineering"
+        ],
+        "associated_with": [
+          "electric power",
+          "alternating current",
+          "engineering"
+        ],
+        "known_for": [
+          "electric power",
+          "alternating current",
+          "engineering"
+        ],
+        "works_in": [
+          "electrical engineering"
+        ]
+      }
+    },
+    {
+      "id": "person_guglielmo_marconi",
+      "canonical": "Guglielmo Marconi",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Marconi"
+      ],
+      "roles": [
+        "inventor",
+        "engineer"
+      ],
+      "fields": [
+        "communication",
+        "engineering"
+      ],
+      "concepts": [
+        "radio",
+        "wireless telegraphy",
+        "communication"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "inventor",
+          "engineer"
+        ],
+        "field": [
+          "communication",
+          "engineering"
+        ],
+        "associated_with": [
+          "radio",
+          "wireless telegraphy",
+          "communication"
+        ],
+        "known_for": [
+          "radio",
+          "wireless telegraphy",
+          "communication"
+        ],
+        "works_in": [
+          "communication",
+          "engineering"
+        ]
+      }
+    },
+    {
+      "id": "person_philo_farnsworth",
+      "canonical": "Philo Farnsworth",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Farnsworth"
+      ],
+      "roles": [
+        "inventor"
+      ],
+      "fields": [
+        "electronics"
+      ],
+      "concepts": [
+        "television",
+        "electronics",
+        "imaging"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "inventor"
+        ],
+        "field": [
+          "electronics"
+        ],
+        "associated_with": [
+          "television",
+          "electronics",
+          "imaging"
+        ],
+        "known_for": [
+          "television",
+          "electronics",
+          "imaging"
+        ],
+        "works_in": [
+          "electronics"
+        ]
+      }
+    },
+    {
+      "id": "person_jack_kilby",
+      "canonical": "Jack Kilby",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Kilby"
+      ],
+      "roles": [
+        "electrical engineer"
+      ],
+      "fields": [
+        "electronics",
+        "computing"
+      ],
+      "concepts": [
+        "integrated circuit",
+        "microelectronics",
+        "semiconductors"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "electrical engineer"
+        ],
+        "field": [
+          "electronics",
+          "computing"
+        ],
+        "associated_with": [
+          "integrated circuit",
+          "microelectronics",
+          "semiconductors"
+        ],
+        "known_for": [
+          "integrated circuit",
+          "microelectronics",
+          "semiconductors"
+        ],
+        "works_in": [
+          "electronics",
+          "computing"
+        ]
+      }
+    },
+    {
+      "id": "person_robert_noyce",
+      "canonical": "Robert Noyce",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Noyce"
+      ],
+      "roles": [
+        "engineer",
+        "entrepreneur"
+      ],
+      "fields": [
+        "electronics",
+        "computing"
+      ],
+      "concepts": [
+        "integrated circuit",
+        "semiconductors",
+        "microelectronics"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "engineer",
+          "entrepreneur"
+        ],
+        "field": [
+          "electronics",
+          "computing"
+        ],
+        "associated_with": [
+          "integrated circuit",
+          "semiconductors",
+          "microelectronics"
+        ],
+        "known_for": [
+          "integrated circuit",
+          "semiconductors",
+          "microelectronics"
+        ],
+        "works_in": [
+          "electronics",
+          "computing"
+        ]
+      }
+    },
+    {
+      "id": "person_gordon_moore",
+      "canonical": "Gordon Moore",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Moore"
+      ],
+      "roles": [
+        "engineer",
+        "technology entrepreneur"
+      ],
+      "fields": [
+        "semiconductors",
+        "computing"
+      ],
+      "concepts": [
+        "Moore law",
+        "semiconductors",
+        "integrated circuits"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "engineer",
+          "technology entrepreneur"
+        ],
+        "field": [
+          "semiconductors",
+          "computing"
+        ],
+        "associated_with": [
+          "Moore law",
+          "semiconductors",
+          "integrated circuits"
+        ],
+        "known_for": [
+          "Moore law",
+          "semiconductors",
+          "integrated circuits"
+        ],
+        "works_in": [
+          "semiconductors",
+          "computing"
+        ]
+      }
+    },
+    {
+      "id": "person_john_bardeen",
+      "canonical": "John Bardeen",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Bardeen"
+      ],
+      "roles": [
+        "physicist",
+        "engineer"
+      ],
+      "fields": [
+        "physics",
+        "electronics"
+      ],
+      "concepts": [
+        "transistor",
+        "superconductivity",
+        "solid-state physics"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "physicist",
+          "engineer"
+        ],
+        "field": [
+          "physics",
+          "electronics"
+        ],
+        "associated_with": [
+          "transistor",
+          "superconductivity",
+          "solid-state physics"
+        ],
+        "known_for": [
+          "transistor",
+          "superconductivity",
+          "solid-state physics"
+        ],
+        "works_in": [
+          "physics",
+          "electronics"
+        ]
+      }
+    },
+    {
+      "id": "person_william_shockley",
+      "canonical": "William Shockley",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Shockley"
+      ],
+      "roles": [
+        "physicist",
+        "engineer"
+      ],
+      "fields": [
+        "physics",
+        "electronics"
+      ],
+      "concepts": [
+        "transistor",
+        "semiconductors",
+        "solid-state physics"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "physicist",
+          "engineer"
+        ],
+        "field": [
+          "physics",
+          "electronics"
+        ],
+        "associated_with": [
+          "transistor",
+          "semiconductors",
+          "solid-state physics"
+        ],
+        "known_for": [
+          "transistor",
+          "semiconductors",
+          "solid-state physics"
+        ],
+        "works_in": [
+          "physics",
+          "electronics"
+        ]
+      }
+    },
+    {
+      "id": "person_walter_brattain",
+      "canonical": "Walter Brattain",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Brattain"
+      ],
+      "roles": [
+        "physicist"
+      ],
+      "fields": [
+        "physics",
+        "electronics"
+      ],
+      "concepts": [
+        "transistor",
+        "semiconductors",
+        "solid-state physics"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "physicist"
+        ],
+        "field": [
+          "physics",
+          "electronics"
+        ],
+        "associated_with": [
+          "transistor",
+          "semiconductors",
+          "solid-state physics"
+        ],
+        "known_for": [
+          "transistor",
+          "semiconductors",
+          "solid-state physics"
+        ],
+        "works_in": [
+          "physics",
+          "electronics"
+        ]
+      }
+    },
+    {
+      "id": "person_radia_perlman",
+      "canonical": "Radia Perlman",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Perlman"
+      ],
+      "roles": [
+        "computer scientist"
+      ],
+      "fields": [
+        "computer networking"
+      ],
+      "concepts": [
+        "networking",
+        "spanning tree protocol",
+        "distributed systems"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "computer scientist"
+        ],
+        "field": [
+          "computer networking"
+        ],
+        "associated_with": [
+          "networking",
+          "spanning tree protocol",
+          "distributed systems"
+        ],
+        "known_for": [
+          "networking",
+          "spanning tree protocol",
+          "distributed systems"
+        ],
+        "works_in": [
+          "computer networking"
+        ]
+      }
+    },
+    {
+      "id": "person_vint_cerf",
+      "canonical": "Vint Cerf",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Cerf"
+      ],
+      "roles": [
+        "computer scientist"
+      ],
+      "fields": [
+        "internet",
+        "computer networking"
+      ],
+      "concepts": [
+        "TCP/IP",
+        "internet",
+        "networking"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "computer scientist"
+        ],
+        "field": [
+          "internet",
+          "computer networking"
+        ],
+        "associated_with": [
+          "TCP/IP",
+          "internet",
+          "networking"
+        ],
+        "known_for": [
+          "TCP/IP",
+          "internet",
+          "networking"
+        ],
+        "works_in": [
+          "internet",
+          "computer networking"
+        ]
+      }
+    },
+    {
+      "id": "person_bob_kahn",
+      "canonical": "Bob Kahn",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Robert Kahn",
+        "Kahn"
+      ],
+      "roles": [
+        "computer scientist"
+      ],
+      "fields": [
+        "internet",
+        "computer networking"
+      ],
+      "concepts": [
+        "TCP/IP",
+        "internet",
+        "networking"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "computer scientist"
+        ],
+        "field": [
+          "internet",
+          "computer networking"
+        ],
+        "associated_with": [
+          "TCP/IP",
+          "internet",
+          "networking"
+        ],
+        "known_for": [
+          "TCP/IP",
+          "internet",
+          "networking"
+        ],
+        "works_in": [
+          "internet",
+          "computer networking"
+        ]
+      }
+    },
+    {
+      "id": "person_guido_van_rossum",
+      "canonical": "Guido van Rossum",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "van Rossum",
+        "Guido Van Rossum"
+      ],
+      "roles": [
+        "computer programmer"
+      ],
+      "fields": [
+        "software",
+        "programming languages"
+      ],
+      "concepts": [
+        "Python",
+        "programming languages",
+        "software"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "computer programmer"
+        ],
+        "field": [
+          "software",
+          "programming languages"
+        ],
+        "associated_with": [
+          "Python",
+          "programming languages",
+          "software"
+        ],
+        "known_for": [
+          "Python",
+          "programming languages",
+          "software"
+        ],
+        "works_in": [
+          "software",
+          "programming languages"
+        ]
+      }
+    },
+    {
+      "id": "person_bjarne_stroustrup",
+      "canonical": "Bjarne Stroustrup",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Stroustrup"
+      ],
+      "roles": [
+        "computer scientist"
+      ],
+      "fields": [
+        "programming languages"
+      ],
+      "concepts": [
+        "C++",
+        "programming languages",
+        "software engineering"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "computer scientist"
+        ],
+        "field": [
+          "programming languages"
+        ],
+        "associated_with": [
+          "C++",
+          "programming languages",
+          "software engineering"
+        ],
+        "known_for": [
+          "C++",
+          "programming languages",
+          "software engineering"
+        ],
+        "works_in": [
+          "programming languages"
+        ]
+      }
+    },
+    {
+      "id": "person_james_gosling",
+      "canonical": "James Gosling",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Gosling"
+      ],
+      "roles": [
+        "computer scientist"
+      ],
+      "fields": [
+        "programming languages"
+      ],
+      "concepts": [
+        "Java",
+        "programming languages",
+        "software"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "computer scientist"
+        ],
+        "field": [
+          "programming languages"
+        ],
+        "associated_with": [
+          "Java",
+          "programming languages",
+          "software"
+        ],
+        "known_for": [
+          "Java",
+          "programming languages",
+          "software"
+        ],
+        "works_in": [
+          "programming languages"
+        ]
+      }
+    },
+    {
+      "id": "person_brendan_eich",
+      "canonical": "Brendan Eich",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Eich"
+      ],
+      "roles": [
+        "computer programmer"
+      ],
+      "fields": [
+        "programming languages",
+        "web"
+      ],
+      "concepts": [
+        "JavaScript",
+        "web",
+        "programming languages"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "computer programmer"
+        ],
+        "field": [
+          "programming languages",
+          "web"
+        ],
+        "associated_with": [
+          "JavaScript",
+          "web",
+          "programming languages"
+        ],
+        "known_for": [
+          "JavaScript",
+          "web",
+          "programming languages"
+        ],
+        "works_in": [
+          "programming languages",
+          "web"
+        ]
+      }
+    },
+    {
+      "id": "person_john_carmack",
+      "canonical": "John Carmack",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Carmack"
+      ],
+      "roles": [
+        "computer programmer",
+        "engineer"
+      ],
+      "fields": [
+        "computer graphics",
+        "software"
+      ],
+      "concepts": [
+        "real-time graphics",
+        "game engines",
+        "virtual reality"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "computer programmer",
+          "engineer"
+        ],
+        "field": [
+          "computer graphics",
+          "software"
+        ],
+        "associated_with": [
+          "real-time graphics",
+          "game engines",
+          "virtual reality"
+        ],
+        "known_for": [
+          "real-time graphics",
+          "game engines",
+          "virtual reality"
+        ],
+        "works_in": [
+          "computer graphics",
+          "software"
+        ]
+      }
+    },
+    {
+      "id": "person_leslie_lamport",
+      "canonical": "Leslie Lamport",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Lamport"
+      ],
+      "roles": [
+        "computer scientist"
+      ],
+      "fields": [
+        "distributed systems",
+        "computer science"
+      ],
+      "concepts": [
+        "distributed systems",
+        "logical clocks",
+        "concurrency"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "computer scientist"
+        ],
+        "field": [
+          "distributed systems",
+          "computer science"
+        ],
+        "associated_with": [
+          "distributed systems",
+          "logical clocks",
+          "concurrency"
+        ],
+        "known_for": [
+          "distributed systems",
+          "logical clocks",
+          "concurrency"
+        ],
+        "works_in": [
+          "distributed systems",
+          "computer science"
+        ]
+      }
+    },
+    {
+      "id": "person_frances_allen",
+      "canonical": "Frances Allen",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Allen"
+      ],
+      "roles": [
+        "computer scientist"
+      ],
+      "fields": [
+        "computer science"
+      ],
+      "concepts": [
+        "compiler optimization",
+        "parallel computing",
+        "program analysis"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "computer scientist"
+        ],
+        "field": [
+          "computer science"
+        ],
+        "associated_with": [
+          "compiler optimization",
+          "parallel computing",
+          "program analysis"
+        ],
+        "known_for": [
+          "compiler optimization",
+          "parallel computing",
+          "program analysis"
+        ],
+        "works_in": [
+          "computer science"
+        ]
+      }
+    },
+    {
+      "id": "person_john_mccarthy",
+      "canonical": "John McCarthy",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "McCarthy"
+      ],
+      "roles": [
+        "computer scientist"
+      ],
+      "fields": [
+        "artificial intelligence",
+        "computer science"
+      ],
+      "concepts": [
+        "artificial intelligence",
+        "Lisp",
+        "knowledge representation"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "computer scientist"
+        ],
+        "field": [
+          "artificial intelligence",
+          "computer science"
+        ],
+        "associated_with": [
+          "artificial intelligence",
+          "Lisp",
+          "knowledge representation"
+        ],
+        "known_for": [
+          "artificial intelligence",
+          "Lisp",
+          "knowledge representation"
+        ],
+        "works_in": [
+          "artificial intelligence",
+          "computer science"
+        ]
+      }
+    },
+    {
+      "id": "person_marvin_minsky",
+      "canonical": "Marvin Minsky",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Minsky"
+      ],
+      "roles": [
+        "computer scientist",
+        "AI researcher"
+      ],
+      "fields": [
+        "artificial intelligence",
+        "cognitive science"
+      ],
+      "concepts": [
+        "artificial intelligence",
+        "cognition",
+        "neural networks"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "computer scientist",
+          "AI researcher"
+        ],
+        "field": [
+          "artificial intelligence",
+          "cognitive science"
+        ],
+        "associated_with": [
+          "artificial intelligence",
+          "cognition",
+          "neural networks"
+        ],
+        "known_for": [
+          "artificial intelligence",
+          "cognition",
+          "neural networks"
+        ],
+        "works_in": [
+          "artificial intelligence",
+          "cognitive science"
+        ]
+      }
+    },
+    {
+      "id": "person_herbert_simon",
+      "canonical": "Herbert Simon",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Simon"
+      ],
+      "roles": [
+        "computer scientist",
+        "cognitive scientist"
+      ],
+      "fields": [
+        "artificial intelligence",
+        "cognitive science"
+      ],
+      "concepts": [
+        "problem solving",
+        "artificial intelligence",
+        "decision making"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "computer scientist",
+          "cognitive scientist"
+        ],
+        "field": [
+          "artificial intelligence",
+          "cognitive science"
+        ],
+        "associated_with": [
+          "problem solving",
+          "artificial intelligence",
+          "decision making"
+        ],
+        "known_for": [
+          "problem solving",
+          "artificial intelligence",
+          "decision making"
+        ],
+        "works_in": [
+          "artificial intelligence",
+          "cognitive science"
+        ]
+      }
+    },
+    {
+      "id": "person_allen_newell",
+      "canonical": "Allen Newell",
+      "type": "person",
+      "real_world": true,
+      "aliases": [
+        "Newell"
+      ],
+      "roles": [
+        "computer scientist",
+        "cognitive scientist"
+      ],
+      "fields": [
+        "artificial intelligence",
+        "cognitive science"
+      ],
+      "concepts": [
+        "problem solving",
+        "artificial intelligence",
+        "cognitive architecture"
+      ],
+      "relations": {
+        "is_a": [
+          "person"
+        ],
+        "role": [
+          "computer scientist",
+          "cognitive scientist"
+        ],
+        "field": [
+          "artificial intelligence",
+          "cognitive science"
+        ],
+        "associated_with": [
+          "problem solving",
+          "artificial intelligence",
+          "cognitive architecture"
+        ],
+        "known_for": [
+          "problem solving",
+          "artificial intelligence",
+          "cognitive architecture"
+        ],
+        "works_in": [
+          "artificial intelligence",
+          "cognitive science"
+        ]
+      }
+    }
+  ]
+}

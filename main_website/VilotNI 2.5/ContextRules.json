@@ -1,0 +1,228 @@
+{
+  "Schema_Version": 3,
+  "Role": "Context dependency rules for ellipsis and deictic follow-up questions.",
+  "Pronouns": [
+    "it",
+    "this",
+    "that",
+    "these",
+    "those",
+    "he",
+    "she",
+    "they",
+    "them",
+    "him",
+    "her",
+    "there",
+    "here",
+    "one",
+    "ones",
+    "something",
+    "someone"
+  ],
+  "Question_Operators": [
+    "what",
+    "which",
+    "who",
+    "whom",
+    "whose",
+    "where",
+    "when",
+    "why",
+    "how"
+  ],
+  "Support_Verbs": [
+    "am",
+    "is",
+    "are",
+    "was",
+    "were",
+    "be",
+    "been",
+    "being",
+    "do",
+    "does",
+    "did",
+    "have",
+    "has",
+    "had",
+    "can",
+    "could",
+    "will",
+    "would",
+    "shall",
+    "should",
+    "may",
+    "might",
+    "must"
+  ],
+  "Fillers": [
+    "not",
+    "so",
+    "then",
+    "else",
+    "again",
+    "really",
+    "exactly",
+    "though",
+    "too",
+    "either",
+    "instead",
+    "about",
+    "and",
+    "but",
+    "also",
+    "still",
+    "just"
+  ],
+  "Exact_Ellipsis": {
+    "why": {
+      "requires_context": true,
+      "relation": "cause"
+    },
+    "why not": {
+      "requires_context": true,
+      "relation": "cause"
+    },
+    "how": {
+      "requires_context": true,
+      "relation": "mechanism"
+    },
+    "how so": {
+      "requires_context": true,
+      "relation": "mechanism"
+    },
+    "when": {
+      "requires_context": true,
+      "relation": "time"
+    },
+    "where": {
+      "requires_context": true,
+      "relation": "location"
+    },
+    "what about it": {
+      "requires_context": true,
+      "relation": "content"
+    },
+    "what about that": {
+      "requires_context": true,
+      "relation": "content"
+    },
+    "what about this": {
+      "requires_context": true,
+      "relation": "content"
+    },
+    "what about those": {
+      "requires_context": true,
+      "relation": "content"
+    },
+    "what about these": {
+      "requires_context": true,
+      "relation": "content"
+    },
+    "and that": {
+      "requires_context": true,
+      "relation": "content"
+    },
+    "and this": {
+      "requires_context": true,
+      "relation": "content"
+    },
+    "and why": {
+      "requires_context": true,
+      "relation": "cause"
+    },
+    "and how": {
+      "requires_context": true,
+      "relation": "mechanism"
+    },
+    "what happens then": {
+      "requires_context": true,
+      "relation": "sequence"
+    },
+    "then what": {
+      "requires_context": true,
+      "relation": "sequence"
+    },
+    "what next": {
+      "requires_context": true,
+      "relation": "sequence"
+    },
+    "how much": {
+      "requires_context": true,
+      "relation": "quantity"
+    },
+    "how many": {
+      "requires_context": true,
+      "relation": "quantity"
+    },
+    "which one": {
+      "requires_context": true,
+      "relation": "selection"
+    },
+    "what does it do": {
+      "requires_context": true,
+      "relation": "function"
+    },
+    "what is it for": {
+      "requires_context": true,
+      "relation": "purpose"
+    },
+    "how does it work": {
+      "requires_context": true,
+      "relation": "mechanism"
+    }
+  },
+  "Rules": {
+    "operator_only_requires_context": true,
+    "short_wh_without_concrete_anchor_requires_context": true,
+    "deictic_only_requires_context": true,
+    "context_window_turns": 12
+  },
+  "Referent_Inheritance": {
+    "pronoun_subject": [
+      "it",
+      "this",
+      "that",
+      "these",
+      "those",
+      "they",
+      "them"
+    ],
+    "previous_subject_reuse": [
+      "what about",
+      "and",
+      "also",
+      "then",
+      "instead"
+    ],
+    "previous_relation_reuse": [
+      "why",
+      "how",
+      "where",
+      "when",
+      "which one",
+      "what next"
+    ],
+    "maximum_turns": 12,
+    "prefer_most_recent_concrete_subject": true,
+    "do_not_inherit_if_new_concrete_subject_present": true
+  },
+  "General_Knowledge_Expansion": {
+    "Build": "25-system-5",
+    "Ellipsis_Pattern_Count": 24
+  },
+  "Reference_Resolution": {
+    "use_reference_rules_dataset": true,
+    "preserve_unresolved_references": true,
+    "reflexive_same_clause_subject_bias": 0.98,
+    "previous_clause_subject_bias": 0.82,
+    "conversation_focus_bias": 0.56,
+    "maximum_local_clause_distance": 4
+  },
+  "Complex_Context": {
+    "inherit_clause_graph": true,
+    "inherit_proposition_graph": true,
+    "do_not_replace_explicit_new_subject": true
+  }
+}

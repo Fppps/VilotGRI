@@ -1,0 +1,2435 @@
+{
+  "Schema_Version": 3,
+  "Description": "System-34 deep structured-reasoning ontology. Defines proposition roles, relation semantics, decomposition programs, evidence contracts, uncertainty propagation, contradiction logic, verification, and failure recovery.",
+  "Proposition_Schema": {
+    "Required": [
+      "subject",
+      "relation",
+      "object"
+    ],
+    "Optional": [
+      "agent",
+      "patient",
+      "instrument",
+      "source",
+      "destination",
+      "cause",
+      "result",
+      "time",
+      "location",
+      "manner",
+      "condition",
+      "purpose"
+    ],
+    "Qualifiers": [
+      "condition",
+      "time",
+      "polarity",
+      "certainty",
+      "source",
+      "modality",
+      "scope",
+      "quantifier",
+      "epistemic_status"
+    ],
+    "Dependency_Types": [
+      "condition",
+      "cause",
+      "result",
+      "temporal_before",
+      "temporal_after",
+      "simultaneous",
+      "overlap",
+      "contrast",
+      "comparison",
+      "purpose",
+      "sequence",
+      "coordination",
+      "elaboration",
+      "evidence",
+      "exception",
+      "coreference"
+    ]
+  },
+  "Relation_Families": {
+    "identity": [
+      "is",
+      "is-a",
+      "identity",
+      "attribute",
+      "role",
+      "type-of",
+      "instance-of"
+    ],
+    "causal": [
+      "cause",
+      "causes",
+      "caused-by",
+      "results-in",
+      "produces",
+      "affects",
+      "influences",
+      "triggers",
+      "prevents",
+      "enables",
+      "blocks",
+      "contributes-to"
+    ],
+    "mechanism": [
+      "uses",
+      "depends-on",
+      "requires",
+      "receives",
+      "feeds",
+      "transforms",
+      "processes",
+      "evaluates",
+      "selects",
+      "updates",
+      "generates",
+      "returns-to",
+      "compares",
+      "tests",
+      "replays",
+      "verifies"
+    ],
+    "temporal": [
+      "before",
+      "after",
+      "during",
+      "while",
+      "simultaneous",
+      "overlap",
+      "later",
+      "earlier",
+      "over-time",
+      "until",
+      "since",
+      "starts",
+      "ends",
+      "continues",
+      "repeats"
+    ],
+    "structural": [
+      "part-of",
+      "contains",
+      "component-of",
+      "connected-to",
+      "supports",
+      "implemented-by",
+      "member-of",
+      "composed-of"
+    ],
+    "comparison": [
+      "similar-to",
+      "different-from",
+      "greater-than",
+      "less-than",
+      "equal-to",
+      "contrast",
+      "whereas",
+      "more-than",
+      "less-than"
+    ],
+    "epistemic": [
+      "supports",
+      "contradicts",
+      "evidence-for",
+      "evidence-against",
+      "uncertain-about",
+      "observed",
+      "inferred",
+      "hypothesized",
+      "reported"
+    ],
+    "quantitative": [
+      "equals",
+      "approximately",
+      "range",
+      "ratio",
+      "rate",
+      "percentage",
+      "increase-by",
+      "decrease-by"
+    ],
+    "discourse": [
+      "answers",
+      "elaborates",
+      "corrects",
+      "clarifies",
+      "continues",
+      "challenges",
+      "agrees-with",
+      "disagrees-with"
+    ]
+  },
+  "Mechanism_Slots": {
+    "input": [
+      "receives",
+      "input",
+      "source",
+      "from",
+      "depends-on",
+      "requires"
+    ],
+    "precondition": [
+      "requires",
+      "condition",
+      "if",
+      "when",
+      "provided"
+    ],
+    "operation": [
+      "uses",
+      "processes",
+      "transforms",
+      "evaluates",
+      "selects",
+      "updates",
+      "computes",
+      "compares",
+      "learns",
+      "searches",
+      "tests",
+      "verifies"
+    ],
+    "transition": [
+      "feeds",
+      "triggers",
+      "causes",
+      "enables",
+      "passes-to",
+      "returns-to",
+      "invokes"
+    ],
+    "output": [
+      "produces",
+      "generates",
+      "results-in",
+      "outputs",
+      "changes",
+      "updates"
+    ],
+    "feedback": [
+      "returns-to",
+      "replays",
+      "reinforces",
+      "corrects",
+      "rolls-back",
+      "updates",
+      "learns-from",
+      "re-evaluates"
+    ],
+    "condition": [
+      "if",
+      "when",
+      "unless",
+      "provided",
+      "condition",
+      "requires"
+    ],
+    "constraint": [
+      "limit",
+      "threshold",
+      "deadline",
+      "confidence",
+      "rollback-condition",
+      "safeguard"
+    ],
+    "termination": [
+      "stops",
+      "converges",
+      "finishes",
+      "reaches-threshold"
+    ]
+  },
+  "Reasoning_Families": {
+    "definition": {
+      "required": [
+        "identity_or_category"
+      ],
+      "optional": [
+        "properties",
+        "examples",
+        "boundaries"
+      ],
+      "termination": [
+        "identity_answered"
+      ]
+    },
+    "mechanism": {
+      "required": [
+        "subject",
+        "operation",
+        "output"
+      ],
+      "optional": [
+        "input",
+        "precondition",
+        "transition",
+        "feedback",
+        "constraint"
+      ],
+      "order": [
+        "input",
+        "precondition",
+        "operation",
+        "transition",
+        "output",
+        "feedback"
+      ]
+    },
+    "causal": {
+      "required": [
+        "effect",
+        "cause"
+      ],
+      "optional": [
+        "intermediate_steps",
+        "conditions",
+        "counter_causes"
+      ],
+      "order": [
+        "cause",
+        "intermediate_steps",
+        "effect"
+      ]
+    },
+    "comparison": {
+      "required": [
+        "left",
+        "right",
+        "aligned_attribute"
+      ],
+      "optional": [
+        "similarities",
+        "differences",
+        "conditions"
+      ],
+      "verify": [
+        "both_sides_covered"
+      ]
+    },
+    "counterfactual": {
+      "required": [
+        "baseline",
+        "change",
+        "modified"
+      ],
+      "optional": [
+        "propagation",
+        "side_effects",
+        "uncertainty"
+      ],
+      "order": [
+        "baseline",
+        "change",
+        "propagation",
+        "modified",
+        "difference"
+      ]
+    },
+    "temporal": {
+      "required": [
+        "events",
+        "ordering"
+      ],
+      "optional": [
+        "duration",
+        "overlap",
+        "frequency",
+        "bounds"
+      ],
+      "verify": [
+        "no_order_cycle_unless_repeat"
+      ]
+    },
+    "multi_part": {
+      "required": [
+        "all_high_priority_subrequests"
+      ],
+      "optional": [
+        "shared_context"
+      ],
+      "verify": [
+        "coverage_each_part"
+      ]
+    },
+    "conversation": {
+      "required": [
+        "active_topic",
+        "current_discourse_act"
+      ],
+      "optional": [
+        "prior_turn_reference",
+        "tone"
+      ],
+      "verify": [
+        "avoid_unrequested_topic_shift"
+      ]
+    }
+  },
+  "Decomposition": {
+    "max_reasoning_depth": 8,
+    "max_subproblems": 16,
+    "split_on": [
+      "independent_subrequests",
+      "condition_vs_consequence",
+      "cause_vs_effect",
+      "baseline_vs_modified",
+      "left_vs_right_comparison",
+      "mechanism_stages"
+    ],
+    "preserve_dependencies": true,
+    "merge_only_when_shared_subject_or_dependency": true
+  },
+  "Evidence_Policy": {
+    "direct_support_weight": 1.0,
+    "derived_support_weight": 0.82,
+    "analogy_support_weight": 0.58,
+    "hypothesis_support_weight": 0.42,
+    "require_direction_match_for_causal": true,
+    "require_time_compatibility": true,
+    "penalize_stale_evidence": true,
+    "preserve_source_provenance": true
+  },
+  "Uncertainty_Propagation": {
+    "serial_chain": "multiply_with_floor",
+    "parallel_support": "noisy_or",
+    "conflicting_support": "discount_by_contradiction",
+    "reference_ambiguity": "cap_dependent_propositions",
+    "temporal_ambiguity": "cap_order_sensitive_conclusions",
+    "min_chain_floor": 0.18,
+    "max_unverified_inference": 0.72
+  },
+  "Counterfactual": {
+    "Markers": [
+      "what if",
+      "suppose",
+      "assuming",
+      "assume",
+      "imagine",
+      "hypothetically",
+      "if"
+    ],
+    "Change_Types": [
+      "add",
+      "remove",
+      "increase",
+      "decrease",
+      "replace",
+      "disable",
+      "enable",
+      "invert"
+    ],
+    "Comparison_Requirement": [
+      "baseline",
+      "modified",
+      "difference",
+      "consequence"
+    ],
+    "do_not_mix_baseline_and_modified_facts": true
+  },
+  "Contradiction": {
+    "Opposite_Relations": {
+      "supports": "contradicts",
+      "contradicts": "supports",
+      "increases": "decreases",
+      "decreases": "increases",
+      "causes": "prevents",
+      "prevents": "causes",
+      "enables": "blocks",
+      "blocks": "enables",
+      "before": "after",
+      "after": "before",
+      "is": "is-not",
+      "is-not": "is",
+      "starts": "ends",
+      "greater-than": "less-than",
+      "less-than": "greater-than"
+    },
+    "Negation_Is_Conflict_When_Subject_Relation_Object_Match": true,
+    "temporal_conflict_requires_same_events": true,
+    "quantitative_conflict_requires_same_unit_scope": true,
+    "resolution_order": [
+      "source_reliability",
+      "directness",
+      "freshness",
+      "specificity",
+      "consistency",
+      "retain_contested_if_unresolved"
+    ]
+  },
+  "Termination_Rules": {
+    "stop_when": [
+      "all_required_roles_covered",
+      "no_high_priority_unresolved_dependency",
+      "quality_threshold_met",
+      "additional_search_has_low_information_gain"
+    ],
+    "do_not_stop_when": [
+      "dangling_reference",
+      "missing_condition",
+      "missing_comparison_side",
+      "mechanism_without_output",
+      "counterfactual_without_baseline",
+      "contradiction_unexamined"
+    ],
+    "max_low_gain_cycles": 2
+  },
+  "Response_Verification": {
+    "must_cover": [
+      "main_request"
+    ],
+    "complex_prompt_requires": [
+      "high_priority_subrequests",
+      "conditions",
+      "resolved_or_acknowledged_references"
+    ],
+    "mechanism_requires": [
+      "operation",
+      "result"
+    ],
+    "comparison_requires": [
+      "left",
+      "right"
+    ],
+    "counterfactual_requires": [
+      "baseline",
+      "modified_or_consequence"
+    ],
+    "reject_if": [
+      "semantic_drift_high",
+      "contradiction_unsafe",
+      "terminal_fragment",
+      "dangling_function_word"
+    ]
+  },
+  "Quality_Thresholds": {
+    "prompt_coverage": 0.74,
+    "proposition_coverage": 0.72,
+    "mechanism_completeness": 0.72,
+    "multi_part_coverage": 0.74,
+    "contradiction_safety": 0.84,
+    "drift_safety": 0.76,
+    "reference_resolution": 0.8,
+    "temporal_consistency": 0.78,
+    "uncertainty_calibration": 0.72
+  },
+  "Reasoning_Strategies": {
+    "mechanism": [
+      "decompose-process",
+      "identify-inputs",
+      "follow-stage-order",
+      "check-input-output",
+      "check-feedback",
+      "check-conditions",
+      "verify-missing-stage"
+    ],
+    "comparison": [
+      "build-two-concept-models",
+      "align-attributes",
+      "state-differences",
+      "state-similarities",
+      "check-same-scope"
+    ],
+    "causal": [
+      "identify-cause",
+      "trace-intermediate-effects",
+      "verify-direction",
+      "check-alternative-causes",
+      "check-condition"
+    ],
+    "counterfactual": [
+      "build-baseline",
+      "apply-change",
+      "propagate-consequences",
+      "separate-baseline-from-modified",
+      "compare-outcomes"
+    ],
+    "temporal": [
+      "extract-events",
+      "order-events",
+      "resolve-overlap",
+      "track-duration",
+      "check-cycle"
+    ],
+    "complex-language": [
+      "preserve-clause-dependencies",
+      "resolve-references",
+      "track-negation-scope",
+      "track-modality",
+      "cover-all-requested-parts"
+    ],
+    "conversation": [
+      "preserve-active-topic",
+      "resolve-discourse-reference",
+      "respond-to-current-act",
+      "avoid-unrelated-knowledge-drift"
+    ],
+    "uncertainty": [
+      "localize-uncertainty",
+      "preserve-competing-hypotheses",
+      "propagate-dependence",
+      "avoid-overconfidence"
+    ]
+  },
+  "Build": "25-system-35",
+  "Relation_Ontology": {
+    "is_a": {
+      "family": "identity",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": true,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": false,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.04,
+      "verification": "direct_or_derived_evidence"
+    },
+    "instance_of": {
+      "family": "identity",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": true,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": false,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.04,
+      "verification": "direct_or_derived_evidence"
+    },
+    "equivalent_to": {
+      "family": "identity",
+      "symmetric": true,
+      "invertible": true,
+      "transitive": true,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": false,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.04,
+      "verification": "direct_or_derived_evidence"
+    },
+    "part_of": {
+      "family": "structural",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": true,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.04,
+      "verification": "direct_or_derived_evidence"
+    },
+    "has_part": {
+      "family": "structural",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": true,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.04,
+      "verification": "direct_or_derived_evidence"
+    },
+    "contains": {
+      "family": "structural",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": true,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.04,
+      "verification": "direct_or_derived_evidence"
+    },
+    "uses": {
+      "family": "mechanism",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": "instrument",
+      "requires_direction_match": true,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "requires": {
+      "family": "mechanism",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": "precondition",
+      "requires_direction_match": true,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "depends_on": {
+      "family": "mechanism",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": "dependency",
+      "requires_direction_match": true,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "produces": {
+      "family": "mechanism",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": "output",
+      "requires_direction_match": true,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "transforms": {
+      "family": "mechanism",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": "transition",
+      "requires_direction_match": true,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "evaluates": {
+      "family": "mechanism",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": "evaluation",
+      "requires_direction_match": true,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "selects": {
+      "family": "mechanism",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": "selection",
+      "requires_direction_match": true,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "updates": {
+      "family": "mechanism",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": "update",
+      "requires_direction_match": true,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "feeds": {
+      "family": "mechanism",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": "flow",
+      "requires_direction_match": true,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "triggers": {
+      "family": "causal",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": "trigger",
+      "requires_direction_match": true,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": true,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "causes": {
+      "family": "causal",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": "cause",
+      "requires_direction_match": true,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": true,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "enables": {
+      "family": "causal",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": "enablement",
+      "requires_direction_match": true,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": true,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "prevents": {
+      "family": "causal",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": "prevention",
+      "requires_direction_match": true,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": true,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "inhibits": {
+      "family": "causal",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": "inhibition",
+      "requires_direction_match": true,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": true,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "contributes_to": {
+      "family": "causal",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": "contribution",
+      "requires_direction_match": true,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": true,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "before": {
+      "family": "temporal",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": true,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "after": {
+      "family": "temporal",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": true,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "during": {
+      "family": "temporal",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "overlaps": {
+      "family": "temporal",
+      "symmetric": true,
+      "invertible": true,
+      "transitive": false,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "starts": {
+      "family": "temporal",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "finishes": {
+      "family": "temporal",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "continues_until": {
+      "family": "temporal",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "repeats": {
+      "family": "temporal",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "simultaneous_with": {
+      "family": "temporal",
+      "symmetric": true,
+      "invertible": true,
+      "transitive": false,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "greater_than": {
+      "family": "comparison",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": true,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": true,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "less_than": {
+      "family": "comparison",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": true,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": true,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "equal_to": {
+      "family": "comparison",
+      "symmetric": true,
+      "invertible": true,
+      "transitive": true,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": true,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "similar_to": {
+      "family": "comparison",
+      "symmetric": true,
+      "invertible": true,
+      "transitive": false,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": true,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "different_from": {
+      "family": "comparison",
+      "symmetric": true,
+      "invertible": true,
+      "transitive": false,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": true,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "preferred_over": {
+      "family": "comparison",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": true,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "supports": {
+      "family": "epistemic",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "contradicts": {
+      "family": "epistemic",
+      "symmetric": true,
+      "invertible": true,
+      "transitive": false,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "implies": {
+      "family": "epistemic",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "explains": {
+      "family": "epistemic",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "evidence_for": {
+      "family": "epistemic",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "uncertain_about": {
+      "family": "epistemic",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "greater_by": {
+      "family": "quantitative",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": true,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "ratio_to": {
+      "family": "quantitative",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": true,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "rate_of": {
+      "family": "quantitative",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": true,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "approximately_equal": {
+      "family": "quantitative",
+      "symmetric": true,
+      "invertible": true,
+      "transitive": false,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": true,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "bounded_by": {
+      "family": "quantitative",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": true,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "changes_by": {
+      "family": "quantitative",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": true,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "condition_for": {
+      "family": "dependency",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": "condition",
+      "requires_direction_match": true,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "purpose_of": {
+      "family": "dependency",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": "purpose",
+      "requires_direction_match": true,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "exception_to": {
+      "family": "dependency",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": "exception",
+      "requires_direction_match": true,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "contrast_with": {
+      "family": "discourse",
+      "symmetric": true,
+      "invertible": true,
+      "transitive": false,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "elaborates": {
+      "family": "discourse",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "example_of": {
+      "family": "discourse",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": true,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "answers": {
+      "family": "discourse",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "clarifies": {
+      "family": "discourse",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    },
+    "continues": {
+      "family": "discourse",
+      "symmetric": false,
+      "invertible": false,
+      "transitive": false,
+      "mechanism_role": null,
+      "requires_direction_match": false,
+      "supports_negation": true,
+      "supports_conditions": true,
+      "supports_temporal_scope": true,
+      "supports_quantitative_scope": false,
+      "default_confidence_discount": 0.08,
+      "verification": "direct_or_derived_evidence"
+    }
+  },
+  "Reasoning_Programs": {
+    "definition": {
+      "steps": [
+        "identify_subject",
+        "retrieve_identity",
+        "retrieve_category",
+        "retrieve_distinguishing_properties",
+        "verify_subject_alignment",
+        "realize_concisely"
+      ],
+      "max_depth": 5,
+      "preserve_provenance": true,
+      "allow_parallel_subgoals": false,
+      "verification_required": true
+    },
+    "mechanism": {
+      "steps": [
+        "identify_process",
+        "collect_inputs",
+        "collect_preconditions",
+        "order_operations",
+        "connect_transitions",
+        "collect_outputs",
+        "detect_feedback",
+        "check_missing_stage",
+        "verify_direction",
+        "realize_sequence"
+      ],
+      "max_depth": 6,
+      "preserve_provenance": true,
+      "allow_parallel_subgoals": false,
+      "verification_required": true
+    },
+    "causal": {
+      "steps": [
+        "identify_effect",
+        "collect_candidate_causes",
+        "separate_correlation",
+        "test_direction",
+        "check_intermediate_mechanism",
+        "check_alternatives",
+        "assign_uncertainty",
+        "realize_causal_chain"
+      ],
+      "max_depth": 6,
+      "preserve_provenance": true,
+      "allow_parallel_subgoals": false,
+      "verification_required": true
+    },
+    "comparison": {
+      "steps": [
+        "identify_items",
+        "extract_shared_dimensions",
+        "normalize_scopes",
+        "align_units",
+        "compare_dimension_by_dimension",
+        "preserve_ties",
+        "surface_uncertainty",
+        "realize_comparison"
+      ],
+      "max_depth": 5,
+      "preserve_provenance": true,
+      "allow_parallel_subgoals": true,
+      "verification_required": true
+    },
+    "counterfactual": {
+      "steps": [
+        "build_baseline",
+        "identify_intervention",
+        "freeze_unchanged_facts",
+        "propagate_changed_dependencies",
+        "compare_outcomes",
+        "mark_hypothetical",
+        "verify_no_baseline_leak",
+        "realize_difference"
+      ],
+      "max_depth": 6,
+      "preserve_provenance": true,
+      "allow_parallel_subgoals": false,
+      "verification_required": true
+    },
+    "temporal": {
+      "steps": [
+        "identify_events",
+        "resolve_time_expressions",
+        "build_order_graph",
+        "infer_safe_transitive_edges",
+        "detect_overlap",
+        "detect_conflict",
+        "preserve_unknown_order",
+        "realize_timeline"
+      ],
+      "max_depth": 5,
+      "preserve_provenance": true,
+      "allow_parallel_subgoals": false,
+      "verification_required": true
+    },
+    "multi_part": {
+      "steps": [
+        "segment_requests",
+        "preserve_dependencies",
+        "assign_subgoals",
+        "solve_each_subgoal",
+        "track_coverage",
+        "merge_shared_context",
+        "verify_all_parts",
+        "realize_ordered_answer"
+      ],
+      "max_depth": 5,
+      "preserve_provenance": true,
+      "allow_parallel_subgoals": true,
+      "verification_required": true
+    },
+    "reference_resolution": {
+      "steps": [
+        "detect_references",
+        "classify_reference_type",
+        "generate_candidates",
+        "apply_hard_constraints",
+        "score_semantics",
+        "score_dependencies",
+        "retain_ambiguity",
+        "commit_or_defer"
+      ],
+      "max_depth": 5,
+      "preserve_provenance": true,
+      "allow_parallel_subgoals": false,
+      "verification_required": true
+    },
+    "uncertainty": {
+      "steps": [
+        "localize_unknowns",
+        "separate_evidence_types",
+        "propagate_dependency_discounts",
+        "measure_branch_disagreement",
+        "measure_reference_ambiguity",
+        "measure_temporal_ambiguity",
+        "calibrate_answer_confidence"
+      ],
+      "max_depth": 5,
+      "preserve_provenance": true,
+      "allow_parallel_subgoals": false,
+      "verification_required": true
+    },
+    "contradiction": {
+      "steps": [
+        "normalize_claims",
+        "align_scope",
+        "align_time",
+        "align_units",
+        "detect_polarity_conflict",
+        "compare_evidence",
+        "preserve_unresolved_conflict",
+        "select_if_supported"
+      ],
+      "max_depth": 5,
+      "preserve_provenance": true,
+      "allow_parallel_subgoals": false,
+      "verification_required": true
+    },
+    "conversation": {
+      "steps": [
+        "identify_discourse_act",
+        "recover_focus",
+        "resolve_ellipsis",
+        "resolve_references",
+        "decide_response_intent",
+        "preserve_topic_or_shift_explicitly",
+        "realize_natural_response"
+      ],
+      "max_depth": 5,
+      "preserve_provenance": true,
+      "allow_parallel_subgoals": false,
+      "verification_required": true
+    },
+    "explanation": {
+      "steps": [
+        "identify_explanandum",
+        "choose_definition_or_mechanism_or_cause",
+        "build_dependency_order",
+        "select_detail_level",
+        "check_prerequisites",
+        "realize_coherent_explanation"
+      ],
+      "max_depth": 5,
+      "preserve_provenance": true,
+      "allow_parallel_subgoals": false,
+      "verification_required": true
+    },
+    "diagnostic": {
+      "steps": [
+        "identify_observed_failure",
+        "locate_pipeline_stage",
+        "collect_trace_evidence",
+        "generate_root_causes",
+        "rank_hypotheses",
+        "design_replay",
+        "compare_controls",
+        "promote_or_rollback"
+      ],
+      "max_depth": 6,
+      "preserve_provenance": true,
+      "allow_parallel_subgoals": true,
+      "verification_required": true
+    }
+  },
+  "Failure_Taxonomy": {
+    "missing_subject": {
+      "stage": "representation",
+      "target_metric": "proposition_coverage",
+      "severity": "medium",
+      "retryable": true,
+      "preserve_trace": true,
+      "requires_control_replay": false,
+      "recovery": [
+        "localize",
+        "rebuild_representation",
+        "rerun_targeted_reasoning",
+        "verify",
+        "compare_control"
+      ],
+      "do_not_fix_by": [
+        "candidate_breadth_reduction",
+        "knowledge_removal",
+        "branch_reduction"
+      ]
+    },
+    "missing_relation": {
+      "stage": "representation",
+      "target_metric": "proposition_coverage",
+      "severity": "medium",
+      "retryable": true,
+      "preserve_trace": true,
+      "requires_control_replay": false,
+      "recovery": [
+        "localize",
+        "rebuild_representation",
+        "rerun_targeted_reasoning",
+        "verify",
+        "compare_control"
+      ],
+      "do_not_fix_by": [
+        "candidate_breadth_reduction",
+        "knowledge_removal",
+        "branch_reduction"
+      ]
+    },
+    "missing_object": {
+      "stage": "representation",
+      "target_metric": "proposition_coverage",
+      "severity": "medium",
+      "retryable": true,
+      "preserve_trace": true,
+      "requires_control_replay": false,
+      "recovery": [
+        "localize",
+        "rebuild_representation",
+        "rerun_targeted_reasoning",
+        "verify",
+        "compare_control"
+      ],
+      "do_not_fix_by": [
+        "candidate_breadth_reduction",
+        "knowledge_removal",
+        "branch_reduction"
+      ]
+    },
+    "wrong_relation_family": {
+      "stage": "semantics",
+      "target_metric": "semantic_retrieval",
+      "severity": "medium",
+      "retryable": true,
+      "preserve_trace": true,
+      "requires_control_replay": false,
+      "recovery": [
+        "localize",
+        "rebuild_representation",
+        "rerun_targeted_reasoning",
+        "verify",
+        "compare_control"
+      ],
+      "do_not_fix_by": [
+        "candidate_breadth_reduction",
+        "knowledge_removal",
+        "branch_reduction"
+      ]
+    },
+    "relation_direction_reversed": {
+      "stage": "semantics",
+      "target_metric": "reasoning_selection",
+      "severity": "medium",
+      "retryable": true,
+      "preserve_trace": true,
+      "requires_control_replay": false,
+      "recovery": [
+        "localize",
+        "rebuild_representation",
+        "rerun_targeted_reasoning",
+        "verify",
+        "compare_control"
+      ],
+      "do_not_fix_by": [
+        "candidate_breadth_reduction",
+        "knowledge_removal",
+        "branch_reduction"
+      ]
+    },
+    "causal_without_mechanism": {
+      "stage": "reasoning",
+      "target_metric": "mechanism_completeness",
+      "severity": "medium",
+      "retryable": true,
+      "preserve_trace": true,
+      "requires_control_replay": true,
+      "recovery": [
+        "localize",
+        "rebuild_representation",
+        "rerun_targeted_reasoning",
+        "verify",
+        "compare_control"
+      ],
+      "do_not_fix_by": [
+        "candidate_breadth_reduction",
+        "knowledge_removal",
+        "branch_reduction"
+      ]
+    },
+    "correlation_as_cause": {
+      "stage": "reasoning",
+      "target_metric": "causal_reasoning",
+      "severity": "medium",
+      "retryable": true,
+      "preserve_trace": true,
+      "requires_control_replay": true,
+      "recovery": [
+        "localize",
+        "rebuild_representation",
+        "rerun_targeted_reasoning",
+        "verify",
+        "compare_control"
+      ],
+      "do_not_fix_by": [
+        "candidate_breadth_reduction",
+        "knowledge_removal",
+        "branch_reduction"
+      ]
+    },
+    "missing_mechanism_stage": {
+      "stage": "reasoning",
+      "target_metric": "mechanism_completeness",
+      "severity": "medium",
+      "retryable": true,
+      "preserve_trace": true,
+      "requires_control_replay": true,
+      "recovery": [
+        "localize",
+        "rebuild_representation",
+        "rerun_targeted_reasoning",
+        "verify",
+        "compare_control"
+      ],
+      "do_not_fix_by": [
+        "candidate_breadth_reduction",
+        "knowledge_removal",
+        "branch_reduction"
+      ]
+    },
+    "mechanism_order_error": {
+      "stage": "reasoning",
+      "target_metric": "temporal_reasoning",
+      "severity": "medium",
+      "retryable": true,
+      "preserve_trace": true,
+      "requires_control_replay": true,
+      "recovery": [
+        "localize",
+        "rebuild_representation",
+        "rerun_targeted_reasoning",
+        "verify",
+        "compare_control"
+      ],
+      "do_not_fix_by": [
+        "candidate_breadth_reduction",
+        "knowledge_removal",
+        "branch_reduction"
+      ]
+    },
+    "reference_unresolved": {
+      "stage": "reference",
+      "target_metric": "reference_resolution",
+      "severity": "medium",
+      "retryable": true,
+      "preserve_trace": true,
+      "requires_control_replay": true,
+      "recovery": [
+        "localize",
+        "rebuild_representation",
+        "rerun_targeted_reasoning",
+        "verify",
+        "compare_control"
+      ],
+      "do_not_fix_by": [
+        "candidate_breadth_reduction",
+        "knowledge_removal",
+        "branch_reduction"
+      ]
+    },
+    "reference_wrong_antecedent": {
+      "stage": "reference",
+      "target_metric": "reference_resolution",
+      "severity": "high",
+      "retryable": true,
+      "preserve_trace": true,
+      "requires_control_replay": true,
+      "recovery": [
+        "localize",
+        "rebuild_representation",
+        "rerun_targeted_reasoning",
+        "verify",
+        "compare_control"
+      ],
+      "do_not_fix_by": [
+        "candidate_breadth_reduction",
+        "knowledge_removal",
+        "branch_reduction"
+      ]
+    },
+    "reference_forced_under_ambiguity": {
+      "stage": "reference",
+      "target_metric": "uncertainty_localization",
+      "severity": "medium",
+      "retryable": true,
+      "preserve_trace": true,
+      "requires_control_replay": true,
+      "recovery": [
+        "localize",
+        "rebuild_representation",
+        "rerun_targeted_reasoning",
+        "verify",
+        "compare_control"
+      ],
+      "do_not_fix_by": [
+        "candidate_breadth_reduction",
+        "knowledge_removal",
+        "branch_reduction"
+      ]
+    },
+    "temporal_order_missing": {
+      "stage": "temporal",
+      "target_metric": "temporal_reasoning",
+      "severity": "medium",
+      "retryable": true,
+      "preserve_trace": true,
+      "requires_control_replay": true,
+      "recovery": [
+        "localize",
+        "rebuild_representation",
+        "rerun_targeted_reasoning",
+        "verify",
+        "compare_control"
+      ],
+      "do_not_fix_by": [
+        "candidate_breadth_reduction",
+        "knowledge_removal",
+        "branch_reduction"
+      ]
+    },
+    "temporal_order_conflict": {
+      "stage": "temporal",
+      "target_metric": "temporal_reasoning",
+      "severity": "medium",
+      "retryable": true,
+      "preserve_trace": true,
+      "requires_control_replay": true,
+      "recovery": [
+        "localize",
+        "rebuild_representation",
+        "rerun_targeted_reasoning",
+        "verify",
+        "compare_control"
+      ],
+      "do_not_fix_by": [
+        "candidate_breadth_reduction",
+        "knowledge_removal",
+        "branch_reduction"
+      ]
+    },
+    "aspect_mismatch": {
+      "stage": "temporal",
+      "target_metric": "temporal_reasoning",
+      "severity": "medium",
+      "retryable": true,
+      "preserve_trace": true,
+      "requires_control_replay": true,
+      "recovery": [
+        "localize",
+        "rebuild_representation",
+        "rerun_targeted_reasoning",
+        "verify",
+        "compare_control"
+      ],
+      "do_not_fix_by": [
+        "candidate_breadth_reduction",
+        "knowledge_removal",
+        "branch_reduction"
+      ]
+    },
+    "condition_dropped": {
+      "stage": "language",
+      "target_metric": "complex_language_coverage",
+      "severity": "medium",
+      "retryable": true,
+      "preserve_trace": true,
+      "requires_control_replay": false,
+      "recovery": [
+        "localize",
+        "rebuild_representation",
+        "rerun_targeted_reasoning",
+        "verify",
+        "compare_control"
+      ],
+      "do_not_fix_by": [
+        "candidate_breadth_reduction",
+        "knowledge_removal",
+        "branch_reduction"
+      ]
+    },
+    "negation_scope_lost": {
+      "stage": "language",
+      "target_metric": "complex_language_coverage",
+      "severity": "medium",
+      "retryable": true,
+      "preserve_trace": true,
+      "requires_control_replay": false,
+      "recovery": [
+        "localize",
+        "rebuild_representation",
+        "rerun_targeted_reasoning",
+        "verify",
+        "compare_control"
+      ],
+      "do_not_fix_by": [
+        "candidate_breadth_reduction",
+        "knowledge_removal",
+        "branch_reduction"
+      ]
+    },
+    "comparison_dimension_misaligned": {
+      "stage": "reasoning",
+      "target_metric": "comparison_reasoning",
+      "severity": "medium",
+      "retryable": true,
+      "preserve_trace": true,
+      "requires_control_replay": true,
+      "recovery": [
+        "localize",
+        "rebuild_representation",
+        "rerun_targeted_reasoning",
+        "verify",
+        "compare_control"
+      ],
+      "do_not_fix_by": [
+        "candidate_breadth_reduction",
+        "knowledge_removal",
+        "branch_reduction"
+      ]
+    },
+    "counterfactual_baseline_leak": {
+      "stage": "reasoning",
+      "target_metric": "counterfactual_reasoning",
+      "severity": "high",
+      "retryable": true,
+      "preserve_trace": true,
+      "requires_control_replay": true,
+      "recovery": [
+        "localize",
+        "rebuild_representation",
+        "rerun_targeted_reasoning",
+        "verify",
+        "compare_control"
+      ],
+      "do_not_fix_by": [
+        "candidate_breadth_reduction",
+        "knowledge_removal",
+        "branch_reduction"
+      ]
+    },
+    "multi_part_omission": {
+      "stage": "planning",
+      "target_metric": "multi_part_request_coverage",
+      "severity": "medium",
+      "retryable": true,
+      "preserve_trace": true,
+      "requires_control_replay": false,
+      "recovery": [
+        "localize",
+        "rebuild_representation",
+        "rerun_targeted_reasoning",
+        "verify",
+        "compare_control"
+      ],
+      "do_not_fix_by": [
+        "candidate_breadth_reduction",
+        "knowledge_removal",
+        "branch_reduction"
+      ]
+    },
+    "semantic_drift": {
+      "stage": "semantics",
+      "target_metric": "semantic_drift",
+      "severity": "medium",
+      "retryable": true,
+      "preserve_trace": true,
+      "requires_control_replay": false,
+      "recovery": [
+        "localize",
+        "rebuild_representation",
+        "rerun_targeted_reasoning",
+        "verify",
+        "compare_control"
+      ],
+      "do_not_fix_by": [
+        "candidate_breadth_reduction",
+        "knowledge_removal",
+        "branch_reduction"
+      ]
+    },
+    "unsupported_claim": {
+      "stage": "verification",
+      "target_metric": "claim_consistency",
+      "severity": "high",
+      "retryable": true,
+      "preserve_trace": true,
+      "requires_control_replay": false,
+      "recovery": [
+        "localize",
+        "rebuild_representation",
+        "rerun_targeted_reasoning",
+        "verify",
+        "compare_control"
+      ],
+      "do_not_fix_by": [
+        "candidate_breadth_reduction",
+        "knowledge_removal",
+        "branch_reduction"
+      ]
+    },
+    "contradiction_unresolved": {
+      "stage": "verification",
+      "target_metric": "claim_consistency",
+      "severity": "high",
+      "retryable": true,
+      "preserve_trace": true,
+      "requires_control_replay": false,
+      "recovery": [
+        "localize",
+        "rebuild_representation",
+        "rerun_targeted_reasoning",
+        "verify",
+        "compare_control"
+      ],
+      "do_not_fix_by": [
+        "candidate_breadth_reduction",
+        "knowledge_removal",
+        "branch_reduction"
+      ]
+    },
+    "uncertainty_overstated": {
+      "stage": "calibration",
+      "target_metric": "uncertainty_localization",
+      "severity": "medium",
+      "retryable": true,
+      "preserve_trace": true,
+      "requires_control_replay": false,
+      "recovery": [
+        "localize",
+        "rebuild_representation",
+        "rerun_targeted_reasoning",
+        "verify",
+        "compare_control"
+      ],
+      "do_not_fix_by": [
+        "candidate_breadth_reduction",
+        "knowledge_removal",
+        "branch_reduction"
+      ]
+    },
+    "uncertainty_hidden": {
+      "stage": "calibration",
+      "target_metric": "uncertainty_localization",
+      "severity": "medium",
+      "retryable": true,
+      "preserve_trace": true,
+      "requires_control_replay": false,
+      "recovery": [
+        "localize",
+        "rebuild_representation",
+        "rerun_targeted_reasoning",
+        "verify",
+        "compare_control"
+      ],
+      "do_not_fix_by": [
+        "candidate_breadth_reduction",
+        "knowledge_removal",
+        "branch_reduction"
+      ]
+    },
+    "sentence_merge_hides_relation": {
+      "stage": "generation",
+      "target_metric": "surface_grammar",
+      "severity": "medium",
+      "retryable": true,
+      "preserve_trace": true,
+      "requires_control_replay": false,
+      "recovery": [
+        "localize",
+        "rebuild_representation",
+        "rerun_targeted_reasoning",
+        "verify",
+        "compare_control"
+      ],
+      "do_not_fix_by": [
+        "candidate_breadth_reduction",
+        "knowledge_removal",
+        "branch_reduction"
+      ]
+    },
+    "dangling_dependency": {
+      "stage": "generation",
+      "target_metric": "surface_grammar",
+      "severity": "medium",
+      "retryable": true,
+      "preserve_trace": true,
+      "requires_control_replay": false,
+      "recovery": [
+        "localize",
+        "rebuild_representation",
+        "rerun_targeted_reasoning",
+        "verify",
+        "compare_control"
+      ],
+      "do_not_fix_by": [
+        "candidate_breadth_reduction",
+        "knowledge_removal",
+        "branch_reduction"
+      ]
+    },
+    "bridge_collision": {
+      "stage": "generation",
+      "target_metric": "surface_grammar",
+      "severity": "medium",
+      "retryable": true,
+      "preserve_trace": true,
+      "requires_control_replay": false,
+      "recovery": [
+        "localize",
+        "rebuild_representation",
+        "rerun_targeted_reasoning",
+        "verify",
+        "compare_control"
+      ],
+      "do_not_fix_by": [
+        "candidate_breadth_reduction",
+        "knowledge_removal",
+        "branch_reduction"
+      ]
+    },
+    "repeated_connector": {
+      "stage": "generation",
+      "target_metric": "surface_grammar",
+      "severity": "medium",
+      "retryable": true,
+      "preserve_trace": true,
+      "requires_control_replay": false,
+      "recovery": [
+        "localize",
+        "rebuild_representation",
+        "rerun_targeted_reasoning",
+        "verify",
+        "compare_control"
+      ],
+      "do_not_fix_by": [
+        "candidate_breadth_reduction",
+        "knowledge_removal",
+        "branch_reduction"
+      ]
+    },
+    "terminal_fragment": {
+      "stage": "generation",
+      "target_metric": "surface_grammar",
+      "severity": "medium",
+      "retryable": true,
+      "preserve_trace": true,
+      "requires_control_replay": false,
+      "recovery": [
+        "localize",
+        "rebuild_representation",
+        "rerun_targeted_reasoning",
+        "verify",
+        "compare_control"
+      ],
+      "do_not_fix_by": [
+        "candidate_breadth_reduction",
+        "knowledge_removal",
+        "branch_reduction"
+      ]
+    },
+    "replay_overfit": {
+      "stage": "learning",
+      "target_metric": "control_regression",
+      "severity": "medium",
+      "retryable": true,
+      "preserve_trace": true,
+      "requires_control_replay": true,
+      "recovery": [
+        "localize",
+        "rebuild_representation",
+        "rerun_targeted_reasoning",
+        "verify",
+        "compare_control"
+      ],
+      "do_not_fix_by": [
+        "candidate_breadth_reduction",
+        "knowledge_removal",
+        "branch_reduction"
+      ]
+    },
+    "strategy_regression": {
+      "stage": "learning",
+      "target_metric": "control_regression",
+      "severity": "medium",
+      "retryable": true,
+      "preserve_trace": true,
+      "requires_control_replay": true,
+      "recovery": [
+        "localize",
+        "rebuild_representation",
+        "rerun_targeted_reasoning",
+        "verify",
+        "compare_control"
+      ],
+      "do_not_fix_by": [
+        "candidate_breadth_reduction",
+        "knowledge_removal",
+        "branch_reduction"
+      ]
+    },
+    "insufficient_replay_diversity": {
+      "stage": "learning",
+      "target_metric": "replay_curriculum",
+      "severity": "medium",
+      "retryable": true,
+      "preserve_trace": true,
+      "requires_control_replay": true,
+      "recovery": [
+        "localize",
+        "rebuild_representation",
+        "rerun_targeted_reasoning",
+        "verify",
+        "compare_control"
+      ],
+      "do_not_fix_by": [
+        "candidate_breadth_reduction",
+        "knowledge_removal",
+        "branch_reduction"
+      ]
+    },
+    "premature_convergence": {
+      "stage": "cognition",
+      "target_metric": "cognitive_convergence",
+      "severity": "medium",
+      "retryable": true,
+      "preserve_trace": true,
+      "requires_control_replay": false,
+      "recovery": [
+        "localize",
+        "rebuild_representation",
+        "rerun_targeted_reasoning",
+        "verify",
+        "compare_control"
+      ],
+      "do_not_fix_by": [
+        "candidate_breadth_reduction",
+        "knowledge_removal",
+        "branch_reduction"
+      ]
+    },
+    "low_gain_loop": {
+      "stage": "cognition",
+      "target_metric": "cognitive_convergence",
+      "severity": "medium",
+      "retryable": true,
+      "preserve_trace": true,
+      "requires_control_replay": false,
+      "recovery": [
+        "localize",
+        "rebuild_representation",
+        "rerun_targeted_reasoning",
+        "verify",
+        "compare_control"
+      ],
+      "do_not_fix_by": [
+        "candidate_breadth_reduction",
+        "knowledge_removal",
+        "branch_reduction"
+      ]
+    },
+    "branch_collapse": {
+      "stage": "cognition",
+      "target_metric": "reasoning_selection",
+      "severity": "medium",
+      "retryable": true,
+      "preserve_trace": true,
+      "requires_control_replay": false,
+      "recovery": [
+        "localize",
+        "rebuild_representation",
+        "rerun_targeted_reasoning",
+        "verify",
+        "compare_control"
+      ],
+      "do_not_fix_by": [
+        "candidate_breadth_reduction",
+        "knowledge_removal",
+        "branch_reduction"
+      ]
+    }
+  },
+  "Inference_Contracts": {
+    "serial_chain": {
+      "combine": "multiplicative_with_floor",
+      "floor": 0.28,
+      "max_hops": 6,
+      "require_relation_compatibility": true
+    },
+    "parallel_support": {
+      "combine": "noisy_or",
+      "cap": 0.98,
+      "require_independent_sources_when_claimed_independent": true
+    },
+    "contradictory_support": {
+      "combine": "preserve_both_until_resolved",
+      "penalty": 0.22,
+      "do_not_average_away_conflict": true
+    },
+    "reference_dependency": {
+      "combine": "multiply_by_reference_confidence",
+      "floor": 0.2,
+      "allow_later_revision": true
+    },
+    "temporal_dependency": {
+      "combine": "multiply_by_temporal_confidence",
+      "floor": 0.24,
+      "block_if_order_contradiction": true
+    },
+    "counterfactual": {
+      "combine": "mark_hypothetical",
+      "confidence_cap_without_model": 0.72,
+      "keep_baseline_separate": true
+    },
+    "analogy": {
+      "combine": "discount",
+      "discount": 0.24,
+      "cannot_be_sole_support_for_strong_claim": true
+    },
+    "hypothesis": {
+      "combine": "discount",
+      "discount": 0.32,
+      "requires_label": true
+    }
+  },
+  "Verification_Checks": [
+    {
+      "id": "subject_coverage",
+      "scope": "proposition",
+      "required": true,
+      "fail": "proposition-coverage"
+    },
+    {
+      "id": "relation_direction",
+      "scope": "relation",
+      "required": true,
+      "fail": "reasoning-selection"
+    },
+    {
+      "id": "object_coverage",
+      "scope": "proposition",
+      "required": false,
+      "fail": "proposition-coverage"
+    },
+    {
+      "id": "condition_preservation",
+      "scope": "dependency",
+      "required": true,
+      "fail": "complex-language-coverage"
+    },
+    {
+      "id": "negation_preservation",
+      "scope": "dependency",
+      "required": true,
+      "fail": "complex-language-coverage"
+    },
+    {
+      "id": "reference_resolution",
+      "scope": "reference",
+      "required": true,
+      "fail": "reference-or-dependency-resolution"
+    },
+    {
+      "id": "temporal_consistency",
+      "scope": "temporal",
+      "required": true,
+      "fail": "temporal-reasoning"
+    },
+    {
+      "id": "mechanism_stage_coverage",
+      "scope": "mechanism",
+      "required": true,
+      "fail": "mechanism-completeness"
+    },
+    {
+      "id": "multi_part_coverage",
+      "scope": "request",
+      "required": true,
+      "fail": "multi-part-request-coverage"
+    },
+    {
+      "id": "contradiction_safety",
+      "scope": "claim",
+      "required": true,
+      "fail": "claim-consistency"
+    },
+    {
+      "id": "uncertainty_localization",
+      "scope": "confidence",
+      "required": true,
+      "fail": "uncertainty-localization"
+    },
+    {
+      "id": "semantic_drift",
+      "scope": "answer",
+      "required": true,
+      "fail": "semantic-drift"
+    },
+    {
+      "id": "terminal_completeness",
+      "scope": "surface",
+      "required": true,
+      "fail": "surface-grammar"
+    },
+    {
+      "id": "bridge_integrity",
+      "scope": "surface",
+      "required": true,
+      "fail": "surface-grammar"
+    }
+  ]
+}

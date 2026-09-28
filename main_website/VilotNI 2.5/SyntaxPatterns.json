@@ -1,0 +1,259 @@
+{
+  "Schema_Version": 1,
+  "Role": "Clause-aware final syntax rules and bridge constraints. These rules may repair form but must not invent semantic content.",
+  "Function_Words": {
+    "determiners": [
+      "a",
+      "an",
+      "the",
+      "this",
+      "that",
+      "these",
+      "those",
+      "some",
+      "any",
+      "each",
+      "every"
+    ],
+    "auxiliaries": [
+      "is",
+      "am",
+      "are",
+      "was",
+      "were",
+      "be",
+      "been",
+      "being",
+      "do",
+      "does",
+      "did",
+      "have",
+      "has",
+      "had"
+    ],
+    "modals": [
+      "can",
+      "could",
+      "may",
+      "might",
+      "must",
+      "shall",
+      "should",
+      "will",
+      "would"
+    ],
+    "coordinators": [
+      "and",
+      "but",
+      "or",
+      "nor",
+      "yet",
+      "so"
+    ],
+    "subordinators": [
+      "because",
+      "if",
+      "unless",
+      "although",
+      "though",
+      "while",
+      "after",
+      "before",
+      "when",
+      "whereas",
+      "since",
+      "until",
+      "once"
+    ],
+    "prepositions": [
+      "of",
+      "to",
+      "in",
+      "on",
+      "at",
+      "for",
+      "from",
+      "with",
+      "without",
+      "by",
+      "through",
+      "into",
+      "onto",
+      "over",
+      "under",
+      "between",
+      "among",
+      "during",
+      "before",
+      "after",
+      "as",
+      "than"
+    ]
+  },
+  "Bridge_Map": {
+    "definition": [
+      "is"
+    ],
+    "purpose": [
+      "is used to",
+      "helps",
+      "allows"
+    ],
+    "mechanism": [
+      "works through",
+      "uses",
+      "does this by"
+    ],
+    "capability": [
+      "can"
+    ],
+    "limitation": [
+      "is limited by",
+      "cannot when"
+    ],
+    "part_of": [
+      "is part of"
+    ],
+    "has_part": [
+      "includes"
+    ],
+    "cause": [
+      "is caused by",
+      "happens because"
+    ],
+    "effect": [
+      "can lead to",
+      "produces"
+    ],
+    "contrast": [
+      "differs from"
+    ],
+    "example": [
+      "examples include"
+    ],
+    "property": [
+      "has"
+    ],
+    "condition": [
+      "if"
+    ],
+    "result": [
+      "so"
+    ],
+    "sequence": [
+      "then"
+    ],
+    "feedback": [
+      "feeds back into",
+      "returns to"
+    ],
+    "relation": [
+      "is related to"
+    ]
+  },
+  "Connector_Map": {
+    "cause": "because",
+    "result": "so",
+    "condition": "if",
+    "negative_condition": "unless",
+    "temporal_after": "after",
+    "temporal_before": "before",
+    "temporal_condition": "when",
+    "contrast": "but",
+    "concession": "although",
+    "comparison": "while",
+    "difference": "whereas",
+    "similarity": "and",
+    "addition": "and",
+    "alternative": "or",
+    "purpose": "so that",
+    "sequence": "then",
+    "elaboration": "and",
+    "evidence": "because"
+  },
+  "Clause_Order": {
+    "condition": [
+      "condition",
+      "main"
+    ],
+    "cause": [
+      "effect",
+      "cause"
+    ],
+    "purpose": [
+      "action",
+      "goal"
+    ],
+    "temporal_before": [
+      "earlier",
+      "later"
+    ],
+    "temporal_after": [
+      "later",
+      "earlier"
+    ],
+    "contrast": [
+      "left",
+      "right"
+    ],
+    "comparison": [
+      "left",
+      "right"
+    ]
+  },
+  "Repairs": {
+    "duplicate_function_word": true,
+    "bridge_collision": true,
+    "article_agreement": true,
+    "punctuation_spacing": true,
+    "terminal_punctuation": true,
+    "comma_before_coordinator_for_independent_clauses": true,
+    "avoid_comma_before_restrictive_that": true,
+    "repair_dangling_connector": true,
+    "repair_repeated_connector": true,
+    "preserve_negation_scope": true,
+    "preserve_complex_connectors": true
+  },
+  "Terminal_Invalid": [
+    "because",
+    "if",
+    "unless",
+    "although",
+    "though",
+    "while",
+    "after",
+    "before",
+    "when",
+    "whereas",
+    "since",
+    "until",
+    "of",
+    "to",
+    "in",
+    "on",
+    "at",
+    "for",
+    "from",
+    "with",
+    "by",
+    "through",
+    "a",
+    "an",
+    "the",
+    "can",
+    "could",
+    "will",
+    "would",
+    "should",
+    "may",
+    "might",
+    "must"
+  ],
+  "Semantic_Safety": {
+    "may_insert_only_function_words_or_inflectional_agreement": true,
+    "may_delete_duplicate_function_words": true,
+    "may_reorder_content_words": false,
+    "may_invent_content_word": false
+  },
+  "Build": "25-system-35"
+}

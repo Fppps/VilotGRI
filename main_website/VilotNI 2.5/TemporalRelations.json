@@ -1,0 +1,173 @@
+{
+  "Schema_Version": 1,
+  "Role": "Temporal relation ontology, cue lexicon, interval logic, tense/aspect hints, and safe inference rules.",
+  "Relations": {
+    "before": {
+      "inverse": "after",
+      "transitive": true,
+      "symmetric": false
+    },
+    "after": {
+      "inverse": "before",
+      "transitive": true,
+      "symmetric": false
+    },
+    "meets": {
+      "inverse": "met-by",
+      "transitive": false
+    },
+    "met-by": {
+      "inverse": "meets",
+      "transitive": false
+    },
+    "overlaps": {
+      "inverse": "overlapped-by",
+      "symmetric": false
+    },
+    "overlapped-by": {
+      "inverse": "overlaps"
+    },
+    "during": {
+      "inverse": "contains-time",
+      "transitive": false
+    },
+    "contains-time": {
+      "inverse": "during"
+    },
+    "starts": {
+      "inverse": "started-by"
+    },
+    "started-by": {
+      "inverse": "starts"
+    },
+    "finishes": {
+      "inverse": "finished-by"
+    },
+    "finished-by": {
+      "inverse": "finishes"
+    },
+    "simultaneous": {
+      "inverse": "simultaneous",
+      "symmetric": true,
+      "transitive": true
+    },
+    "until": {
+      "family": "boundary"
+    },
+    "since": {
+      "family": "boundary"
+    },
+    "continues": {
+      "family": "aspect"
+    },
+    "repeats": {
+      "family": "frequency"
+    }
+  },
+  "Cues": {
+    "before": [
+      "before",
+      "earlier",
+      "previously",
+      "prior to",
+      "at first"
+    ],
+    "after": [
+      "after",
+      "later",
+      "then",
+      "subsequently",
+      "once",
+      "eventually"
+    ],
+    "simultaneous": [
+      "simultaneously",
+      "at the same time"
+    ],
+    "overlaps": [
+      "while",
+      "during",
+      "as"
+    ],
+    "since": [
+      "since"
+    ],
+    "until": [
+      "until",
+      "up to"
+    ],
+    "continues": [
+      "continues",
+      "keeps",
+      "still"
+    ],
+    "repeats": [
+      "repeatedly",
+      "again",
+      "every",
+      "each"
+    ]
+  },
+  "Aspect": {
+    "ongoing": [
+      "is *ing",
+      "continues",
+      "still"
+    ],
+    "completed": [
+      "has",
+      "had",
+      "completed",
+      "finished"
+    ],
+    "habitual": [
+      "usually",
+      "often",
+      "every",
+      "typically"
+    ],
+    "inceptive": [
+      "began",
+      "started"
+    ],
+    "cessative": [
+      "stopped",
+      "ended"
+    ]
+  },
+  "Frequency": {
+    "always": 1.0,
+    "usually": 0.8,
+    "often": 0.65,
+    "sometimes": 0.45,
+    "occasionally": 0.3,
+    "rarely": 0.15,
+    "never": 0.0
+  },
+  "Inference": {
+    "transitive_before_after": true,
+    "simultaneous_is_symmetric": true,
+    "overlap_does_not_imply_order": true,
+    "during_does_not_imply_same_start": true,
+    "avoid_inference_across_uncertain_event_identity": true,
+    "max_transitive_hops": 4
+  },
+  "Freshness": {
+    "timeless_markers": [
+      "timeless",
+      "definition",
+      "mathematical",
+      "structural"
+    ],
+    "rapid_change_markers": [
+      "current",
+      "latest",
+      "today",
+      "now",
+      "version",
+      "status"
+    ],
+    "default_half_life_ms": 604800000
+  },
+  "Build": "25-system-35"
+}

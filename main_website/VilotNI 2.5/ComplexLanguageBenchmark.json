@@ -1,0 +1,348 @@
+{
+  "Schema_Version": 1,
+  "Build": "25-system-35",
+  "Role": "Parser and reasoning regression prompts for complex-language structure. Prompts contain no stored answer text.",
+  "Case_Count": 40,
+  "Cases": [
+    {
+      "category": "embedded-question",
+      "prompt": "Explain how VilotNI 2.5 improves itself over time.",
+      "expected_requested_roles": [
+        "mechanism"
+      ],
+      "expected_features": [
+        "embeddedQuestion"
+      ]
+    },
+    {
+      "category": "embedded-question",
+      "prompt": "Explain how a neural network changes its weights after it receives an error signal.",
+      "expected_requested_roles": [
+        "mechanism"
+      ],
+      "expected_features": [
+        "embeddedQuestion"
+      ]
+    },
+    {
+      "category": "embedded-question",
+      "prompt": "Describe why a model can be confident even when its answer is wrong.",
+      "expected_requested_roles": [
+        "mechanism"
+      ],
+      "expected_features": [
+        "embeddedQuestion"
+      ]
+    },
+    {
+      "category": "embedded-question",
+      "prompt": "Show how a system learns from feedback while keeping previous knowledge.",
+      "expected_requested_roles": [
+        "mechanism"
+      ],
+      "expected_features": [
+        "embeddedQuestion"
+      ]
+    },
+    {
+      "category": "embedded-question",
+      "prompt": "Explain what happens when a candidate is rejected before the final response is formed.",
+      "expected_requested_roles": [
+        "mechanism"
+      ],
+      "expected_features": [
+        "embeddedQuestion"
+      ]
+    },
+    {
+      "category": "conditional",
+      "prompt": "If the model already knows two concepts are related, how should it decide whether that relationship is useful for the current question?",
+      "expected_requested_roles": [],
+      "expected_features": [
+        "conditional",
+        "multiClause"
+      ]
+    },
+    {
+      "category": "conditional",
+      "prompt": "If a response fails verification, why should the system reconsider its reasoning path?",
+      "expected_requested_roles": [],
+      "expected_features": [
+        "conditional",
+        "multiClause"
+      ]
+    },
+    {
+      "category": "conditional",
+      "prompt": "Unless the evidence supports a claim, how should the model handle it?",
+      "expected_requested_roles": [],
+      "expected_features": [
+        "conditional",
+        "multiClause"
+      ]
+    },
+    {
+      "category": "conditional",
+      "prompt": "Provided that the context remains relevant, how can a later message reuse the earlier subject?",
+      "expected_requested_roles": [],
+      "expected_features": [
+        "conditional",
+        "multiClause"
+      ]
+    },
+    {
+      "category": "conditional",
+      "prompt": "If confidence rises while evidence stays weak, what should happen to the reported certainty?",
+      "expected_requested_roles": [],
+      "expected_features": [
+        "conditional",
+        "multiClause"
+      ]
+    },
+    {
+      "category": "temporal",
+      "prompt": "Explain how VilotNI 2.5 changes its reasoning after it notices that a previous response was weak.",
+      "expected_requested_roles": [],
+      "expected_features": [
+        "temporal",
+        "multiClause"
+      ]
+    },
+    {
+      "category": "temporal",
+      "prompt": "Why can an answer change after new evidence is added?",
+      "expected_requested_roles": [],
+      "expected_features": [
+        "temporal",
+        "multiClause"
+      ]
+    },
+    {
+      "category": "temporal",
+      "prompt": "Describe what happens before a final candidate is selected.",
+      "expected_requested_roles": [],
+      "expected_features": [
+        "temporal",
+        "multiClause"
+      ]
+    },
+    {
+      "category": "temporal",
+      "prompt": "Explain how memory can affect a later response while the conversation continues.",
+      "expected_requested_roles": [],
+      "expected_features": [
+        "temporal",
+        "multiClause"
+      ]
+    },
+    {
+      "category": "temporal",
+      "prompt": "After the model resolves a reference, how does that change the active proposition graph?",
+      "expected_requested_roles": [],
+      "expected_features": [
+        "temporal",
+        "multiClause"
+      ]
+    },
+    {
+      "category": "comparison",
+      "prompt": "Compare how VilotNI 1.5 learns from responses with how VilotNI 2.5 evaluates its own reasoning over time.",
+      "expected_requested_roles": [],
+      "expected_features": [
+        "comparison"
+      ]
+    },
+    {
+      "category": "comparison",
+      "prompt": "Explain why two systems can use similar data but produce different answers.",
+      "expected_requested_roles": [],
+      "expected_features": [
+        "comparison"
+      ]
+    },
+    {
+      "category": "comparison",
+      "prompt": "Compare semantic association with causal reasoning and explain when each is useful.",
+      "expected_requested_roles": [],
+      "expected_features": [
+        "comparison"
+      ]
+    },
+    {
+      "category": "comparison",
+      "prompt": "Why can a model be faster than another model while still using a more complex reasoning process?",
+      "expected_requested_roles": [],
+      "expected_features": [
+        "comparison"
+      ]
+    },
+    {
+      "category": "comparison",
+      "prompt": "Describe the difference between a keyword relationship and a proposition relationship.",
+      "expected_requested_roles": [],
+      "expected_features": [
+        "comparison"
+      ]
+    },
+    {
+      "category": "negation-and-contrast",
+      "prompt": "Explain why increasing candidate confidence does not necessarily mean that the model understands the user better.",
+      "expected_requested_roles": [],
+      "expected_features": [
+        "multiClause"
+      ]
+    },
+    {
+      "category": "negation-and-contrast",
+      "prompt": "Why should the model not treat correlation as proof of causation?",
+      "expected_requested_roles": [],
+      "expected_features": [
+        "negation"
+      ]
+    },
+    {
+      "category": "negation-and-contrast",
+      "prompt": "Explain how a system can avoid losing the subject when it does not repeat the subject in every clause.",
+      "expected_requested_roles": [],
+      "expected_features": [
+        "multiClause"
+      ]
+    },
+    {
+      "category": "negation-and-contrast",
+      "prompt": "Describe why an answer can be grammatically valid but still fail to address the question.",
+      "expected_requested_roles": [],
+      "expected_features": [
+        "multiClause"
+      ]
+    },
+    {
+      "category": "negation-and-contrast",
+      "prompt": "Why would a model that has strong semantic associations still give a poor answer when the question contains several dependent clauses?",
+      "expected_requested_roles": [],
+      "expected_features": [
+        "multiClause"
+      ]
+    },
+    {
+      "category": "coordination",
+      "prompt": "A model revises its answer after it checks the evidence, but it keeps the parts that were already supported.",
+      "expected_requested_roles": [],
+      "expected_features": [
+        "multiClause"
+      ]
+    },
+    {
+      "category": "coordination",
+      "prompt": "The system finds a relation, and then it checks whether that relation belongs to the current question.",
+      "expected_requested_roles": [],
+      "expected_features": [
+        "multiClause"
+      ]
+    },
+    {
+      "category": "coordination",
+      "prompt": "The model can use the graph while it also keeps track of the clause that introduced each concept.",
+      "expected_requested_roles": [],
+      "expected_features": [
+        "multiClause"
+      ]
+    },
+    {
+      "category": "coordination",
+      "prompt": "The first branch explains the mechanism, whereas the second branch focuses on the cause.",
+      "expected_requested_roles": [],
+      "expected_features": [
+        "multiClause"
+      ]
+    },
+    {
+      "category": "coordination",
+      "prompt": "The response can be concise, but it still needs to preserve every requested relation.",
+      "expected_requested_roles": [],
+      "expected_features": [
+        "multiClause"
+      ]
+    },
+    {
+      "category": "reference-resolution",
+      "prompt": "VilotNI 2.5 evaluates itself after it generates a response.",
+      "expected_requested_roles": [],
+      "expected_features": [
+        "multiClause"
+      ]
+    },
+    {
+      "category": "reference-resolution",
+      "prompt": "The model changes its reasoning when it notices that it missed part of the question.",
+      "expected_requested_roles": [],
+      "expected_features": [
+        "multiClause"
+      ]
+    },
+    {
+      "category": "reference-resolution",
+      "prompt": "A system can reuse its previous subject if the next sentence refers to it.",
+      "expected_requested_roles": [],
+      "expected_features": [
+        "multiClause"
+      ]
+    },
+    {
+      "category": "reference-resolution",
+      "prompt": "The model compared two hypotheses, and it rejected the one that contradicted its evidence.",
+      "expected_requested_roles": [],
+      "expected_features": [
+        "multiClause"
+      ]
+    },
+    {
+      "category": "reference-resolution",
+      "prompt": "The process updates itself only after its evaluation shows a consistent improvement.",
+      "expected_requested_roles": [],
+      "expected_features": [
+        "multiClause"
+      ]
+    },
+    {
+      "category": "nested-mixed",
+      "prompt": "Explain how the system that ranks candidates interacts with the component that verifies claims before the answer is shown.",
+      "expected_requested_roles": [],
+      "expected_features": [
+        "multiClause"
+      ]
+    },
+    {
+      "category": "nested-mixed",
+      "prompt": "If a user asks why a process changes after another process runs, explain both the causal relationship and the event order.",
+      "expected_requested_roles": [],
+      "expected_features": [
+        "multiClause"
+      ]
+    },
+    {
+      "category": "nested-mixed",
+      "prompt": "Compare two reasoning paths, explain why one is stronger, and describe what evidence caused the difference.",
+      "expected_requested_roles": [],
+      "expected_features": [
+        "multiClause"
+      ]
+    },
+    {
+      "category": "nested-mixed",
+      "prompt": "Explain how a model can preserve an embedded question inside a larger request without reducing the request to keywords.",
+      "expected_requested_roles": [],
+      "expected_features": [
+        "multiClause"
+      ]
+    },
+    {
+      "category": "nested-mixed",
+      "prompt": "Describe how a proposition graph can preserve condition, cause, time, and reference information while semantic associations still expand related concepts.",
+      "expected_requested_roles": [],
+      "expected_features": [
+        "multiClause"
+      ]
+    }
+  ]
+}

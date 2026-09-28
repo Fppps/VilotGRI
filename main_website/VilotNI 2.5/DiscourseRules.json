@@ -1,0 +1,109 @@
+{
+  "Schema_Version": 1,
+  "Build": "25-system-35",
+  "Role": "Generic discourse-act and multi-part request rules for long prompts.",
+  "Acts": {
+    "explain": {
+      "cues": [
+        "explain",
+        "how",
+        "why"
+      ],
+      "answer_shape": [
+        "claim",
+        "mechanism_or_cause",
+        "result"
+      ]
+    },
+    "compare": {
+      "cues": [
+        "compare",
+        "difference",
+        "similar",
+        "whereas",
+        "than"
+      ],
+      "answer_shape": [
+        "left",
+        "right",
+        "relationship"
+      ]
+    },
+    "analyze": {
+      "cues": [
+        "analyze",
+        "evaluate",
+        "assess"
+      ],
+      "answer_shape": [
+        "subject",
+        "evidence",
+        "interpretation"
+      ]
+    },
+    "describe": {
+      "cues": [
+        "describe",
+        "what"
+      ],
+      "answer_shape": [
+        "identity",
+        "properties",
+        "relations"
+      ]
+    },
+    "conditional": {
+      "cues": [
+        "if",
+        "unless",
+        "provided that"
+      ],
+      "answer_shape": [
+        "condition",
+        "consequence"
+      ]
+    },
+    "causal": {
+      "cues": [
+        "why",
+        "because",
+        "cause"
+      ],
+      "answer_shape": [
+        "effect",
+        "cause",
+        "mechanism"
+      ]
+    },
+    "mechanism": {
+      "cues": [
+        "how",
+        "works",
+        "process"
+      ],
+      "answer_shape": [
+        "subject",
+        "steps",
+        "result"
+      ]
+    }
+  },
+  "Multi_Request_Connectors": [
+    "and",
+    "also",
+    "then",
+    "while",
+    "but",
+    "as well as"
+  ],
+  "Preserve_All_Requested_Roles": true,
+  "Maximum_Explicit_Subrequests": 8,
+  "Response_Coverage": {
+    "require_main_request": true,
+    "require_high_priority_subrequests": true,
+    "penalize_missing_condition": 0.18,
+    "penalize_missing_comparison_side": 0.2,
+    "penalize_missing_embedded_request": 0.22,
+    "penalize_unresolved_reference": 0.16
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "Schema_Version": 1,
+  "Build": "25-system-35",
+  "Description": "Development benchmark for structured reasoning. Prompts are test cases, not canned answer data.",
+  "Cases": [
+    {"id":"m01","category":"mechanism","prompt":"How does a neural network learn from prediction error?","expected":["mechanism","causal","multi-stage"]},
+    {"id":"m02","category":"mechanism","prompt":"Explain how a system can evaluate a result, change a strategy, and test the change again.","expected":["mechanism","feedback"]},
+    {"id":"m03","category":"mechanism","prompt":"How does VilotNI 2.5 improve itself over time?","expected":["mechanism","temporal","self-model"]},
+    {"id":"m04","category":"mechanism","prompt":"How do semantic associations influence candidate search?","expected":["mechanism","relation-chain"]},
+    {"id":"c01","category":"causal","prompt":"Why can a model with correct facts still answer the wrong question?","expected":["cause","contrast"]},
+    {"id":"c02","category":"causal","prompt":"Why can higher confidence fail to mean better understanding?","expected":["cause","epistemic"]},
+    {"id":"x01","category":"complex-language","prompt":"If the model notices that a previous answer was weak, explain how it could change its reasoning without forgetting what it already learned.","expected":["condition","embedded-mechanism","negation-scope"]},
+    {"id":"x02","category":"complex-language","prompt":"Compare how a model learns from an error with how it decides whether a later answer is actually better.","expected":["comparison","multi-clause"]},
+    {"id":"x03","category":"complex-language","prompt":"Explain why a relationship that is useful in one conversation might not be useful when the subject changes.","expected":["cause","context","reference"]},
+    {"id":"cf01","category":"counterfactual","prompt":"What if the candidate ranker stopped using semantic support?","expected":["counterfactual","baseline-vs-modified"]},
+    {"id":"cf02","category":"counterfactual","prompt":"If confidence weighting were reduced, what would change in candidate selection?","expected":["counterfactual","causal"]},
+    {"id":"r01","category":"reference","prompt":"A model evaluates an answer after it generates it. How can it use that result to improve itself?","expected":["coreference","mechanism"]},
+    {"id":"r02","category":"reference","prompt":"VilotNI 2.5 and VilotNI 2 both search candidates, but the former uses additional reasoning states. How does that affect its process?","expected":["coreference","comparison"]},
+    {"id":"q01","category":"quality","prompt":"Explain the process, include what starts it, what changes internally, and what result comes out.","expected":["multi-part","mechanism-completeness"]},
+    {"id":"q02","category":"contradiction","prompt":"If one reasoning branch supports a claim while another contradicts it, how should the system decide what to say?","expected":["contradiction","evidence-comparison"]}
+  ]
+}

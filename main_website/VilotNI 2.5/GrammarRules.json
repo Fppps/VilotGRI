@@ -1,0 +1,5575 @@
+{
+  "Schema_Version": 6,
+  "Build": "25-system-37",
+  "Role": "Evolved structural grammar ontology for VilotNI 2.5. Shared by decoding, realization, smoothing, composition and coherence auditing.",
+  "Design_Principles": {
+    "semantic_preservation": true,
+    "grammar_is_constraint_not_answer_source": true,
+    "prefer_structural_repairs_over_token_deletion": true,
+    "preserve_proposition_roles": true,
+    "preserve_reference_chains": true,
+    "preserve_temporal_and_causal_scope": true,
+    "allow_multiple_valid_realizations": true,
+    "unknown_domain_terms_are_not_grammar_errors": true,
+    "repair_only_when_confidence_is_high": true,
+    "audit_before_and_after_surface_realization": true
+  },
+  "Feature_System": {
+    "number": [
+      "singular",
+      "plural",
+      "mass",
+      "collective",
+      "unknown"
+    ],
+    "person": [
+      "first",
+      "second",
+      "third",
+      "unknown"
+    ],
+    "case": [
+      "subject",
+      "object",
+      "possessive_determiner",
+      "possessive_pronoun",
+      "reflexive",
+      "unknown"
+    ],
+    "tense": [
+      "present",
+      "past",
+      "future",
+      "nonfinite",
+      "unknown"
+    ],
+    "aspect": [
+      "simple",
+      "progressive",
+      "perfect",
+      "perfect_progressive",
+      "habitual",
+      "iterative",
+      "resultative",
+      "unknown"
+    ],
+    "voice": [
+      "active",
+      "passive",
+      "middle",
+      "copular",
+      "unknown"
+    ],
+    "polarity": [
+      "positive",
+      "negative",
+      "unknown"
+    ],
+    "finiteness": [
+      "finite",
+      "infinitive",
+      "bare_infinitive",
+      "gerund",
+      "participle",
+      "unknown"
+    ],
+    "definiteness": [
+      "definite",
+      "indefinite",
+      "demonstrative",
+      "possessive",
+      "quantified",
+      "bare",
+      "unknown"
+    ],
+    "animacy": [
+      "human",
+      "animate",
+      "inanimate",
+      "abstract",
+      "unknown"
+    ],
+    "countability": [
+      "count",
+      "mass",
+      "dual_use",
+      "proper",
+      "unknown"
+    ]
+  },
+  "Determiners": {
+    "a": {
+      "class": "indefinite_article",
+      "number_requirement": "singular",
+      "article_onset": "consonant"
+    },
+    "an": {
+      "class": "indefinite_article",
+      "number_requirement": "singular",
+      "article_onset": "vowel"
+    },
+    "another": {
+      "class": "singular_determiner",
+      "number_requirement": "singular"
+    },
+    "each": {
+      "class": "singular_determiner",
+      "number_requirement": "singular"
+    },
+    "either": {
+      "class": "singular_determiner",
+      "number_requirement": "singular"
+    },
+    "every": {
+      "class": "singular_determiner",
+      "number_requirement": "singular"
+    },
+    "neither": {
+      "class": "singular_determiner",
+      "number_requirement": "singular"
+    },
+    "this": {
+      "class": "singular_determiner",
+      "number_requirement": "singular"
+    },
+    "that": {
+      "class": "singular_determiner",
+      "number_requirement": "singular"
+    },
+    "one": {
+      "class": "singular_determiner",
+      "number_requirement": "singular"
+    },
+    "any single": {
+      "class": "singular_determiner",
+      "number_requirement": "singular"
+    },
+    "both": {
+      "class": "pair_quantifier",
+      "number_requirement": "plural"
+    },
+    "few": {
+      "class": "plural_quantifier",
+      "number_requirement": "plural"
+    },
+    "fewer": {
+      "class": "plural_quantifier",
+      "number_requirement": "plural"
+    },
+    "many": {
+      "class": "plural_quantifier",
+      "number_requirement": "plural"
+    },
+    "several": {
+      "class": "plural_quantifier",
+      "number_requirement": "plural"
+    },
+    "these": {
+      "class": "plural_demonstrative",
+      "number_requirement": "plural"
+    },
+    "those": {
+      "class": "plural_demonstrative",
+      "number_requirement": "plural"
+    },
+    "numerous": {
+      "class": "plural_quantifier",
+      "number_requirement": "plural"
+    },
+    "multiple": {
+      "class": "plural_quantifier",
+      "number_requirement": "plural"
+    },
+    "various": {
+      "class": "plural_quantifier",
+      "number_requirement": "plural"
+    },
+    "the": {
+      "class": "number_flexible_determiner",
+      "number_requirement": "any"
+    },
+    "all": {
+      "class": "number_flexible_determiner",
+      "number_requirement": "any"
+    },
+    "any": {
+      "class": "number_flexible_determiner",
+      "number_requirement": "any"
+    },
+    "enough": {
+      "class": "number_flexible_determiner",
+      "number_requirement": "any"
+    },
+    "no": {
+      "class": "number_flexible_determiner",
+      "number_requirement": "any"
+    },
+    "some": {
+      "class": "number_flexible_determiner",
+      "number_requirement": "any"
+    },
+    "such": {
+      "class": "number_flexible_determiner",
+      "number_requirement": "any"
+    },
+    "more": {
+      "class": "number_flexible_determiner",
+      "number_requirement": "any"
+    },
+    "most": {
+      "class": "number_flexible_determiner",
+      "number_requirement": "any"
+    },
+    "less": {
+      "class": "number_flexible_determiner",
+      "number_requirement": "any"
+    },
+    "least": {
+      "class": "number_flexible_determiner",
+      "number_requirement": "any"
+    },
+    "what": {
+      "class": "number_flexible_determiner",
+      "number_requirement": "any"
+    },
+    "which": {
+      "class": "number_flexible_determiner",
+      "number_requirement": "any"
+    },
+    "whose": {
+      "class": "number_flexible_determiner",
+      "number_requirement": "any"
+    }
+  },
+  "Determiner_Compatibility": {
+    "singular_count": [
+      "a",
+      "an",
+      "the",
+      "another",
+      "each",
+      "either",
+      "every",
+      "neither",
+      "this",
+      "that",
+      "one",
+      "any",
+      "some",
+      "no",
+      "which",
+      "whose"
+    ],
+    "plural_count": [
+      "the",
+      "both",
+      "few",
+      "fewer",
+      "many",
+      "several",
+      "these",
+      "those",
+      "all",
+      "any",
+      "enough",
+      "no",
+      "some",
+      "more",
+      "most",
+      "numerous",
+      "multiple",
+      "various",
+      "which",
+      "whose"
+    ],
+    "mass": [
+      "the",
+      "all",
+      "any",
+      "enough",
+      "no",
+      "some",
+      "more",
+      "most",
+      "less",
+      "least",
+      "which",
+      "whose"
+    ],
+    "proper": [
+      "the",
+      "this",
+      "that",
+      "these",
+      "those",
+      "some",
+      "which",
+      "whose"
+    ],
+    "bare_allowed": [
+      "plural_generic",
+      "mass_generic",
+      "proper_name",
+      "headline",
+      "label"
+    ],
+    "indefinite_article_forbidden_before": [
+      "plural",
+      "mass",
+      "proper_name",
+      "possessive_determiner",
+      "demonstrative_determiner"
+    ]
+  },
+  "Agreement": {
+    "copula": {
+      "first_singular_present": "am",
+      "third_singular_present": "is",
+      "other_present": "are",
+      "singular_past": "was",
+      "plural_past": "were"
+    },
+    "have": {
+      "third_singular_present": "has",
+      "other_present": "have",
+      "past": "had"
+    },
+    "do": {
+      "third_singular_present": "does",
+      "other_present": "do",
+      "past": "did"
+    },
+    "subject_number_cues": {
+      "singular": [
+        "he",
+        "she",
+        "it",
+        "this",
+        "that",
+        "each",
+        "every",
+        "either",
+        "neither",
+        "one"
+      ],
+      "plural": [
+        "we",
+        "they",
+        "these",
+        "those",
+        "both",
+        "many",
+        "several",
+        "few"
+      ],
+      "first_singular": [
+        "i"
+      ],
+      "second": [
+        "you"
+      ]
+    },
+    "coordination": {
+      "and_default_number": "plural",
+      "or_nor_agreement": "nearest_conjunct",
+      "collective_noun_default": "singular",
+      "there_construction_agrees_with_postverbal_np": true
+    },
+    "finite_verb_rules": {
+      "present_third_singular_requires_s_form": true,
+      "modal_blocks_person_inflection": true,
+      "do_support_blocks_main_verb_inflection": true,
+      "perfect_requires_past_participle": true,
+      "progressive_requires_present_participle": true,
+      "passive_requires_past_participle": true
+    },
+    "article_selection": {
+      "vowel_onset": "an",
+      "consonant_onset": "a",
+      "use_pronunciation_when_known": true
+    }
+  },
+  "Pronouns": {
+    "i": {
+      "person": "first",
+      "number": "singular",
+      "case": "subject"
+    },
+    "me": {
+      "person": "first",
+      "number": "singular",
+      "case": "object"
+    },
+    "my": {
+      "person": "first",
+      "number": "singular",
+      "case": "possessive_determiner"
+    },
+    "mine": {
+      "person": "first",
+      "number": "singular",
+      "case": "possessive_pronoun"
+    },
+    "myself": {
+      "person": "first",
+      "number": "singular",
+      "case": "reflexive"
+    },
+    "we": {
+      "person": "first",
+      "number": "plural",
+      "case": "subject"
+    },
+    "us": {
+      "person": "first",
+      "number": "plural",
+      "case": "object"
+    },
+    "our": {
+      "person": "first",
+      "number": "plural",
+      "case": "possessive_determiner"
+    },
+    "ours": {
+      "person": "first",
+      "number": "plural",
+      "case": "possessive_pronoun"
+    },
+    "ourselves": {
+      "person": "first",
+      "number": "plural",
+      "case": "reflexive"
+    },
+    "you": {
+      "person": "second",
+      "number": "ambiguous",
+      "case": "subject_or_object"
+    },
+    "your": {
+      "person": "second",
+      "number": "ambiguous",
+      "case": "possessive_determiner"
+    },
+    "yours": {
+      "person": "second",
+      "number": "ambiguous",
+      "case": "possessive_pronoun"
+    },
+    "yourself": {
+      "person": "second",
+      "number": "singular",
+      "case": "reflexive"
+    },
+    "yourselves": {
+      "person": "second",
+      "number": "plural",
+      "case": "reflexive"
+    },
+    "he": {
+      "person": "third",
+      "number": "singular",
+      "case": "subject",
+      "animacy": "human"
+    },
+    "him": {
+      "person": "third",
+      "number": "singular",
+      "case": "object",
+      "animacy": "human"
+    },
+    "his": {
+      "person": "third",
+      "number": "singular",
+      "case": "possessive_ambiguous",
+      "animacy": "human"
+    },
+    "himself": {
+      "person": "third",
+      "number": "singular",
+      "case": "reflexive",
+      "animacy": "human"
+    },
+    "she": {
+      "person": "third",
+      "number": "singular",
+      "case": "subject",
+      "animacy": "human"
+    },
+    "her": {
+      "person": "third",
+      "number": "singular",
+      "case": "object_or_possessive_determiner",
+      "animacy": "human"
+    },
+    "hers": {
+      "person": "third",
+      "number": "singular",
+      "case": "possessive_pronoun",
+      "animacy": "human"
+    },
+    "herself": {
+      "person": "third",
+      "number": "singular",
+      "case": "reflexive",
+      "animacy": "human"
+    },
+    "it": {
+      "person": "third",
+      "number": "singular",
+      "case": "subject_or_object",
+      "animacy": "inanimate"
+    },
+    "its": {
+      "person": "third",
+      "number": "singular",
+      "case": "possessive_determiner",
+      "animacy": "inanimate"
+    },
+    "itself": {
+      "person": "third",
+      "number": "singular",
+      "case": "reflexive",
+      "animacy": "inanimate"
+    },
+    "they": {
+      "person": "third",
+      "number": "plural_or_singular_neutral",
+      "case": "subject"
+    },
+    "them": {
+      "person": "third",
+      "number": "plural_or_singular_neutral",
+      "case": "object"
+    },
+    "their": {
+      "person": "third",
+      "number": "plural_or_singular_neutral",
+      "case": "possessive_determiner"
+    },
+    "theirs": {
+      "person": "third",
+      "number": "plural_or_singular_neutral",
+      "case": "possessive_pronoun"
+    },
+    "themselves": {
+      "person": "third",
+      "number": "plural",
+      "case": "reflexive"
+    },
+    "themself": {
+      "person": "third",
+      "number": "singular_neutral",
+      "case": "reflexive"
+    },
+    "who": {
+      "case": "subject_or_free_relative",
+      "class": "relative_or_interrogative"
+    },
+    "whom": {
+      "case": "object",
+      "class": "relative_or_interrogative"
+    },
+    "whose": {
+      "case": "possessive",
+      "class": "relative_or_interrogative"
+    }
+  },
+  "Pronoun_Case_Rules": {
+    "finite_clause_subject": [
+      "subject",
+      "subject_or_object",
+      "subject_or_free_relative"
+    ],
+    "object_of_verb": [
+      "object",
+      "subject_or_object",
+      "object_or_possessive_determiner"
+    ],
+    "object_of_preposition": [
+      "object",
+      "subject_or_object",
+      "object_or_possessive_determiner"
+    ],
+    "prenominal_possessive": [
+      "possessive_determiner",
+      "object_or_possessive_determiner",
+      "possessive_ambiguous"
+    ],
+    "standalone_possessive": [
+      "possessive_pronoun",
+      "possessive_ambiguous"
+    ],
+    "reflexive_requires_local_antecedent": true,
+    "reflexive_person_number_match": true
+  },
+  "Auxiliaries": {
+    "primary": {
+      "be": [
+        "am",
+        "is",
+        "are",
+        "was",
+        "were",
+        "be",
+        "been",
+        "being"
+      ],
+      "have": [
+        "have",
+        "has",
+        "had",
+        "having"
+      ],
+      "do": [
+        "do",
+        "does",
+        "did",
+        "doing",
+        "done"
+      ]
+    },
+    "modal": [
+      "can",
+      "could",
+      "may",
+      "might",
+      "must",
+      "shall",
+      "should",
+      "will",
+      "would"
+    ],
+    "semi_modal": [
+      "ought to",
+      "have to",
+      "has to",
+      "had to",
+      "need to",
+      "be able to",
+      "be going to",
+      "used to"
+    ],
+    "ordering": [
+      "modal",
+      "perfect_have",
+      "progressive_be",
+      "passive_be",
+      "main_verb"
+    ],
+    "duplicate_auxiliary_forbidden": true,
+    "modal_followed_by": "bare_infinitive",
+    "perfect_have_followed_by": "past_participle",
+    "progressive_be_followed_by": "present_participle",
+    "passive_be_followed_by": "past_participle"
+  },
+  "Modals": {
+    "can": {
+      "force": "ability_or_possibility",
+      "strength": 0.65
+    },
+    "could": {
+      "force": "possibility_or_past_ability",
+      "strength": 0.45
+    },
+    "may": {
+      "force": "permission_or_possibility",
+      "strength": 0.45
+    },
+    "might": {
+      "force": "possibility",
+      "strength": 0.35
+    },
+    "must": {
+      "force": "necessity_or_strong_inference",
+      "strength": 0.95
+    },
+    "shall": {
+      "force": "future_or_obligation",
+      "strength": 0.75
+    },
+    "should": {
+      "force": "expectation_or_recommendation",
+      "strength": 0.7
+    },
+    "will": {
+      "force": "future_or_prediction",
+      "strength": 0.75
+    },
+    "would": {
+      "force": "conditional_or_habitual",
+      "strength": 0.55
+    },
+    "negation_position": "after_modal",
+    "main_verb_form": "base"
+  },
+  "Tense_Aspect_Voice": {
+    "templates": {
+      "simple_present": [
+        "FINITE_VERB"
+      ],
+      "simple_past": [
+        "PAST_VERB"
+      ],
+      "future": [
+        "will",
+        "BASE_VERB"
+      ],
+      "present_progressive": [
+        "FINITE_BE",
+        "PRESENT_PARTICIPLE"
+      ],
+      "past_progressive": [
+        "PAST_BE",
+        "PRESENT_PARTICIPLE"
+      ],
+      "present_perfect": [
+        "FINITE_HAVE",
+        "PAST_PARTICIPLE"
+      ],
+      "past_perfect": [
+        "had",
+        "PAST_PARTICIPLE"
+      ],
+      "future_perfect": [
+        "will",
+        "have",
+        "PAST_PARTICIPLE"
+      ],
+      "present_perfect_progressive": [
+        "FINITE_HAVE",
+        "been",
+        "PRESENT_PARTICIPLE"
+      ],
+      "past_perfect_progressive": [
+        "had",
+        "been",
+        "PRESENT_PARTICIPLE"
+      ],
+      "passive_simple": [
+        "FINITE_BE",
+        "PAST_PARTICIPLE"
+      ],
+      "passive_progressive": [
+        "FINITE_BE",
+        "being",
+        "PAST_PARTICIPLE"
+      ],
+      "passive_perfect": [
+        "FINITE_HAVE",
+        "been",
+        "PAST_PARTICIPLE"
+      ]
+    },
+    "sequence_of_tense": {
+      "reporting_past_allows_backshift": true,
+      "universal_truth_may_remain_present": true,
+      "temporal_clause_future_prefers_present_after_when_if": true
+    },
+    "aspect_semantics": {
+      "simple": "state_or_complete_event_or_general_fact",
+      "progressive": "ongoing_or_temporarily_bounded",
+      "perfect": "prior_event_with_reference_time_relevance",
+      "perfect_progressive": "ongoing_duration_before_reference_time",
+      "habitual": "repeated_or_characteristic",
+      "iterative": "repeated_discrete_events",
+      "resultative": "state_resulting_from_prior_event"
+    }
+  },
+  "Coordination": {
+    "coordinators": [
+      "and",
+      "but",
+      "or",
+      "nor",
+      "for",
+      "so",
+      "yet"
+    ],
+    "correlatives": {
+      "both_and": [
+        "both",
+        "and"
+      ],
+      "either_or": [
+        "either",
+        "or"
+      ],
+      "neither_nor": [
+        "neither",
+        "nor"
+      ],
+      "not_only_but_also": [
+        "not only",
+        "but also"
+      ],
+      "whether_or": [
+        "whether",
+        "or"
+      ]
+    },
+    "parallelism": {
+      "prefer_matching_category": true,
+      "prefer_matching_finiteness": true,
+      "prefer_matching_tense_aspect": true,
+      "allow_gapping": true,
+      "allow_shared_subject": true,
+      "allow_shared_auxiliary": true
+    },
+    "punctuation": {
+      "independent_clauses_with_fanboys_prefer_comma": true,
+      "short_shared_subject_coordination_comma_optional": true,
+      "serial_comma_supported": true
+    },
+    "both_requires": {
+      "coordinator": "and",
+      "minimum_members": 2
+    }
+  },
+  "Clause": {
+    "subordinate_openers": [
+      "although",
+      "because",
+      "when",
+      "while",
+      "if",
+      "since",
+      "unless",
+      "after",
+      "before",
+      "once",
+      "though",
+      "whereas",
+      "until",
+      "as",
+      "even if",
+      "even though",
+      "provided that",
+      "so that",
+      "in order that"
+    ],
+    "terminal_required": true,
+    "nested_clause_graph": true,
+    "do_not_flatten_to_content_words": true,
+    "finite_clause_requires_predicate": true,
+    "declarative_clause_usually_requires_subject": true,
+    "imperative_allows_null_second_person_subject": true,
+    "subject_wh_question_allows_wh_subject": true,
+    "maximum_tracked_clauses": 24,
+    "maximum_dependency_depth": 10
+  },
+  "Clause_Types": {
+    "independent": {
+      "finite_required": true,
+      "standalone": true,
+      "subject_required": "usually"
+    },
+    "content_that": {
+      "markers": [
+        "that"
+      ],
+      "role": "complement",
+      "finite_required": true
+    },
+    "embedded_wh": {
+      "markers": [
+        "what",
+        "who",
+        "which",
+        "where",
+        "when",
+        "why",
+        "how",
+        "whether"
+      ],
+      "role": "complement",
+      "inversion": false
+    },
+    "relative_restrictive": {
+      "markers": [
+        "that",
+        "which",
+        "who",
+        "whom",
+        "whose",
+        "where",
+        "when"
+      ],
+      "comma_policy": "usually_no_commas"
+    },
+    "relative_nonrestrictive": {
+      "markers": [
+        "which",
+        "who",
+        "whom",
+        "whose",
+        "where",
+        "when"
+      ],
+      "comma_policy": "commas_required"
+    },
+    "conditional": {
+      "markers": [
+        "if",
+        "unless",
+        "provided that",
+        "as long as",
+        "even if"
+      ],
+      "relation": "condition"
+    },
+    "causal": {
+      "markers": [
+        "because",
+        "since",
+        "as"
+      ],
+      "relation": "cause"
+    },
+    "temporal": {
+      "markers": [
+        "when",
+        "while",
+        "before",
+        "after",
+        "once",
+        "until",
+        "since",
+        "as soon as"
+      ],
+      "relation": "time"
+    },
+    "concessive": {
+      "markers": [
+        "although",
+        "though",
+        "even though",
+        "while",
+        "whereas"
+      ],
+      "relation": "concession_or_contrast"
+    },
+    "purpose": {
+      "markers": [
+        "so that",
+        "in order that",
+        "to"
+      ],
+      "relation": "purpose"
+    },
+    "result": {
+      "markers": [
+        "so that",
+        "so",
+        "therefore"
+      ],
+      "relation": "result"
+    },
+    "comparative": {
+      "markers": [
+        "than",
+        "as"
+      ],
+      "relation": "comparison"
+    },
+    "infinitival": {
+      "markers": [
+        "to"
+      ],
+      "finite_required": false,
+      "subject_often_controlled": true
+    },
+    "gerund_participial": {
+      "markers": [],
+      "finite_required": false,
+      "subject_often_implicit": true
+    }
+  },
+  "Clause_Linkers": {
+    "cause": {
+      "preferred": [
+        "because",
+        "since",
+        "as"
+      ],
+      "direction": "effect_then_cause"
+    },
+    "result": {
+      "preferred": [
+        "so",
+        "therefore",
+        "as a result"
+      ],
+      "direction": "cause_then_effect"
+    },
+    "condition": {
+      "preferred": [
+        "if",
+        "unless",
+        "provided that"
+      ],
+      "direction": "condition_then_result"
+    },
+    "contrast": {
+      "preferred": [
+        "but",
+        "whereas",
+        "while"
+      ],
+      "direction": "parallel"
+    },
+    "concession": {
+      "preferred": [
+        "although",
+        "though",
+        "even though"
+      ],
+      "direction": "concession_then_main"
+    },
+    "temporal_before": {
+      "preferred": [
+        "before"
+      ],
+      "direction": "earlier_then_later"
+    },
+    "temporal_after": {
+      "preferred": [
+        "after"
+      ],
+      "direction": "later_reference"
+    },
+    "simultaneous": {
+      "preferred": [
+        "while",
+        "when"
+      ],
+      "direction": "overlap"
+    },
+    "purpose": {
+      "preferred": [
+        "so that",
+        "to",
+        "in order to"
+      ],
+      "direction": "action_then_goal"
+    },
+    "example": {
+      "preferred": [
+        "for example",
+        "for instance"
+      ],
+      "direction": "claim_then_example"
+    },
+    "elaboration": {
+      "preferred": [
+        "and",
+        "which",
+        "where"
+      ],
+      "direction": "claim_then_detail"
+    },
+    "mechanism": {
+      "preferred": [
+        "by",
+        "through",
+        "using"
+      ],
+      "direction": "process"
+    },
+    "feedback": {
+      "preferred": [
+        "which then",
+        "and then"
+      ],
+      "direction": "cycle"
+    },
+    "sequence": {
+      "preferred": [
+        "then",
+        "after that",
+        "next"
+      ],
+      "direction": "ordered"
+    },
+    "comparison": {
+      "preferred": [
+        "while",
+        "whereas",
+        "compared with"
+      ],
+      "direction": "parallel"
+    },
+    "alternative": {
+      "preferred": [
+        "or",
+        "alternatively"
+      ],
+      "direction": "choice"
+    },
+    "evidence": {
+      "preferred": [
+        "because",
+        "as shown by"
+      ],
+      "direction": "claim_then_support"
+    },
+    "clarification": {
+      "preferred": [
+        "that is",
+        "in other words"
+      ],
+      "direction": "claim_then_restatement"
+    },
+    "independent": {
+      "preferred": [],
+      "direction": "separate"
+    }
+  },
+  "Complementizers": {
+    "that": {
+      "type": "declarative_content",
+      "allows_omission_in_object_clause": true
+    },
+    "whether": {
+      "type": "embedded_polar_question",
+      "allows_or_not": true
+    },
+    "if": {
+      "type": "conditional_or_embedded_polar",
+      "ambiguity_requires_context": true
+    },
+    "for": {
+      "type": "infinitival_subject_marker",
+      "pattern": "for NP to VP"
+    },
+    "to": {
+      "type": "infinitival_marker"
+    },
+    "wh": {
+      "members": [
+        "what",
+        "who",
+        "whom",
+        "whose",
+        "which",
+        "where",
+        "when",
+        "why",
+        "how"
+      ],
+      "embedded_inversion": false
+    }
+  },
+  "Noun_Phrase": {
+    "default_order": [
+      "Determiner",
+      "Predeterminer",
+      "Number",
+      "Ordinal",
+      "Opinion",
+      "Size",
+      "Age",
+      "Shape",
+      "Color",
+      "Origin",
+      "Material",
+      "Purpose",
+      "Noun"
+    ],
+    "avoid_duplicate_determiners": true,
+    "plural_quantifier_requires_plural_head": true,
+    "proper_nouns_usually_reject_indefinite_article": true,
+    "singular_count_requires_determiner": true,
+    "compound_nominal_head_is_final_nominal": true,
+    "bare_singular_count_head_repair": "insert_determiner",
+    "because_plus_nominal_uses_of": true,
+    "postmodifiers_follow_head": true,
+    "possessive_determiner_blocks_article": true,
+    "demonstrative_blocks_article": true,
+    "quantifier_scope_preserved": true,
+    "appositive_patterns": [
+      "NP , NP ,",
+      "NP , a/an NP ,",
+      "NP , proper-name ,"
+    ],
+    "partitive_patterns": [
+      "some of NP",
+      "most of NP",
+      "one of NP",
+      "many of NP",
+      "a number of NP",
+      "the majority of NP"
+    ]
+  },
+  "Verb_Phrase": {
+    "auxiliary_precedes_main_verb": true,
+    "modal_uses_base_form": true,
+    "negation_after_auxiliary": true,
+    "copula_can_link_subject_and_complement": true,
+    "avoid_duplicate_auxiliaries": true,
+    "adverb_positions": [
+      "before_main_verb",
+      "after_first_auxiliary",
+      "clause_final"
+    ],
+    "particle_adjacency_preference": "lexeme_dependent",
+    "finite_auxiliary_carries_tense": true,
+    "main_verb_after_modal_uninflected": true,
+    "do_support_main_verb_uninflected": true
+  },
+  "Adjective_Phrase": {
+    "degree_markers": [
+      "very",
+      "quite",
+      "rather",
+      "too",
+      "so",
+      "more",
+      "most",
+      "less",
+      "least"
+    ],
+    "complements": [
+      "to_infinitive",
+      "that_clause",
+      "prepositional_phrase"
+    ],
+    "predicative_after_copula": true,
+    "attributive_before_noun": true,
+    "postpositive_allowed_for_selected_adjectives": true
+  },
+  "Adverb_Phrase": {
+    "roles": [
+      "manner",
+      "time",
+      "frequency",
+      "degree",
+      "stance",
+      "focus",
+      "linking"
+    ],
+    "frequency_default_position": "before_main_verb_after_be",
+    "sentence_adverb_prefer_comma_when_initial": true
+  },
+  "Adjective_Order": {
+    "preferred_sequence": [
+      "opinion",
+      "size",
+      "age",
+      "shape",
+      "color",
+      "origin",
+      "material",
+      "purpose"
+    ],
+    "soft_constraint": true
+  },
+  "Prepositions": {
+    "of": {
+      "semantic_roles": [
+        "possession",
+        "composition",
+        "topic",
+        "measure"
+      ],
+      "requires_complement": true,
+      "can_strand_in_informal_or_relative_context": false
+    },
+    "to": {
+      "semantic_roles": [
+        "goal",
+        "recipient",
+        "infinitive_marker"
+      ],
+      "requires_complement": true,
+      "can_strand_in_informal_or_relative_context": true
+    },
+    "from": {
+      "semantic_roles": [
+        "source",
+        "origin",
+        "cause"
+      ],
+      "requires_complement": true,
+      "can_strand_in_informal_or_relative_context": true
+    },
+    "with": {
+      "semantic_roles": [
+        "instrument",
+        "accompaniment",
+        "property"
+      ],
+      "requires_complement": true,
+      "can_strand_in_informal_or_relative_context": true
+    },
+    "without": {
+      "semantic_roles": [
+        "absence",
+        "condition"
+      ],
+      "requires_complement": true,
+      "can_strand_in_informal_or_relative_context": false
+    },
+    "by": {
+      "semantic_roles": [
+        "agent",
+        "means",
+        "deadline",
+        "measure"
+      ],
+      "requires_complement": true,
+      "can_strand_in_informal_or_relative_context": true
+    },
+    "through": {
+      "semantic_roles": [
+        "path",
+        "means",
+        "process"
+      ],
+      "requires_complement": true,
+      "can_strand_in_informal_or_relative_context": false
+    },
+    "in": {
+      "semantic_roles": [
+        "location",
+        "time",
+        "state",
+        "domain"
+      ],
+      "requires_complement": true,
+      "can_strand_in_informal_or_relative_context": false
+    },
+    "on": {
+      "semantic_roles": [
+        "location",
+        "topic",
+        "time"
+      ],
+      "requires_complement": true,
+      "can_strand_in_informal_or_relative_context": false
+    },
+    "at": {
+      "semantic_roles": [
+        "location",
+        "time",
+        "target"
+      ],
+      "requires_complement": true,
+      "can_strand_in_informal_or_relative_context": false
+    },
+    "for": {
+      "semantic_roles": [
+        "beneficiary",
+        "purpose",
+        "duration",
+        "exchange"
+      ],
+      "requires_complement": true,
+      "can_strand_in_informal_or_relative_context": true
+    },
+    "about": {
+      "semantic_roles": [
+        "topic",
+        "approximation"
+      ],
+      "requires_complement": true,
+      "can_strand_in_informal_or_relative_context": true
+    },
+    "as": {
+      "semantic_roles": [
+        "role",
+        "comparison",
+        "simultaneity"
+      ],
+      "requires_complement": true,
+      "can_strand_in_informal_or_relative_context": false
+    },
+    "than": {
+      "semantic_roles": [
+        "comparison"
+      ],
+      "requires_complement": true,
+      "can_strand_in_informal_or_relative_context": false
+    },
+    "between": {
+      "semantic_roles": [
+        "relation_between_members"
+      ],
+      "requires_complement": true,
+      "can_strand_in_informal_or_relative_context": false
+    },
+    "among": {
+      "semantic_roles": [
+        "relation_within_group"
+      ],
+      "requires_complement": true,
+      "can_strand_in_informal_or_relative_context": false
+    },
+    "during": {
+      "semantic_roles": [
+        "temporal_overlap"
+      ],
+      "requires_complement": true,
+      "can_strand_in_informal_or_relative_context": false
+    },
+    "before": {
+      "semantic_roles": [
+        "temporal_before"
+      ],
+      "requires_complement": true,
+      "can_strand_in_informal_or_relative_context": false
+    },
+    "after": {
+      "semantic_roles": [
+        "temporal_after"
+      ],
+      "requires_complement": true,
+      "can_strand_in_informal_or_relative_context": false
+    },
+    "until": {
+      "semantic_roles": [
+        "temporal_endpoint"
+      ],
+      "requires_complement": true,
+      "can_strand_in_informal_or_relative_context": false
+    },
+    "since": {
+      "semantic_roles": [
+        "temporal_start_or_cause"
+      ],
+      "requires_complement": true,
+      "can_strand_in_informal_or_relative_context": false
+    },
+    "under": {
+      "semantic_roles": [
+        "spatial_or_condition"
+      ],
+      "requires_complement": true,
+      "can_strand_in_informal_or_relative_context": false
+    },
+    "over": {
+      "semantic_roles": [
+        "spatial_or_duration_or_more_than"
+      ],
+      "requires_complement": true,
+      "can_strand_in_informal_or_relative_context": false
+    },
+    "into": {
+      "semantic_roles": [
+        "goal_or_transformation"
+      ],
+      "requires_complement": true,
+      "can_strand_in_informal_or_relative_context": false
+    },
+    "onto": {
+      "semantic_roles": [
+        "goal_surface"
+      ],
+      "requires_complement": true,
+      "can_strand_in_informal_or_relative_context": false
+    },
+    "within": {
+      "semantic_roles": [
+        "containment_or_deadline"
+      ],
+      "requires_complement": true,
+      "can_strand_in_informal_or_relative_context": false
+    },
+    "across": {
+      "semantic_roles": [
+        "path_or_distribution"
+      ],
+      "requires_complement": true,
+      "can_strand_in_informal_or_relative_context": false
+    },
+    "against": {
+      "semantic_roles": [
+        "opposition_or_contact"
+      ],
+      "requires_complement": true,
+      "can_strand_in_informal_or_relative_context": false
+    },
+    "via": {
+      "semantic_roles": [
+        "route_or_means"
+      ],
+      "requires_complement": true,
+      "can_strand_in_informal_or_relative_context": false
+    },
+    "per": {
+      "semantic_roles": [
+        "rate"
+      ],
+      "requires_complement": true,
+      "can_strand_in_informal_or_relative_context": false
+    }
+  },
+  "Prepositional_Phrase": {
+    "preposition_requires_object": true,
+    "object_forms": [
+      "noun_phrase",
+      "pronoun_object_case",
+      "gerund_clause",
+      "embedded_wh_clause"
+    ],
+    "avoid_unlicensed_preposition_chains": true,
+    "allow_nested_pp_when_semantically_distinct": true,
+    "attachment_is_semantic_not_distance_only": true
+  },
+  "Relative_Clause": {
+    "markers": [
+      "that",
+      "which",
+      "who",
+      "whom",
+      "whose",
+      "where",
+      "when"
+    ],
+    "requires_antecedent_when_nonfree": true,
+    "subject_relatives": [
+      "who",
+      "which",
+      "that"
+    ],
+    "object_relatives": [
+      "whom",
+      "which",
+      "that"
+    ],
+    "possessive_relatives": [
+      "whose"
+    ],
+    "human_preference": [
+      "who",
+      "whom",
+      "whose"
+    ],
+    "nonhuman_preference": [
+      "which",
+      "that"
+    ],
+    "restrictive_that_preferred_for_nonhuman": false,
+    "nonrestrictive_that_forbidden": true,
+    "object_relative_marker_may_be_omitted": true,
+    "subject_relative_marker_may_not_be_omitted": true,
+    "preposition_fronting_formal": true,
+    "stranded_preposition_allowed": true
+  },
+  "Question_Form": {
+    "wh_words": [
+      "what",
+      "who",
+      "whom",
+      "whose",
+      "which",
+      "where",
+      "when",
+      "why",
+      "how"
+    ],
+    "auxiliary_inversion_for_finite_questions": true,
+    "do_support_when_required": true,
+    "question_mark_requires_interrogative_structure": true,
+    "embedded_question_uses_declarative_order": true,
+    "subject_wh_does_not_require_inversion": true,
+    "yes_no_openers": [
+      "am",
+      "is",
+      "are",
+      "was",
+      "were",
+      "do",
+      "does",
+      "did",
+      "have",
+      "has",
+      "had",
+      "can",
+      "could",
+      "may",
+      "might",
+      "must",
+      "shall",
+      "should",
+      "will",
+      "would"
+    ],
+    "how_subtypes": [
+      "manner",
+      "mechanism",
+      "degree",
+      "quantity",
+      "frequency",
+      "duration",
+      "distance",
+      "age"
+    ],
+    "why_prefers_causal_or_reason_answer": true,
+    "what_can_request_definition_or_identity_or_object": true
+  },
+  "Negation": {
+    "markers": [
+      "not",
+      "never",
+      "no",
+      "neither",
+      "nor",
+      "without",
+      "hardly",
+      "rarely",
+      "scarcely"
+    ],
+    "avoid_double_negation_by_default": true,
+    "not_follows_auxiliary": true,
+    "do_support_when_no_auxiliary": true,
+    "negative_quantifier_can_license_inversion_in_formal_initial_position": true,
+    "preserve_scope": true,
+    "scope_targets": [
+      "verb_phrase",
+      "modal",
+      "quantifier",
+      "adjective",
+      "prepositional_phrase",
+      "entire_clause"
+    ]
+  },
+  "Comparison": {
+    "comparative_markers": [
+      "more",
+      "less",
+      "fewer",
+      "better",
+      "worse",
+      "higher",
+      "lower",
+      "greater",
+      "smaller",
+      "larger"
+    ],
+    "superlative_markers": [
+      "most",
+      "least",
+      "best",
+      "worst",
+      "highest",
+      "lowest",
+      "greatest"
+    ],
+    "than_requires_comparison_anchor": true,
+    "as_as_pattern": [
+      "as",
+      "ADJECTIVE_OR_ADVERB",
+      "as"
+    ],
+    "fewer_for_count_preference": true,
+    "less_for_mass_preference": true,
+    "parallel_comparison_structure_preferred": true,
+    "avoid_double_comparative": [
+      "more better",
+      "more worse",
+      "most best",
+      "most worst"
+    ]
+  },
+  "Participles": {
+    "present_participle_suffix": "ing",
+    "past_participle_regular_suffix": "ed",
+    "reduced_relative_allowed": true,
+    "dangling_participle_avoidance": true,
+    "participial_clause_subject_defaults_to_matrix_subject": true
+  },
+  "Compound_Grammar": {
+    "compound_nominal_head_position": "rightmost_nominal",
+    "noun_noun_compounds_allowed": true,
+    "hyphenate_compound_modifier_when_needed_for_scope": true,
+    "proper_name_tokens_should_remain_grouped": true,
+    "version_number_can_attach_to_named_entity": true,
+    "decimal_version_tokens_should_not_be_split_semantically": true
+  },
+  "Punctuation_Interface": {
+    "comma": [
+      "list_separator",
+      "initial_dependent_clause_boundary",
+      "nonrestrictive_relative_boundary",
+      "parenthetical_boundary",
+      "independent_clause_coordination"
+    ],
+    "semicolon": [
+      "closely_related_independent_clauses",
+      "complex_list_separator"
+    ],
+    "colon": [
+      "explanation",
+      "list",
+      "elaboration_after_complete_clause"
+    ],
+    "dash": [
+      "parenthetical_or_emphatic_break"
+    ],
+    "parentheses": [
+      "supplementary_information"
+    ],
+    "terminal": [
+      "period",
+      "question_mark",
+      "exclamation_mark"
+    ],
+    "avoid_comma_splice": true,
+    "semicolon_requires_clause_like_material_on_both_sides": true,
+    "colon_left_side_should_be_complete_clause_or_label_context": true
+  },
+  "Information_Structure": {
+    "topic_before_comment_default": true,
+    "given_before_new_default": true,
+    "pronouns_prefer_given_referents": true,
+    "avoid_reintroducing_full_np_when_clear_pronoun_is_safe": true,
+    "but_do_not_pronominalize_when_reference_ambiguous": true,
+    "mechanism_explanations_prefer_known_subject_then_process_steps": true
+  },
+  "Sentence_Completeness": {
+    "declarative": {
+      "subject": "required_except_imperative_or_ellipsis",
+      "finite_predicate": "required",
+      "terminal_punctuation": "required_for_final_surface"
+    },
+    "interrogative": {
+      "interrogative_structure": "required",
+      "question_mark": "preferred_for_direct_question"
+    },
+    "imperative": {
+      "subject": "optional_implicit_you",
+      "base_form_predicate": "required"
+    },
+    "fragment_checks": [
+      "dangling_determiner",
+      "dangling_preposition",
+      "dangling_modal",
+      "dangling_subordinator",
+      "noun_stack_without_predicate",
+      "auxiliary_without_main_predicate",
+      "relative_marker_without_clause",
+      "empty_coordinator_side"
+    ],
+    "minimum_content_words": 2,
+    "allow_short_copular_answers": true
+  },
+  "Explanation_Grammar": {
+    "definition": {
+      "preferred_clause_order": [
+        "identity",
+        "distinguishing_property",
+        "optional_example"
+      ],
+      "bridges": [
+        "is",
+        "means",
+        "refers to"
+      ]
+    },
+    "mechanism": {
+      "preferred_clause_order": [
+        "subject_orientation",
+        "input_or_trigger",
+        "operation",
+        "transition",
+        "output",
+        "optional_feedback"
+      ],
+      "bridges": [
+        "works by",
+        "operates through",
+        "uses",
+        "then",
+        "which causes",
+        "resulting in"
+      ]
+    },
+    "cause": {
+      "preferred_clause_order": [
+        "effect_or_question_focus",
+        "cause",
+        "mechanism_if_known"
+      ],
+      "bridges": [
+        "because",
+        "because of",
+        "since",
+        "as a result of"
+      ]
+    },
+    "comparison": {
+      "preferred_clause_order": [
+        "shared_dimension",
+        "side_a",
+        "side_b",
+        "meaningful_difference"
+      ],
+      "bridges": [
+        "while",
+        "whereas",
+        "compared with",
+        "in contrast"
+      ]
+    },
+    "procedure": {
+      "preferred_clause_order": [
+        "precondition",
+        "ordered_steps",
+        "result",
+        "verification"
+      ],
+      "bridges": [
+        "first",
+        "then",
+        "next",
+        "after that",
+        "finally"
+      ]
+    },
+    "counterfactual": {
+      "preferred_clause_order": [
+        "changed_assumption",
+        "propagated_effects",
+        "contrast_with_baseline"
+      ],
+      "bridges": [
+        "if",
+        "without",
+        "then",
+        "compared with"
+      ]
+    },
+    "self_architecture": {
+      "preferred_clause_order": [
+        "component_identity",
+        "input",
+        "internal_operation",
+        "downstream_effect"
+      ],
+      "generic": true
+    },
+    "avoid_empty_bridge_scaffold": true,
+    "bridge_cannot_be_only_surface_content": true,
+    "initial_preposition_requires_governor_or_explicit_fragment_context": true
+  },
+  "Verb_Classes": {
+    "copular": [
+      "be",
+      "become",
+      "seem",
+      "appear",
+      "remain",
+      "feel",
+      "look",
+      "sound"
+    ],
+    "intransitive": [
+      "arrive",
+      "occur",
+      "happen",
+      "exist",
+      "emerge",
+      "change",
+      "grow",
+      "fall",
+      "rise",
+      "work"
+    ],
+    "transitive": [
+      "use",
+      "represent",
+      "contain",
+      "include",
+      "produce",
+      "create",
+      "store",
+      "select",
+      "evaluate",
+      "learn",
+      "improve",
+      "change",
+      "connect",
+      "link",
+      "compare",
+      "explain",
+      "describe",
+      "measure",
+      "detect",
+      "resolve",
+      "build",
+      "generate",
+      "rank",
+      "verify",
+      "update",
+      "transform",
+      "process",
+      "receive",
+      "return",
+      "support",
+      "preserve",
+      "control",
+      "track",
+      "model",
+      "predict",
+      "identify",
+      "form",
+      "test",
+      "promote",
+      "reject",
+      "repair"
+    ],
+    "ditransitive": [
+      "give",
+      "send",
+      "show",
+      "tell",
+      "offer",
+      "teach"
+    ],
+    "complex_transitive": [
+      "make",
+      "call",
+      "consider",
+      "find",
+      "keep"
+    ],
+    "raising": [
+      "seem",
+      "appear",
+      "tend",
+      "happen"
+    ],
+    "subject_control": [
+      "try",
+      "plan",
+      "decide",
+      "want",
+      "need",
+      "aim",
+      "learn"
+    ],
+    "object_control": [
+      "allow",
+      "enable",
+      "force",
+      "tell",
+      "ask",
+      "cause",
+      "help"
+    ],
+    "reporting": [
+      "say",
+      "state",
+      "report",
+      "claim",
+      "explain",
+      "show",
+      "suggest",
+      "indicate",
+      "argue",
+      "note"
+    ]
+  },
+  "Verb_Frames": {
+    "use": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "represent": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "contain": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "include": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "produce": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "create": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "store": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "select": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "evaluate": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "learn": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "improve": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "change": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "connect": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "link": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "compare": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "describe": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "measure": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "detect": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "resolve": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "build": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "generate": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "rank": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "verify": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "update": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "transform": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "process": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "receive": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "return": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "support": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "preserve": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "control": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "track": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "model": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "predict": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "identify": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "form": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "test": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "promote": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "reject": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "repair": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "combine": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "compose": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "route": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "score": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "weight": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "amplify": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "suppress": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "retrieve": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "associate": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "activate": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "propagate": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "infer": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "reason": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "audit": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "smooth": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "bridge": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "mix": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "schedule": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "replay": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "calibrate": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "classify": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "parse": {
+      "class": "transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP",
+          "required": [
+            "subject",
+            "object"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "explain": {
+      "class": "reporting",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V WH_CLAUSE",
+          "required": [
+            "subject",
+            "embedded_clause"
+          ]
+        },
+        {
+          "pattern": "NP V THAT_CLAUSE",
+          "required": [
+            "subject",
+            "embedded_clause"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "content"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "show": {
+      "class": "reporting",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        },
+        {
+          "pattern": "NP V NP NP",
+          "required": [
+            "subject",
+            "recipient",
+            "content"
+          ]
+        },
+        {
+          "pattern": "NP V THAT_CLAUSE",
+          "required": [
+            "subject",
+            "content"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "content"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "say": {
+      "class": "reporting",
+      "complements": [
+        {
+          "pattern": "NP V THAT_CLAUSE",
+          "required": [
+            "subject",
+            "content"
+          ]
+        },
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "content"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "content"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "state": {
+      "class": "reporting",
+      "complements": [
+        {
+          "pattern": "NP V THAT_CLAUSE",
+          "required": [
+            "subject",
+            "content"
+          ]
+        },
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "content"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "content"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "report": {
+      "class": "reporting",
+      "complements": [
+        {
+          "pattern": "NP V THAT_CLAUSE",
+          "required": [
+            "subject",
+            "content"
+          ]
+        },
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "content"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "content"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "claim": {
+      "class": "reporting",
+      "complements": [
+        {
+          "pattern": "NP V THAT_CLAUSE",
+          "required": [
+            "subject",
+            "content"
+          ]
+        },
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "content"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "content"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "suggest": {
+      "class": "reporting",
+      "complements": [
+        {
+          "pattern": "NP V THAT_CLAUSE",
+          "required": [
+            "subject",
+            "content"
+          ]
+        },
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "content"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "content"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "indicate": {
+      "class": "reporting",
+      "complements": [
+        {
+          "pattern": "NP V THAT_CLAUSE",
+          "required": [
+            "subject",
+            "content"
+          ]
+        },
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "content"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "content"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "argue": {
+      "class": "reporting",
+      "complements": [
+        {
+          "pattern": "NP V THAT_CLAUSE",
+          "required": [
+            "subject",
+            "content"
+          ]
+        },
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "content"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "content"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "note": {
+      "class": "reporting",
+      "complements": [
+        {
+          "pattern": "NP V THAT_CLAUSE",
+          "required": [
+            "subject",
+            "content"
+          ]
+        },
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "content"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "content"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "occur": {
+      "class": "intransitive",
+      "complements": [
+        {
+          "pattern": "NP V",
+          "required": [
+            "subject"
+          ]
+        },
+        {
+          "pattern": "NP V PP",
+          "required": [
+            "subject"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "theme"
+      ],
+      "allows_passive": false,
+      "notes": ""
+    },
+    "happen": {
+      "class": "intransitive",
+      "complements": [
+        {
+          "pattern": "NP V",
+          "required": [
+            "subject"
+          ]
+        },
+        {
+          "pattern": "NP V PP",
+          "required": [
+            "subject"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "theme"
+      ],
+      "allows_passive": false,
+      "notes": ""
+    },
+    "exist": {
+      "class": "intransitive",
+      "complements": [
+        {
+          "pattern": "NP V",
+          "required": [
+            "subject"
+          ]
+        },
+        {
+          "pattern": "NP V PP",
+          "required": [
+            "subject"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "theme"
+      ],
+      "allows_passive": false,
+      "notes": ""
+    },
+    "emerge": {
+      "class": "intransitive",
+      "complements": [
+        {
+          "pattern": "NP V",
+          "required": [
+            "subject"
+          ]
+        },
+        {
+          "pattern": "NP V PP",
+          "required": [
+            "subject"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "theme"
+      ],
+      "allows_passive": false,
+      "notes": ""
+    },
+    "arrive": {
+      "class": "intransitive",
+      "complements": [
+        {
+          "pattern": "NP V",
+          "required": [
+            "subject"
+          ]
+        },
+        {
+          "pattern": "NP V PP",
+          "required": [
+            "subject"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "theme"
+      ],
+      "allows_passive": false,
+      "notes": ""
+    },
+    "rise": {
+      "class": "intransitive",
+      "complements": [
+        {
+          "pattern": "NP V",
+          "required": [
+            "subject"
+          ]
+        },
+        {
+          "pattern": "NP V PP",
+          "required": [
+            "subject"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "theme"
+      ],
+      "allows_passive": false,
+      "notes": ""
+    },
+    "fall": {
+      "class": "intransitive",
+      "complements": [
+        {
+          "pattern": "NP V",
+          "required": [
+            "subject"
+          ]
+        },
+        {
+          "pattern": "NP V PP",
+          "required": [
+            "subject"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "theme"
+      ],
+      "allows_passive": false,
+      "notes": ""
+    },
+    "work": {
+      "class": "ambitransitive",
+      "complements": [
+        {
+          "pattern": "NP V",
+          "required": [
+            "subject"
+          ]
+        },
+        {
+          "pattern": "NP V PP",
+          "required": [
+            "subject"
+          ],
+          "optional": [
+            "pp"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "process"
+      ],
+      "allows_passive": false,
+      "notes": "Mechanism explanations may use work through/by/with PP."
+    },
+    "be": {
+      "class": "copular",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "subject_complement"
+          ]
+        },
+        {
+          "pattern": "NP V ADJP",
+          "required": [
+            "subject",
+            "subject_complement"
+          ]
+        },
+        {
+          "pattern": "NP V PP",
+          "required": [
+            "subject",
+            "subject_complement"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "theme",
+        "attribute"
+      ],
+      "allows_passive": false,
+      "notes": ""
+    },
+    "remain": {
+      "class": "copular",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "subject_complement"
+          ]
+        },
+        {
+          "pattern": "NP V ADJP",
+          "required": [
+            "subject",
+            "subject_complement"
+          ]
+        },
+        {
+          "pattern": "NP V PP",
+          "required": [
+            "subject",
+            "subject_complement"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "theme",
+        "attribute"
+      ],
+      "allows_passive": false,
+      "notes": ""
+    },
+    "seem": {
+      "class": "copular",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "subject_complement"
+          ]
+        },
+        {
+          "pattern": "NP V ADJP",
+          "required": [
+            "subject",
+            "subject_complement"
+          ]
+        },
+        {
+          "pattern": "NP V PP",
+          "required": [
+            "subject",
+            "subject_complement"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "theme",
+        "attribute"
+      ],
+      "allows_passive": false,
+      "notes": ""
+    },
+    "appear": {
+      "class": "copular",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "subject_complement"
+          ]
+        },
+        {
+          "pattern": "NP V ADJP",
+          "required": [
+            "subject",
+            "subject_complement"
+          ]
+        },
+        {
+          "pattern": "NP V PP",
+          "required": [
+            "subject",
+            "subject_complement"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "theme",
+        "attribute"
+      ],
+      "allows_passive": false,
+      "notes": ""
+    },
+    "become": {
+      "class": "copular",
+      "complements": [
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "subject_complement"
+          ]
+        },
+        {
+          "pattern": "NP V ADJP",
+          "required": [
+            "subject",
+            "subject_complement"
+          ]
+        },
+        {
+          "pattern": "NP V PP",
+          "required": [
+            "subject",
+            "subject_complement"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "theme",
+        "attribute"
+      ],
+      "allows_passive": false,
+      "notes": ""
+    },
+    "give": {
+      "class": "ditransitive",
+      "complements": [
+        {
+          "pattern": "NP V NP NP",
+          "required": [
+            "subject",
+            "recipient",
+            "theme"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP_TO",
+          "required": [
+            "subject",
+            "theme",
+            "recipient"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "recipient",
+        "theme"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "send": {
+      "class": "ditransitive",
+      "complements": [
+        {
+          "pattern": "NP V NP NP",
+          "required": [
+            "subject",
+            "recipient",
+            "theme"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP_TO",
+          "required": [
+            "subject",
+            "theme",
+            "recipient"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "recipient",
+        "theme"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "offer": {
+      "class": "ditransitive",
+      "complements": [
+        {
+          "pattern": "NP V NP NP",
+          "required": [
+            "subject",
+            "recipient",
+            "theme"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP_TO",
+          "required": [
+            "subject",
+            "theme",
+            "recipient"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "recipient",
+        "theme"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "teach": {
+      "class": "ditransitive",
+      "complements": [
+        {
+          "pattern": "NP V NP NP",
+          "required": [
+            "subject",
+            "recipient",
+            "theme"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP_TO",
+          "required": [
+            "subject",
+            "theme",
+            "recipient"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "recipient",
+        "theme"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "tell": {
+      "class": "ditransitive",
+      "complements": [
+        {
+          "pattern": "NP V NP NP",
+          "required": [
+            "subject",
+            "recipient",
+            "theme"
+          ]
+        },
+        {
+          "pattern": "NP V NP PP_TO",
+          "required": [
+            "subject",
+            "theme",
+            "recipient"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "recipient",
+        "theme"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "allow": {
+      "class": "object_control",
+      "complements": [
+        {
+          "pattern": "NP V NP TO_INF",
+          "required": [
+            "subject",
+            "object",
+            "infinitive"
+          ]
+        },
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent_or_cause",
+        "patient",
+        "result"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "enable": {
+      "class": "object_control",
+      "complements": [
+        {
+          "pattern": "NP V NP TO_INF",
+          "required": [
+            "subject",
+            "object",
+            "infinitive"
+          ]
+        },
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent_or_cause",
+        "patient",
+        "result"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "force": {
+      "class": "object_control",
+      "complements": [
+        {
+          "pattern": "NP V NP TO_INF",
+          "required": [
+            "subject",
+            "object",
+            "infinitive"
+          ]
+        },
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent_or_cause",
+        "patient",
+        "result"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "ask": {
+      "class": "object_control",
+      "complements": [
+        {
+          "pattern": "NP V NP TO_INF",
+          "required": [
+            "subject",
+            "object",
+            "infinitive"
+          ]
+        },
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent_or_cause",
+        "patient",
+        "result"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "cause": {
+      "class": "object_control",
+      "complements": [
+        {
+          "pattern": "NP V NP TO_INF",
+          "required": [
+            "subject",
+            "object",
+            "infinitive"
+          ]
+        },
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent_or_cause",
+        "patient",
+        "result"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "help": {
+      "class": "object_control",
+      "complements": [
+        {
+          "pattern": "NP V NP TO_INF",
+          "required": [
+            "subject",
+            "object",
+            "infinitive"
+          ]
+        },
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent_or_cause",
+        "patient",
+        "result"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "try": {
+      "class": "subject_control",
+      "complements": [
+        {
+          "pattern": "NP V TO_INF",
+          "required": [
+            "subject",
+            "infinitive"
+          ]
+        },
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "experiencer_or_agent",
+        "goal"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "plan": {
+      "class": "subject_control",
+      "complements": [
+        {
+          "pattern": "NP V TO_INF",
+          "required": [
+            "subject",
+            "infinitive"
+          ]
+        },
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "experiencer_or_agent",
+        "goal"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "decide": {
+      "class": "subject_control",
+      "complements": [
+        {
+          "pattern": "NP V TO_INF",
+          "required": [
+            "subject",
+            "infinitive"
+          ]
+        },
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "experiencer_or_agent",
+        "goal"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "want": {
+      "class": "subject_control",
+      "complements": [
+        {
+          "pattern": "NP V TO_INF",
+          "required": [
+            "subject",
+            "infinitive"
+          ]
+        },
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "experiencer_or_agent",
+        "goal"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "need": {
+      "class": "subject_control",
+      "complements": [
+        {
+          "pattern": "NP V TO_INF",
+          "required": [
+            "subject",
+            "infinitive"
+          ]
+        },
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "experiencer_or_agent",
+        "goal"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "aim": {
+      "class": "subject_control",
+      "complements": [
+        {
+          "pattern": "NP V TO_INF",
+          "required": [
+            "subject",
+            "infinitive"
+          ]
+        },
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "experiencer_or_agent",
+        "goal"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "make": {
+      "class": "complex_transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP NP_OR_ADJP",
+          "required": [
+            "subject",
+            "object",
+            "object_complement"
+          ]
+        },
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient",
+        "attribute"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "call": {
+      "class": "complex_transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP NP_OR_ADJP",
+          "required": [
+            "subject",
+            "object",
+            "object_complement"
+          ]
+        },
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient",
+        "attribute"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "consider": {
+      "class": "complex_transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP NP_OR_ADJP",
+          "required": [
+            "subject",
+            "object",
+            "object_complement"
+          ]
+        },
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient",
+        "attribute"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "find": {
+      "class": "complex_transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP NP_OR_ADJP",
+          "required": [
+            "subject",
+            "object",
+            "object_complement"
+          ]
+        },
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient",
+        "attribute"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    },
+    "keep": {
+      "class": "complex_transitive",
+      "complements": [
+        {
+          "pattern": "NP V NP NP_OR_ADJP",
+          "required": [
+            "subject",
+            "object",
+            "object_complement"
+          ]
+        },
+        {
+          "pattern": "NP V NP",
+          "required": [
+            "subject",
+            "object"
+          ]
+        }
+      ],
+      "semantic_roles": [
+        "agent",
+        "patient",
+        "attribute"
+      ],
+      "allows_passive": true,
+      "notes": ""
+    }
+  },
+  "Verb_Frame_Policies": {
+    "unknown_verb_policy": "do_not_fail_hard_use_lexical_pos_and_clause_completeness",
+    "missing_optional_complement_penalty": 0.0,
+    "missing_required_object_penalty": 0.18,
+    "extra_pp_allowed_by_default": true,
+    "passive_suppresses_external_agent_requirement": true,
+    "particle_verbs_may_split_object_when_licensed": true,
+    "embedded_clause_counts_as_content_object_for_reporting_verbs": true,
+    "wh_clause_counts_as_content_object_for_explain_show_know": true
+  },
+  "Morphosyntax_Heuristics": {
+    "plural_suffixes": [
+      "s",
+      "es"
+    ],
+    "plural_exceptions": [
+      "is",
+      "was",
+      "has",
+      "does",
+      "this",
+      "his",
+      "analysis",
+      "basis",
+      "physics",
+      "news"
+    ],
+    "present_participle_suffix": "ing",
+    "regular_past_suffixes": [
+      "ed",
+      "d"
+    ],
+    "third_singular_suffixes": [
+      "s",
+      "es"
+    ],
+    "proper_name_cues": [
+      "initial_capital_sequence",
+      "known_entity",
+      "version_number_attachment"
+    ],
+    "acronym_cue": "all_caps_or_mixed_caps_known_token",
+    "mass_noun_do_not_infer_from_suffix_only": true,
+    "unknown_word_should_not_create_grammar_failure": true
+  },
+  "Generation_Constraints": {
+    "no_surface_may_start_with_orphan_bridge": [
+      "by",
+      "through",
+      "using",
+      "because of",
+      "due to",
+      "of",
+      "to",
+      "with",
+      "from",
+      "than"
+    ],
+    "unless_explicit_fragment_context": true,
+    "avoid_terminal_function_words": [
+      "a",
+      "an",
+      "the",
+      "to",
+      "of",
+      "by",
+      "with",
+      "for",
+      "from",
+      "if",
+      "because",
+      "although",
+      "and",
+      "or",
+      "but",
+      "can",
+      "could",
+      "may",
+      "might",
+      "must",
+      "should",
+      "will",
+      "would"
+    ],
+    "maximum_function_word_run": 4,
+    "maximum_preposition_chain_without_nominal": 2,
+    "maximum_coordinator_run": 1,
+    "maximum_auxiliary_chain": 5,
+    "preserve_subject_before_replacing_with_pronoun": true,
+    "do_not_merge_clauses_with_unresolved_reference_conflict": true,
+    "do_not_delete_negation_for_fluency": true,
+    "do_not_reorder_numbers_across_comparison_or_measurement": true,
+    "do_not_flatten_condition_result_pair": true,
+    "copular_predicates_require_realized_complement": true,
+    "finite_copulas": [
+      "am",
+      "is",
+      "are",
+      "was",
+      "were"
+    ],
+    "copula_complement_starters": [
+      "determiner",
+      "adjective",
+      "noun",
+      "proper_noun",
+      "pronoun",
+      "number",
+      "prepositional_phrase",
+      "verb_phrase"
+    ],
+    "reject_repeated_finite_copula_without_new_clause_or_coordination": true,
+    "reject_declarative_clause_start_with_finite_copula": true
+  },
+  "Repair_Policy": {
+    "safe_repairs": [
+      "whitespace",
+      "punctuation_spacing",
+      "duplicate_function_word",
+      "a_an_selection",
+      "local_copula_agreement",
+      "duplicate_auxiliary",
+      "terminal_punctuation"
+    ],
+    "conditional_repairs": [
+      "determiner_insertion",
+      "pronoun_case",
+      "finite_verb_agreement",
+      "connector_insertion",
+      "relative_marker_repair",
+      "clause_split"
+    ],
+    "protected_features": [
+      "negation",
+      "numbers",
+      "named_entities",
+      "proposition_roles",
+      "temporal_order",
+      "causal_direction",
+      "comparison_sides",
+      "reference_antecedents"
+    ],
+    "rollback_on_content_loss": true,
+    "rollback_on_polarity_change": true,
+    "rollback_on_number_change": true,
+    "rollback_on_named_entity_change": true
+  },
+  "Scoring": {
+    "components": {
+      "sentence_completeness": 0.2,
+      "agreement": 0.14,
+      "determiners": 0.1,
+      "auxiliary_chain": 0.1,
+      "clause_structure": 0.13,
+      "question_structure": 0.07,
+      "coordination": 0.06,
+      "pronoun_case": 0.05,
+      "negation_scope": 0.05,
+      "verb_frame": 0.06,
+      "punctuation": 0.04
+    },
+    "severity_penalties": {
+      "fatal": 0.42,
+      "major": 0.18,
+      "moderate": 0.09,
+      "minor": 0.035
+    },
+    "minimum_for_surface_acceptance": 0.7,
+    "strong_surface": 0.86,
+    "excellent_surface": 0.94,
+    "unknown_lexeme_penalty": 0.0,
+    "unknown_verb_frame_penalty": 0.0,
+    "avoid_double_counting_same_span": true
+  },
+  "Structural_Scenarios": [
+    {
+      "id": "grammar-001-simple_declarative",
+      "family": "simple_declarative",
+      "pattern": "NP V",
+      "purpose": "complete declarative with finite predicate",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-002-transitive_declarative",
+      "family": "transitive_declarative",
+      "pattern": "NP V NP",
+      "purpose": "verb with object",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-003-copular_np",
+      "family": "copular_np",
+      "pattern": "NP COP NP",
+      "purpose": "identity/category clause",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-004-copular_adj",
+      "family": "copular_adj",
+      "pattern": "NP COP ADJP",
+      "purpose": "property clause",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-005-modal",
+      "family": "modal",
+      "pattern": "NP MODAL BASE",
+      "purpose": "modal plus base verb",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-006-perfect",
+      "family": "perfect",
+      "pattern": "NP HAVE PAST_PART",
+      "purpose": "perfect aspect",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-007-progressive",
+      "family": "progressive",
+      "pattern": "NP BE ING",
+      "purpose": "progressive aspect",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-008-passive",
+      "family": "passive",
+      "pattern": "NP BE PAST_PART",
+      "purpose": "passive voice",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-009-yes_no_question",
+      "family": "yes_no_question",
+      "pattern": "AUX NP VP ?",
+      "purpose": "direct polar question",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-010-wh_object_question",
+      "family": "wh_object_question",
+      "pattern": "WH AUX NP VP ?",
+      "purpose": "object/adverbial WH question",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-011-wh_subject_question",
+      "family": "wh_subject_question",
+      "pattern": "WH VP ?",
+      "purpose": "subject WH question",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-012-embedded_wh",
+      "family": "embedded_wh",
+      "pattern": "V WH NP VP",
+      "purpose": "embedded question without inversion",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-013-that_complement",
+      "family": "that_complement",
+      "pattern": "V THAT NP VP",
+      "purpose": "declarative content clause",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-014-initial_condition",
+      "family": "initial_condition",
+      "pattern": "IF CLAUSE , CLAUSE",
+      "purpose": "condition then result",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-015-final_condition",
+      "family": "final_condition",
+      "pattern": "CLAUSE IF CLAUSE",
+      "purpose": "result then condition",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-016-causal",
+      "family": "causal",
+      "pattern": "CLAUSE BECAUSE CLAUSE",
+      "purpose": "effect and cause",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-017-concessive",
+      "family": "concessive",
+      "pattern": "ALTHOUGH CLAUSE , CLAUSE",
+      "purpose": "concession",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-018-temporal_before",
+      "family": "temporal_before",
+      "pattern": "CLAUSE BEFORE CLAUSE",
+      "purpose": "ordered events",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-019-temporal_after",
+      "family": "temporal_after",
+      "pattern": "CLAUSE AFTER CLAUSE",
+      "purpose": "ordered events",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-020-relative_restrictive",
+      "family": "relative_restrictive",
+      "pattern": "NP REL CLAUSE VP",
+      "purpose": "restrictive relative",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-021-relative_nonrestrictive",
+      "family": "relative_nonrestrictive",
+      "pattern": "NP , REL CLAUSE , VP",
+      "purpose": "supplementary relative",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-022-coord_np",
+      "family": "coord_np",
+      "pattern": "NP AND NP",
+      "purpose": "noun phrase coordination",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-023-coord_vp",
+      "family": "coord_vp",
+      "pattern": "VP AND VP",
+      "purpose": "verb phrase coordination",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-024-coord_clause",
+      "family": "coord_clause",
+      "pattern": "CLAUSE , AND CLAUSE",
+      "purpose": "independent clause coordination",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-025-comparison_than",
+      "family": "comparison_than",
+      "pattern": "COMPARATIVE THAN NP",
+      "purpose": "comparative construction",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-026-comparison_as",
+      "family": "comparison_as",
+      "pattern": "AS ADJ AS NP",
+      "purpose": "equative comparison",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-027-purpose_infinitive",
+      "family": "purpose_infinitive",
+      "pattern": "CLAUSE TO VP",
+      "purpose": "purpose infinitive",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-028-purpose_so_that",
+      "family": "purpose_so_that",
+      "pattern": "CLAUSE SO THAT CLAUSE",
+      "purpose": "finite purpose clause",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-029-result_so",
+      "family": "result_so",
+      "pattern": "CLAUSE , SO CLAUSE",
+      "purpose": "result coordination",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-030-mechanism_by",
+      "family": "mechanism_by",
+      "pattern": "CLAUSE BY GERUND_OR_NP",
+      "purpose": "mechanism adjunct with governor",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-031-mechanism_through",
+      "family": "mechanism_through",
+      "pattern": "CLAUSE THROUGH NP",
+      "purpose": "mechanism adjunct with governor",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-032-appositive",
+      "family": "appositive",
+      "pattern": "NP , NP , VP",
+      "purpose": "appositive noun phrase",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-033-partitive",
+      "family": "partitive",
+      "pattern": "QUANT OF NP VP",
+      "purpose": "partitive subject",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-034-existential",
+      "family": "existential",
+      "pattern": "THERE BE NP",
+      "purpose": "existential construction",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-035-cleft",
+      "family": "cleft",
+      "pattern": "IT BE FOCUS THAT CLAUSE",
+      "purpose": "cleft information structure",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-036-pseudo_cleft",
+      "family": "pseudo_cleft",
+      "pattern": "WH_CLAUSE BE FOCUS",
+      "purpose": "pseudo-cleft",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-037-negated_modal",
+      "family": "negated_modal",
+      "pattern": "NP MODAL NOT BASE",
+      "purpose": "modal negation",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-038-negated_do",
+      "family": "negated_do",
+      "pattern": "NP DO NOT BASE",
+      "purpose": "do-support negation",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-039-negative_quantifier",
+      "family": "negative_quantifier",
+      "pattern": "NO NP VP",
+      "purpose": "negative determiner",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-040-serial_pp",
+      "family": "serial_pp",
+      "pattern": "NP VP PP PP",
+      "purpose": "multiple semantically distinct PPs",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-041-reporting_that",
+      "family": "reporting_that",
+      "pattern": "NP REPORT THAT CLAUSE",
+      "purpose": "reported proposition",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-042-reporting_wh",
+      "family": "reporting_wh",
+      "pattern": "NP EXPLAIN WH_CLAUSE",
+      "purpose": "reported mechanism/question",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-043-control_subject",
+      "family": "control_subject",
+      "pattern": "NP V TO VP",
+      "purpose": "subject-control infinitive",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-044-control_object",
+      "family": "control_object",
+      "pattern": "NP V NP TO VP",
+      "purpose": "object-control infinitive",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-045-ditransitive",
+      "family": "ditransitive",
+      "pattern": "NP V NP NP",
+      "purpose": "recipient and theme",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-046-ditransitive_to",
+      "family": "ditransitive_to",
+      "pattern": "NP V NP TO NP",
+      "purpose": "theme plus recipient PP",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-047-complex_transitive",
+      "family": "complex_transitive",
+      "pattern": "NP V NP ADJP",
+      "purpose": "object plus result/attribute",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-048-gerund_subject",
+      "family": "gerund_subject",
+      "pattern": "GERUND_PHRASE VP",
+      "purpose": "gerund clause subject",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-049-participial_modifier",
+      "family": "participial_modifier",
+      "pattern": "NP PARTICIPIAL VP",
+      "purpose": "reduced relative/participle",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-050-semicolon",
+      "family": "semicolon",
+      "pattern": "CLAUSE ; CLAUSE",
+      "purpose": "related independent clauses",
+      "semantic_preservation": true,
+      "hard_fail": false
+    },
+    {
+      "id": "grammar-051-colon_explanation",
+      "family": "colon_explanation",
+      "pattern": "CLAUSE : EXPLANATION",
+      "purpose": "elaboration after complete clause",
+      "semantic_preservation": true,
+      "hard_fail": false
+    }
+  ],
+  "Complex_Clause": {
+    "preserve_subordinate_scope": true,
+    "preserve_embedded_questions": true,
+    "preserve_condition_result_pairs": true,
+    "preserve_temporal_order": true,
+    "preserve_negation_scope": true,
+    "preserve_comparison_sides": true,
+    "allow_multiple_finite_predicates": true,
+    "maximum_tracked_clauses": 24,
+    "maximum_dependency_depth": 10,
+    "allow_clause_level_coordination": true,
+    "allow_nonfinite_clause_embedding": true,
+    "resolve_attachment_before_smoothing_when_possible": true
+  },
+  "Diagnostics": {
+    "issue_codes": {
+      "MISSING_FINITE_PREDICATE": "major",
+      "MISSING_SUBJECT": "major",
+      "ORPHAN_BRIDGE": "major",
+      "DANGLING_SUBORDINATOR": "major",
+      "DANGLING_PREPOSITION": "moderate",
+      "DANGLING_MODAL": "major",
+      "DETERMINER_NUMBER_MISMATCH": "moderate",
+      "ARTICLE_ONSET_MISMATCH": "minor",
+      "SUBJECT_VERB_AGREEMENT": "moderate",
+      "AUX_CHAIN_ORDER": "moderate",
+      "MODAL_INFLECTION": "moderate",
+      "PRONOUN_CASE": "moderate",
+      "RELATIVE_WITHOUT_ANTECEDENT": "moderate",
+      "EMBEDDED_QUESTION_INVERSION": "moderate",
+      "COORDINATION_PARALLELISM": "minor",
+      "NEGATION_SCOPE_RISK": "moderate",
+      "VERB_FRAME_MISSING_ARGUMENT": "moderate",
+      "QUESTION_FORM": "moderate",
+      "COMPARISON_INCOMPLETE": "moderate",
+      "COMMA_SPLICE": "moderate",
+      "TERMINAL_PUNCTUATION": "minor",
+      "EMPTY_COORDINAND": "major",
+      "DUPLICATE_AUXILIARY": "moderate",
+      "DUPLICATE_DETERMINER": "moderate",
+      "FUNCTION_WORD_RUN": "minor",
+      "DANGLING_COPULA_COMPLEMENT": "major",
+      "REPEATED_COPULA": "moderate",
+      "COPULA_CANNOT_START_DECLARATIVE_CLAUSE": "moderate"
+    },
+    "report_component_scores": true,
+    "report_issue_spans": true,
+    "report_repair_suggestions": true,
+    "report_rule_ids": true
+  },
+  "Evolution": {
+    "replaces_build": "25-system-5 grammar foundation",
+    "remastered_in": "25-system-37",
+    "policy": "generic-language-rules-not-domain-answers",
+    "major_changes": [
+      "feature system",
+      "agreement paradigms",
+      "pronoun case",
+      "auxiliary chains",
+      "tense-aspect-voice",
+      "clause ontology",
+      "verb valency",
+      "explanation grammar",
+      "generation constraints",
+      "scoring ontology",
+      "structural diagnostics"
+    ]
+  }
+}
